@@ -16,6 +16,7 @@ import ResetPassword from './pages/ResetPassword.jsx'
 import ForgotPassword from './pages/ForgotPassword.jsx'
 
 const BRAND = 'ChiliVar'
+const ENABLE_LIVE = false
 
 function Navbar({ authed, onLogout, userName, userEmail, userRole }) {
   const [open, setOpen] = useState(false)
@@ -60,7 +61,9 @@ function Navbar({ authed, onLogout, userName, userEmail, userRole }) {
             <div className="top-tabs" role="tablist" aria-label="Navigasi utama">
               <NavLink to="/dashboard" className={({ isActive }) => `top-tab${isActive ? ' active' : ''}`} role="tab">📊 Dashboard</NavLink>
               <NavLink to="/upload" className={({ isActive }) => `top-tab${isActive ? ' active' : ''}`} role="tab">📤 Unggah</NavLink>
-              <NavLink to="/live" className={({ isActive }) => `top-tab${isActive ? ' active' : ''}`} role="tab">📷 Deteksi</NavLink>
+              {ENABLE_LIVE && (
+                <NavLink to="/live" className={({ isActive }) => `top-tab${isActive ? ' active' : ''}`} role="tab">📷 Deteksi</NavLink>
+              )}
               <NavLink to="/history" className={({ isActive }) => `top-tab${isActive ? ' active' : ''}`} role="tab">🕘 Riwayat</NavLink>
               <NavLink to="/reports" className={({ isActive }) => `top-tab${isActive ? ' active' : ''}`} role="tab">📄 Unduh</NavLink>
               {/* Tautan admin akan ditambahkan di Sidebar; top tabs tetap ringkas */}
@@ -385,7 +388,11 @@ export default function App() {
               <Route path="/login" element={<Login onSuccess={handleLoginSuccess} />} />
               <Route path="/auth/callback" element={<AuthCallback />} />
               <Route path="/upload" element={<Protected><Upload /></Protected>} />
-              <Route path="/live" element={<Protected><LiveDetect /></Protected>} />
+              {ENABLE_LIVE ? (
+                <Route path="/live" element={<Protected><LiveDetect /></Protected>} />
+              ) : (
+                <Route path="/live" element={<Navigate to="/dashboard" replace />} />
+              )}
               <Route path="/results" element={<Protected><Results /></Protected>} />
               <Route path="/history" element={<Protected><History /></Protected>} />
               <Route path="/reports" element={<Protected><Reports /></Protected>} />

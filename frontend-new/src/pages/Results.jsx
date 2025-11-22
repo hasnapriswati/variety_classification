@@ -35,15 +35,10 @@ function isSpecialVariety(name) {
 
 function deriveUncertain(result) {
   if (!result) return false
-  const conf = confidenceValue(result) // 0..1
-  const special = isSpecialVariety(result.variety)
-  const acceptThreshold = special ? 0.94 : 0.90
-  const marginThreshold = special ? 0.10 : 0.08
-  const lowConfidence = conf < acceptThreshold
-  const lowMargin = typeof result.margin_top2 === 'number' && result.margin_top2 < marginThreshold
+  const conf = confidenceValue(result)
+  const tone = toneFromConfidence(conf)
   const backendFlag = !!result.is_uncertain
-  // Gabungkan flag backend dengan derivasi frontend agar konsisten
-  return backendFlag || lowConfidence || lowMargin
+  return backendFlag || tone === 'yellow' || tone === 'blue'
 }
 
 function confidenceLevel(result) {
@@ -101,7 +96,7 @@ function buildCsv(result) {
     m.lebar_daun_mm,
     m.keliling_daun_mm,
     m.panjang_tulang_daun_mm,
-    m.rasio_bentuk_daun,
+    m.rasio_bentuk_daun != null ? Number(m.rasio_bentuk_daun).toFixed(2) : '',
     m.scale_mm_per_px
   ]
   const escape = (v) => {
@@ -218,11 +213,11 @@ export default function Results() {
             <div class="section">
               <h2>Fitur Morfologi</h2>
               ${out ? '<div class="muted">Di luar cakupan daun cabai (13 varietas). Morfologi tidak ditampilkan.</div>' : `
-              <div class="row"><div class="label">Panjang (mm)</div><div>${m.panjang_daun_mm ?? '-'}</div></div>
-              <div class="row"><div class="label">Lebar (mm)</div><div>${m.lebar_daun_mm ?? '-'}</div></div>
-              <div class="row"><div class="label">Keliling (mm)</div><div>${m.keliling_daun_mm ?? '-'}</div></div>
-              <div class="row"><div class="label">Panjang Tulang (mm)</div><div>${m.panjang_tulang_daun_mm ?? '-'}</div></div>
-              <div class="row"><div class="label">Rasio Bentuk</div><div>${m.rasio_bentuk_daun ?? '-'}</div></div>
+              <div class="row"><div class="label">Panjang</div><div>${fmtMm(m.panjang_daun_mm)}</div></div>
+              <div class="row"><div class="label">Lebar</div><div>${fmtMm(m.lebar_daun_mm)}</div></div>
+              <div class="row"><div class="label">Keliling</div><div>${fmtMm(m.keliling_daun_mm)}</div></div>
+              <div class="row"><div class="label">Panjang Tulang</div><div>${fmtMm(m.panjang_tulang_daun_mm)}</div></div>
+              <div class="row"><div class="label">Rasio Bentuk</div><div>${m.rasio_bentuk_daun != null ? Number(m.rasio_bentuk_daun).toFixed(2) : '-'}</div></div>
               `}
             </div>
             <div class="section">
@@ -261,7 +256,15 @@ export default function Results() {
   }
 
   const m = result?.morphology_info || {}
+  const mq = result?.measurement_quality || null
   const vcRaw = result?.variety_characteristics || {}
+  const fmtMm = (v) => {
+    if (v == null) return '-'
+    const num = Number(v)
+    if (isNaN(num)) return '-'
+    if (num >= 100) return `${(num/10).toFixed(1)} cm`
+    return `${Math.round(num)} mm`
+  }
   const toRange = (stat) => {
     if (!stat || typeof stat !== 'object') return '-'
     const mn = stat.min, mx = stat.max
@@ -272,9 +275,11 @@ export default function Results() {
   }
   const vcDisplay = (raw) => {
     if (!raw || typeof raw !== 'object' || Object.keys(raw).length === 0) return {}
+    const ratio = Number(m?.rasio_bentuk_daun)
+    const shape = (isNaN(ratio) ? '-' : (ratio >= 0.85 ? 'bulat' : (ratio >= 0.65 ? 'oval' : 'lonjong')))
     return {
       name: result?.variety,
-      shape: '-',
+      shape,
       length_range: toRange(raw.panjang_daun_mm),
       width_range: toRange(raw.lebar_daun_mm),
     }
@@ -346,14 +351,26 @@ export default function Results() {
                   <p className="muted">Di luar cakupan daun cabai (13 varietas). Morfologi tidak ditampilkan.</p>
                 ) : (
                   <div className="metrics">
-                    <div className="metric"><span className="muted">Panjang</span><strong>{m.panjang_daun_mm ?? '-'}</strong><span className="unit">mm</span></div>
-                    <div className="metric"><span className="muted">Lebar</span><strong>{m.lebar_daun_mm ?? '-'}</strong><span className="unit">mm</span></div>
-                    <div className="metric"><span className="muted">Keliling</span><strong>{m.keliling_daun_mm ?? '-'}</strong><span className="unit">mm</span></div>
-                    <div className="metric"><span className="muted">Tulang</span><strong>{m.panjang_tulang_daun_mm ?? '-'}</strong><span className="unit">mm</span></div>
-                    <div className="metric"><span className="muted">Rasio</span><strong>{m.rasio_bentuk_daun ?? '-'}</strong></div>
+                    <div className="metric"><span className="muted">Panjang</span><strong>{fmtMm(m.panjang_daun_mm)}</strong></div>
+                    <div className="metric"><span className="muted">Lebar</span><strong>{fmtMm(m.lebar_daun_mm)}</strong></div>
+                    <div className="metric"><span className="muted">Keliling</span><strong>{fmtMm(m.keliling_daun_mm)}</strong></div>
+                    <div className="metric"><span className="muted">Tulang</span><strong>{fmtMm(m.panjang_tulang_daun_mm)}</strong></div>
+                    <div className="metric"><span className="muted">Rasio</span><strong>{m.rasio_bentuk_daun != null ? Number(m.rasio_bentuk_daun).toFixed(2) : '-'}</strong></div>
                   </div>
                 )}
               </div>
+              {uncertain && (
+                <div className="section" style={{ marginTop: 12 }}>
+                  <div className="section-title">Peringatan Akurasi</div>
+                  <p className="error">Confidence rendah atau pengukuran kurang stabil. Disarankan foto ulang agar hasil lebih akurat.</p>
+                  {mq && Array.isArray(mq.issues) && mq.issues.length > 0 && (
+                    <div className="small muted" style={{ marginTop: 6 }}>Catatan: {mq.issues.join(', ')}</div>
+                  )}
+                  <div className="actions" style={{ marginTop: 10 }}>
+                    <button className="btn" onClick={() => navigate('/upload')}>Ambil Ulang</button>
+                  </div>
+                </div>
+              )}
               <div className="section">
                 <div className="section-title">Karakteristik Varietas</div>
                 {vc && Object.keys(vc).length > 0 ? (

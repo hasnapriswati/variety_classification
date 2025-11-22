@@ -311,12 +311,24 @@ def find_longest_skeleton_path(skeleton_img):
     return float(path_length)
 
 def extract_morphology(roi_bgr: np.ndarray, scale_factor: float = 0.1) -> Dict[str, float]:
-    # Grayscale + Otsu threshold (sama seperti training)
     gray = cv2.cvtColor(roi_bgr, cv2.COLOR_BGR2GRAY)
-    _, thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
-    contours, _ = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    _, thr_inv = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
+    hsv = cv2.cvtColor(roi_bgr, cv2.COLOR_BGR2HSV)
+    lower_green = np.array([35, 25, 20], dtype=np.uint8)
+    upper_green = np.array([90, 255, 255], dtype=np.uint8)
+    mask_hsv = cv2.inRange(hsv, lower_green, upper_green)
+    mask = cv2.bitwise_or(thr_inv, mask_hsv)
+    kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (3, 3))
+    mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel, iterations=1)
+    mask = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel, iterations=1)
+
+    contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    measurement_quality = {"status": "ok", "issues": []}
+
     if not contours:
-        h, w = thresh.shape
+        h, w = mask.shape
+        measurement_quality["status"] = "warn"
+        measurement_quality["issues"].append("kontur_tidak_ditemukan")
         panjang_mm = float(max(h, w)) * scale_factor
         lebar_mm = float(min(h, w)) * scale_factor
         keliling_mm = float(2 * (h + w)) * scale_factor
@@ -325,26 +337,32 @@ def extract_morphology(roi_bgr: np.ndarray, scale_factor: float = 0.1) -> Dict[s
             "panjang_mm": panjang_mm,
             "lebar_mm": lebar_mm,
             "keliling_mm": keliling_mm,
-            "rasio_bentuk": float(min(h, w) / max(h, w)),
+            "rasio_bentuk": float(min(h, w) / max(h, w) if max(h, w) > 0 else 0.0),
             "panjang_tulang_mm": 0.0,
             "luas_mm2": luas_mm2,
+            "measurement_quality": measurement_quality,
         }
 
     c = max(contours, key=cv2.contourArea)
-    peri = float(cv2.arcLength(c, True))
     area_px = float(cv2.contourArea(c))
-    x, y, w, h = cv2.boundingRect(c)
-    panjang = float(max(w, h))
-    lebar = float(min(w, h))
+    if area_px < 200.0:
+        measurement_quality["status"] = "warn"
+        measurement_quality["issues"].append("kontur_kecil")
+    peri = float(cv2.arcLength(c, True))
+
+    rect = cv2.minAreaRect(c)
+    (cx, cy), (rw, rh), ang = rect
+    panjang = float(max(rw, rh))
+    lebar = float(min(rw, rh))
     rasio = float(lebar / panjang) if panjang > 0 else 0.0
 
-    # Skeleton panjang tulang (training style)
-    skeleton = skeletonize(thresh/255).astype(np.uint8) * 255
+    skeleton = skeletonize((mask > 0).astype(np.uint8)).astype(np.uint8) * 255
     panjang_tulang_px = find_longest_skeleton_path(skeleton)
-    if panjang_tulang_px < (panjang * 0.3):
-        panjang_tulang_px = float(panjang * 0.7)
+    if panjang_tulang_px < (panjang * 0.25):
+        measurement_quality["status"] = "warn"
+        measurement_quality["issues"].append("tulang_daun_tidak_jelas")
+        panjang_tulang_px = float(panjang * 0.55)
 
-    # Konversi ke mm menggunakan scale_factor
     panjang_mm = panjang * scale_factor
     lebar_mm = lebar * scale_factor
     keliling_mm = peri * scale_factor
@@ -358,6 +376,7 @@ def extract_morphology(roi_bgr: np.ndarray, scale_factor: float = 0.1) -> Dict[s
         "rasio_bentuk": rasio,
         "panjang_tulang_mm": panjang_tulang_mm,
         "luas_mm2": luas_mm2,
+        "measurement_quality": measurement_quality,
     }
 
 
@@ -959,7 +978,9 @@ def predict():
                 "keliling_daun_mm": float(round(keliling_mm, 2)),
                 "panjang_tulang_daun_mm": float(round(panjang_tulang_mm, 2)),
                 "rasio_bentuk_daun": float(morph["rasio_bentuk"]),
+                "scale_mm_per_px": float(MM_PER_PX if MORPH_UNITS == "mm" else 1.0),
             },
+            "measurement_quality": morph.get("measurement_quality", {"status": "ok", "issues": []}),
             "variety_characteristics": characteristics,
         }), 200
     finally:

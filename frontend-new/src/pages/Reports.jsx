@@ -106,39 +106,38 @@ export default function Reports() {
         if (!supabase) {
           setItems([])
         } else {
-          const { data, error } = await supabase
-            .from('predictions')
-            .select('*')
-            .order('created_at', { ascending: false })
-          if (error) throw error
-          setItems(data || [])
-          // Check admin role
+          let uid = ''
+          let admin = false
           try {
             const { data: u } = await supabase.auth.getUser()
-            const id = u?.user?.id
-            if (id) {
-              const { data: prof } = await supabase.from('profiles').select('role').eq('id', id).single()
-              const admin = String(prof?.role || '').trim().toLowerCase() === 'admin'
+            uid = u?.user?.id || ''
+            if (uid) {
+              const { data: prof } = await supabase.from('profiles').select('role').eq('id', uid).single()
+              admin = String(prof?.role || '').trim().toLowerCase() === 'admin'
               setIsAdmin(admin)
-              // Bila admin, muat nama pengguna untuk semua user_id yang muncul di data
-              if (admin) {
-                const ids = Array.from(new Set((data || []).map(it => it.user_id).filter(Boolean)))
-                if (ids.length) {
-                  try {
-                    const { data: profs } = await supabase
-                      .from('profiles')
-                      .select('id, full_name, role')
-                      .in('id', ids)
-                    const map = {}
-                    for (const p of (profs || [])) {
-                      map[p.id] = { full_name: p.full_name || '', role: p.role || 'user' }
-                    }
-                    setProfilesMap(map)
-                  } catch (_) {}
-                }
-              }
             }
-          } catch (_) { /* noop */ }
+          } catch (_) {}
+          let q = supabase.from('predictions').select('*').order('created_at', { ascending: false })
+          if (!admin && uid) q = q.eq('user_id', uid)
+          const { data, error } = await q
+          if (error) throw error
+          setItems(data || [])
+          if (admin) {
+            const ids = Array.from(new Set((data || []).map(it => it.user_id).filter(Boolean)))
+            if (ids.length) {
+              try {
+                const { data: profs } = await supabase
+                  .from('profiles')
+                  .select('id, full_name, role')
+                  .in('id', ids)
+                const map = {}
+                for (const p of (profs || [])) {
+                  map[p.id] = { full_name: p.full_name || '', role: p.role || 'user' }
+                }
+                setProfilesMap(map)
+              } catch (_) {}
+            }
+          }
         }
       } catch (e) {
         setError(e.message || 'Gagal memuat data laporan')
@@ -153,7 +152,7 @@ export default function Reports() {
   const staticVarieties = useMemo(() => [
     'Branang','Carla_agrihorti','Carvi_agrihorti','Ciko','Hot_beauty','Hot_vision','Inata_agrihorti','Ivegri','Leaf_Tanjung','Lingga','Mia','Pertiwi','Pilar'
   ], [])
-  const dataVarieties = useMemo(() => Array.from(new Set(items.map((it) => String(it.predicted_class || '').trim()).filter(Boolean))), [items])
+  const dataVarieties = useMemo(() => Array.from(new Set(items.map((it) => String((it.predicted_class || it.variety || '')).trim()).filter(Boolean))), [items])
   const varietyOptions = useMemo(() => Array.from(new Set([ ...staticVarieties, ...dataVarieties ])).sort((a, b) => a.localeCompare(b)), [staticVarieties, dataVarieties])
 
   const startOfDay = (d) => new Date(d.getFullYear(), d.getMonth(), d.getDate(), 0, 0, 0, 0)
@@ -161,7 +160,7 @@ export default function Reports() {
 
   const filteredItems = useMemo(() => items.filter((it) => {
     const d = new Date(it.created_at)
-    const v = String(it.predicted_class || '').trim()
+    const v = String((it.predicted_class || it.variety || '')).trim()
     const vOk = !filterVariety || v === filterVariety
     const uOk = !filterUserId || it.user_id === filterUserId
     let rangeOk = true
@@ -317,7 +316,7 @@ export default function Reports() {
         m.lebar_daun_mm ?? '',
         m.keliling_daun_mm ?? '',
         m.panjang_tulang_daun_mm ?? '',
-        m.rasio_bentuk_daun ?? ''
+        m.rasio_bentuk_daun != null ? Number(m.rasio_bentuk_daun).toFixed(2) : ''
       ]
       return [...base, ...userCol, ...common, ...apiModel, ...morph]
     })
@@ -385,7 +384,7 @@ export default function Reports() {
         m.lebar_daun_mm ?? '-',
         m.keliling_daun_mm ?? '-',
         m.panjang_tulang_daun_mm ?? '-',
-        m.rasio_bentuk_daun ?? '-'
+        m.rasio_bentuk_daun != null ? Number(m.rasio_bentuk_daun).toFixed(2) : '-'
       ]
       return [...base, ...userCol, ...common, ...apiModel, ...morph]
     })
@@ -615,15 +614,15 @@ export default function Reports() {
                 <div key={it.id} role="listitem" className="history-item">
                   <div
                     className="history-icon"
-                    aria-label={`ikon varietas ${it.predicted_class || '-'}`}
-                    title={it.predicted_class || ''}
+                    aria-label={`ikon varietas ${(it.predicted_class || it.variety || '-')}`}
+                    title={(it.predicted_class || it.variety || '')}
                     style={{ color: ICON_COLOR, fontSize: 18, lineHeight: '18px' }}
                   >
-                    {glyphForVariety(it.predicted_class)}
+                    {glyphForVariety(it.predicted_class || it.variety)}
                   </div>
                   <div>
                     <div className="history-top">
-                      <span className="history-pred">{it.predicted_class || '-'}</span>
+                      <span className="history-pred">{it.predicted_class || it.variety || '-'}</span>
                       <span className="muted small">{confText}</span>
                     </div>
                     <div className="history-meta">

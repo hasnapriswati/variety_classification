@@ -150,6 +150,30 @@ function getLocalVarietyCharacteristics(name) {
   return map[n] || {}
 }
 
+function toRange(stat) {
+  if (!stat || typeof stat !== 'object') return '-'
+  const mn = stat.min, mx = stat.max
+  if (mn == null || mx == null) return '-'
+  const a = Math.round(Number(mn))
+  const b = Math.round(Number(mx))
+  return `${a}-${b} mm`
+}
+
+function vcDisplayFrom(selected) {
+  if (!selected) return {}
+  const raw = selected.variety_characteristics || {}
+  if (!raw || (typeof raw === 'object' && Object.keys(raw).length === 0)) return {}
+  const m = selected.morphology_info || {}
+  const ratio = Number(m?.rasio_bentuk_daun)
+  const shape = (isNaN(ratio) ? '-' : (ratio >= 0.85 ? 'bulat' : (ratio >= 0.65 ? 'oval' : 'lonjong')))
+  return {
+    name: selected?.predicted_class,
+    shape,
+    length_range: toRange(raw.panjang_daun_mm),
+    width_range: toRange(raw.lebar_daun_mm)
+  }
+}
+
 function confidenceValue(item) {
   if (!item) return 0
   if (typeof item.confidence === 'number' && !isNaN(item.confidence)) return item.confidence
@@ -221,37 +245,37 @@ export default function History() {
         if (!supabase) {
           setItems([])
         } else {
-          const { data, error } = await supabase
-            .from('predictions')
-            .select('*')
-            .order('created_at', { ascending: false })
-          if (error) throw error
-          setItems(data || [])
-          // Deteksi apakah pengguna sekarang admin, lalu muat nama pengguna untuk semua user_id yang muncul
+          let uid = ''
+          let admin = false
           try {
             const { data: u } = await supabase.auth.getUser()
-            const id = u?.user?.id
-            if (id) {
-              setCurrentUserId(id)
-              const { data: prof } = await supabase.from('profiles').select('role').eq('id', id).single()
-              const admin = String(prof?.role || '').trim().toLowerCase() === 'admin'
+            uid = u?.user?.id || ''
+            if (uid) {
+              setCurrentUserId(uid)
+              const { data: prof } = await supabase.from('profiles').select('role').eq('id', uid).single()
+              admin = String(prof?.role || '').trim().toLowerCase() === 'admin'
               setIsAdmin(admin)
-              if (admin) {
-                const ids = Array.from(new Set((data || []).map(it => it.user_id).filter(Boolean)))
-                if (ids.length) {
-                  const { data: profs } = await supabase
-                    .from('profiles')
-                    .select('id, full_name, role')
-                    .in('id', ids)
-                  const map = {}
-                  for (const p of (profs || [])) {
-                    map[p.id] = { full_name: p.full_name || '', role: p.role || 'user' }
-                  }
-                  setProfilesMap(map)
-                }
-              }
             }
           } catch (_) {}
+          let q = supabase.from('predictions').select('*').order('created_at', { ascending: false })
+          if (!admin && uid) q = q.eq('user_id', uid)
+          const { data, error } = await q
+          if (error) throw error
+          setItems(data || [])
+          if (admin) {
+            const ids = Array.from(new Set((data || []).map(it => it.user_id).filter(Boolean)))
+            if (ids.length) {
+              const { data: profs } = await supabase
+                .from('profiles')
+                .select('id, full_name, role')
+                .in('id', ids)
+              const map = {}
+              for (const p of (profs || [])) {
+                map[p.id] = { full_name: p.full_name || '', role: p.role || 'user' }
+              }
+              setProfilesMap(map)
+            }
+          }
         }
       } catch (e) {
         setError(e.message || 'Gagal memuat riwayat')
@@ -323,7 +347,7 @@ export default function History() {
   // Opsi dropdown berdasarkan data dan pilihan sebelumnya
   // Gabungkan daftar varietas dari mapping tetap dan dari data agar lengkap
   const staticVarieties = Object.keys(VARIETY_VISUALS)
-  const dataVarieties = Array.from(new Set(items.map((it) => String(it.predicted_class || '').trim()).filter(Boolean)))
+  const dataVarieties = Array.from(new Set(items.map((it) => String((it.predicted_class || it.variety || '')).trim()).filter(Boolean)))
   const varietyOptions = Array.from(new Set([ ...staticVarieties, ...dataVarieties ])).sort((a, b) => a.localeCompare(b))
   const yearOptions = Array.from(new Set(items.map((it) => {
     const d = new Date(it.created_at)
@@ -356,7 +380,7 @@ export default function History() {
 
   const filteredItems = items.filter((it) => {
     const d = new Date(it.created_at)
-    const v = String(it.predicted_class || '').trim()
+    const v = String((it.predicted_class || it.variety || '')).trim()
     const yOk = !filterYear || d.getFullYear() === Number(filterYear)
     const mOk = !filterMonth || (d.getMonth() + 1) === Number(filterMonth)
     const dOk = !filterDay || d.getDate() === Number(filterDay)
@@ -548,7 +572,7 @@ Silakan sesuaikan pilihan tahun/bulan/hari atau reset filter.`}</pre>
         <div className="history-list" role="list">
           {filteredItems.map((it) => {
             // Ikon/border per-varietas
-            const vv = varietyVisual(it.predicted_class || '')
+            const vv = varietyVisual((it.predicted_class || it.variety || ''))
             const confVal = confidenceValue(it)
             const confPct = confidenceDisplay(it)
             const badgeClass = confVal >= 0.7 ? 'badge success' : 'badge warning'
@@ -566,17 +590,16 @@ Silakan sesuaikan pilihan tahun/bulan/hari atau reset filter.`}</pre>
                 onClick={() => { setSelected(it); setShowModal(true) }}
                 aria-label={`Lihat detail gambar untuk ${it.filename || 'item'}`}
               >
-                <div
-                  className="history-icon"
-                  aria-label={`ikon varietas ${it.predicted_class || '-'}`}
-                  title={it.predicted_class || ''}
+                  <div className="history-icon"
+                  aria-label={`ikon varietas ${(it.predicted_class || it.variety || '-')}`}
+                  title={(it.predicted_class || it.variety || '')}
                   style={{ color: ICON_COLOR, fontSize: 18, lineHeight: '18px' }}
                 >
-                  {glyphForVariety(it.predicted_class)}
+                  {glyphForVariety(it.predicted_class || it.variety)}
                 </div>
                 <div className="history-main">
                   <div className="history-top">
-                    <strong className="history-pred">{it.predicted_class || '-'}</strong>
+                    <strong className="history-pred">{it.predicted_class || it.variety || '-'}</strong>
                     <span className={badgeClass} title="Confidence">{confPct}</span>
                     <span className="small muted">({level})</span>
                     {!isAdmin && currentUserId && it.user_id === currentUserId && (
@@ -602,8 +625,12 @@ Silakan sesuaikan pilihan tahun/bulan/hari atau reset filter.`}</pre>
                         <span className="muted">User: {profilesMap[it.user_id]?.full_name || it.user_id}</span>
                       </>
                     )}
-                    <span>•</span>
-                    <span className="muted">Model: {modelText}</span>
+                    {isAdmin && (
+                      <>
+                        <span>•</span>
+                        <span className="muted">Model: {modelText}</span>
+                      </>
+                    )}
                   </div>
                   {(m && (m.panjang_daun_mm != null || m.lebar_daun_mm != null || m.rasio_bentuk_daun != null || m.keliling_daun_mm != null || m.panjang_tulang_daun_mm != null)) && (
                     <div className="small muted" aria-label="Pengukuran morfologi">
@@ -661,11 +688,10 @@ Silakan sesuaikan pilihan tahun/bulan/hari atau reset filter.`}</pre>
               </div>
               {(() => {
                 const m = selected?.morphology_info || {}
-                const vcRaw = selected?.variety_characteristics || {}
-                const vcFallback = (!vcRaw || (typeof vcRaw === 'object' && Object.keys(vcRaw).length === 0))
-                  ? getLocalVarietyCharacteristics(selected?.predicted_class)
-                  : vcRaw
-                const vc = vcFallback || {}
+                const vcCalc = vcDisplayFrom(selected)
+                const vc = (vcCalc && Object.keys(vcCalc).length > 0)
+                  ? vcCalc
+                  : getLocalVarietyCharacteristics(selected?.predicted_class)
                 return (
                   <div className="details-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginTop: 8 }}>
                     <div className="card" style={{ padding: 8 }}>
@@ -692,7 +718,7 @@ Silakan sesuaikan pilihan tahun/bulan/hari atau reset filter.`}</pre>
                             </div>
                             <div style={{ display: 'grid', gridTemplateColumns: '140px 1fr', gap: 8 }}>
                               <span style={{ color: 'var(--muted)', fontWeight: 400 }}>Rasio bentuk</span>
-                              <span style={{ color: 'var(--text)', fontWeight: 400 }}>{fmt(m.rasio_bentuk_daun, '')}</span>
+                              <span style={{ color: 'var(--text)', fontWeight: 400 }}>{m.rasio_bentuk_daun != null ? Number(m.rasio_bentuk_daun).toFixed(2) : '-'}</span>
                             </div>
                           </div>
                         )
@@ -702,12 +728,22 @@ Silakan sesuaikan pilihan tahun/bulan/hari atau reset filter.`}</pre>
                       <div className="muted" style={{ marginBottom: 6 }}>Karakteristik Varietas</div>
                       {vc && Object.keys(vc).length > 0 ? (
                         <div className="small" style={{ display: 'grid', gap: 6 }}>
-                          {Object.entries(vc).map(([k, val]) => (
-                            <div key={k} style={{ display: 'grid', gridTemplateColumns: '140px 1fr', gap: 8 }}>
-                              <span style={{ color: 'var(--muted)', fontWeight: 400 }}>{k.replace(/_/g,' ')}</span>
-                              <span style={{ color: 'var(--text)', fontWeight: 400 }}>{String(val)}</span>
-                            </div>
-                          ))}
+                          <div style={{ display: 'grid', gridTemplateColumns: '140px 1fr', gap: 8 }}>
+                            <span style={{ color: 'var(--muted)', fontWeight: 400 }}>Nama</span>
+                            <span style={{ color: 'var(--text)', fontWeight: 400 }}>{vc.name || '-'}</span>
+                          </div>
+                          <div style={{ display: 'grid', gridTemplateColumns: '140px 1fr', gap: 8 }}>
+                            <span style={{ color: 'var(--muted)', fontWeight: 400 }}>Bentuk</span>
+                            <span style={{ color: 'var(--text)', fontWeight: 400 }}>{vc.shape || '-'}</span>
+                          </div>
+                          <div style={{ display: 'grid', gridTemplateColumns: '140px 1fr', gap: 8 }}>
+                            <span style={{ color: 'var(--muted)', fontWeight: 400 }}>Rentang Panjang</span>
+                            <span style={{ color: 'var(--text)', fontWeight: 400 }}>{vc.length_range || '-'}</span>
+                          </div>
+                          <div style={{ display: 'grid', gridTemplateColumns: '140px 1fr', gap: 8 }}>
+                            <span style={{ color: 'var(--muted)', fontWeight: 400 }}>Rentang Lebar</span>
+                            <span style={{ color: 'var(--text)', fontWeight: 400 }}>{vc.width_range || '-'}</span>
+                          </div>
                         </div>
                       ) : (
                         <div className="small muted">Tidak ada karakteristik tersedia.</div>

@@ -157,21 +157,67 @@ export default function Upload() {
             reasons: Array.isArray(data?.out_of_scope_reasons) ? data.out_of_scope_reasons : [],
             noLeaf
           })
-          } else {
-          navigate('/results', { state: { result: data, previewUrl } })
-        }
-        try {
-          if (!out) {
-            const { data: userResponse } = await supabase.auth.getUser()
-            const user = userResponse.user
+        } else {
+          try {
+            const { data: sessionData } = await supabase.auth.getSession()
+            const user = sessionData?.session?.user
             if (user) {
-              const { error } = await supabase.from('predictions').insert([
-                { user_id: user.id, variety: data.variety, confidence: data.confidence_percentage, image_url: '' }
-              ])
+              const confNum = (typeof data.confidence === 'number' && !isNaN(data.confidence))
+                ? data.confidence
+                : (typeof data.confidence_percentage === 'string'
+                    ? (parseFloat((data.confidence_percentage.match(/([0-9]+(?:\.[0-9]+)?)/)?.[1] || '0')) / 100)
+                    : 0)
+
+              const base = {
+                user_id: user.id,
+                confidence: confNum,
+                confidence_percentage: data.confidence_percentage || null,
+                filename: targetFile?.name || ''
+              }
+              const extra = {
+                api_version: data.api_version || null,
+                model_version: JSON.stringify({ pipeline: data.decision_rule || 'efficientnet_only' })
+              }
+              const essentials = {
+                user_id: base.user_id,
+                filename: base.filename,
+                confidence: base.confidence
+              }
+              let payload = {
+                ...base,
+                predicted_class: data.variety,
+                ...extra,
+                morphology_info: data.morphology_info || null,
+                measurement_quality: data.measurement_quality || null,
+                variety_characteristics: data.variety_characteristics || null
+              }
+              let error = null
+              for (let i = 0; i < 6; i++) {
+                const r = await supabase.from('predictions').insert([payload])
+                error = r.error
+                if (!error) break
+                const msg = String(error.message || '')
+                const m = msg.match(/column \"([^\"]+)\"/i)
+                if (m && m[1]) {
+                  delete payload[m[1]]
+                  continue
+                }
+                if (payload.predicted_class && !payload.variety) {
+                  payload = { ...payload, variety: payload.predicted_class }
+                }
+                payload = {
+                  ...essentials,
+                  predicted_class: data.variety,
+                  morphology_info: data.morphology_info || null,
+                  measurement_quality: data.measurement_quality || null,
+                  variety_characteristics: data.variety_characteristics || null
+                }
+              }
               if (error) console.error('Error saving prediction:', error)
             }
-          }
-        } catch (_) {}
+          } catch (_) {}
+          navigate('/results', { state: { result: data, previewUrl } })
+        }
       } else {
         setResult({ error: data?.error || 'Prediksi gagal' })
       }
@@ -199,6 +245,8 @@ export default function Upload() {
     setSizeNote('')
     if (fileInputRef.current) fileInputRef.current.value = ''
   }
+
+  
 
   return (
     <div className="container">
@@ -264,11 +312,9 @@ export default function Upload() {
             
           </div>
         )}
+
+        
       </div>
     </div>
   )
 }
-
-
-
-

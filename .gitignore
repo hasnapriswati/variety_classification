@@ -14,3 +14,9 @@ models/
 *.swp
 .DS_Store
 Thumbs.db
+frontend-new/node_modules/
+frontend-new/.env
+frontend-new/.vite/
+frontend-new/dist/
+frontend-new/.DS_Store
+gambar test/
