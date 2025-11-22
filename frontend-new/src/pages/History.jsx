@@ -609,18 +609,7 @@ Silakan sesuaikan pilihan tahun/bulan/hari atau reset filter.`}</pre>
                     <strong className="history-pred">{it.predicted_class || it.variety || '-'}</strong>
                     <span className={badgeClass} title="Confidence">{confPct}</span>
                     <span className="small muted">({level})</span>
-                    {!isAdmin && currentUserId && it.user_id === currentUserId && (
-                      <button
-                        className={`btn danger outline icon-square sm`}
-                        style={{ marginLeft: 'auto' }}
-                        disabled={busyId === it.id}
-                        onClick={(e) => { e.stopPropagation(); deleteItem(it) }}
-                        aria-label="Hapus riwayat ini"
-                        title="Hapus"
-                      >
-                        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M3 6h18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 11v6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 11v6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 6V4h6v2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                      </button>
-                    )}
+                    
                   </div>
                   <div className="history-meta">
                     <span>{formatDate(it.created_at)}</span>
