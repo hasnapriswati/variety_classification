@@ -148,6 +148,13 @@ export default function Reports() {
     load()
   }, [])
 
+  // Defaultkan opsi ekspor audit untuk admin
+  useEffect(() => {
+    if (isAdmin) {
+      setIncludeApiModel(true)
+    }
+  }, [isAdmin])
+
   // Opsi dropdown berdasarkan data
   const staticVarieties = useMemo(() => [
     'Branang','Carla_agrihorti','Carvi_agrihorti','Ciko','Hot_beauty','Hot_vision','Inata_agrihorti','Ivegri','Leaf_Tanjung','Lingga','Mia','Pertiwi','Pilar'
@@ -175,32 +182,31 @@ export default function Reports() {
   }), [items, filterVariety, filterUserId, dateFrom, dateTo])
 
   // Ringkas nilai model_version (JSON) menjadi string ramah baca
-  function summarizeModelVersion(model_version) {
-    try {
-      const obj = typeof model_version === 'string' ? JSON.parse(model_version) : model_version
-      if (!obj || typeof obj !== 'object') return ''
-      const parts = []
-      if (obj.pipeline) {
-        parts.push(String(obj.pipeline))
-      }
-      const art = obj.artifacts || {}
-      const yo = art.yolo || {}
-      const ef = art.efficientnet || {}
-      const xg = art.xgboost || {}
-      if (yo.file || yo.date) {
-        parts.push(`YOLO ${yo.file || '-'}${yo.date ? ` (${yo.date})` : ''}`)
-      }
-      if (ef.file || ef.date) {
-        parts.push(`EfficientNet ${ef.file || '-'}${ef.date ? ` (${ef.date})` : ''}`)
-      }
-      if (xg.file || xg.date) {
-        parts.push(`XGBoost ${xg.file || '-'}${xg.date ? ` (${xg.date})` : ''}`)
-      }
-      return parts.length ? parts.join(' · ') : ''
-    } catch (_) {
-      return typeof model_version === 'string' ? model_version : ''
+function summarizeModelVersion(model_version) {
+  try {
+    const obj = typeof model_version === 'string' ? JSON.parse(model_version) : model_version
+    if (!obj || typeof obj !== 'object') return ''
+    const p = String(obj.pipeline || '').toLowerCase()
+    if (p) {
+      if (p.includes('meta')) return 'EfficientNet + XGBoost (Meta)'
+      if (p.includes('xgboost_combined')) return 'EfficientNet + XGBoost (Combined)'
+      if (p.includes('xgboost_original')) return 'EfficientNet + XGBoost (Original)'
+      if (p.includes('efficientnet')) return 'EfficientNet Only'
+      return obj.pipeline
     }
+    const art = obj.artifacts || {}
+    const yo = art.yolo || {}
+    const ef = art.efficientnet || {}
+    const xg = art.xgboost || {}
+    const parts = []
+    if (yo.file || yo.date) parts.push(`YOLO ${yo.file || '-'}${yo.date ? ` (${yo.date})` : ''}`)
+    if (ef.file || ef.date) parts.push(`EfficientNet ${ef.file || '-'}${ef.date ? ` (${ef.date})` : ''}`)
+    if (xg.file || xg.date) parts.push(`XGBoost ${xg.file || '-'}${xg.date ? ` (${xg.date})` : ''}`)
+    return parts.length ? parts.join(' · ') : ''
+  } catch (_) {
+    return typeof model_version === 'string' ? model_version : ''
   }
+}
 
   // Statistik ringkasan
   const totalItems = items.length
@@ -633,6 +639,14 @@ export default function Reports() {
                         <>
                           <span>•</span>
                           <span className="muted">User: {profilesMap[it.user_id]?.full_name || it.user_id}</span>
+                        </>
+                      )}
+                      {isAdmin && (
+                        <>
+                          <span>•</span>
+                          <span className="muted">API: {it.api_version || '-'}</span>
+                          <span>•</span>
+                          <span className="muted">Model: {summarizeModelVersion(it.model_version) || '-'}</span>
                         </>
                       )}
                     </div>

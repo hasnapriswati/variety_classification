@@ -199,7 +199,14 @@ function summarizeModel(model_version) {
   try {
     const obj = typeof model_version === 'string' ? JSON.parse(model_version) : model_version
     if (!obj || typeof obj !== 'object') return '-'
-    if (obj.pipeline) return obj.pipeline
+    const p = String(obj.pipeline || '').toLowerCase()
+    if (p) {
+      if (p.includes('meta')) return 'EfficientNet + XGBoost (Meta)'
+      if (p.includes('xgboost_combined')) return 'EfficientNet + XGBoost (Combined)'
+      if (p.includes('xgboost_original')) return 'EfficientNet + XGBoost (Original)'
+      if (p.includes('efficientnet')) return 'EfficientNet Only'
+      return obj.pipeline
+    }
     if (obj.artifacts && typeof obj.artifacts === 'object') {
       const names = Object.keys(obj.artifacts)
       return names.length ? names.join('+') : '-'
@@ -629,6 +636,8 @@ Silakan sesuaikan pilihan tahun/bulan/hari atau reset filter.`}</pre>
                       <>
                         <span>•</span>
                         <span className="muted">Model: {modelText}</span>
+                        <span>•</span>
+                        <span className="muted">API: {it.api_version || '-'}</span>
                       </>
                     )}
                   </div>

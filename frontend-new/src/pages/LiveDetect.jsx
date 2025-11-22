@@ -167,6 +167,8 @@ export default function LiveDetect() {
                 payload = {
                   ...essentials,
                   predicted_class: data.variety,
+                  api_version: data.api_version || null,
+                  model_version: JSON.stringify({ pipeline: data.decision_rule || 'efficientnet_only' }),
                   morphology_info: data.morphology_info || null,
                   measurement_quality: data.measurement_quality || null,
                   variety_characteristics: data.variety_characteristics || null
