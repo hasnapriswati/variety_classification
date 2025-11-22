@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" aria-hidden="true">
+  <!-- Logo modern: gabungan outline daun & lengkung cabai, dengan aksen biji -->
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Daun -->
+    <path d="M10 12 C 12 9 16 8 20 10 C 22 11 22 14 20 16 C 18 18 14 18 12 16 C 10 14 10 12 10 12 Z" stroke="#1F6F63" stroke-width="2"/>
+    <!-- Tulang daun -->
+    <path d="M12 13 C 14 14.5 16 15 18 15" stroke="#1F6F63" stroke-width="1.6"/>
+    <!-- Cabai (lengkung minimalis) -->
+    <path d="M8 21 C 10 17 14 15 20 13 C 22 12.5 24 14 22.5 16.5 C 20 20 15 22 10.5 22" stroke="#CC2F2F" stroke-width="2"/>
+    <!-- Aksen biji -->
+    <circle cx="19" cy="13.2" r="2" fill="#E0AC1A" stroke="#E0AC1A" stroke-width="1"/>
+  </g>
+</svg>

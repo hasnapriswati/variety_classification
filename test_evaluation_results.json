@@ -1,0 +1,3634 @@
+{
+  "class_names": [
+    "Branang",
+    "Carla_agrihorti",
+    "Carvi_agrihorti",
+    "Ciko",
+    "Hot_beauty",
+    "Hot_vision",
+    "Inata_agrihorti",
+    "Ivegri",
+    "Leaf_Tanjung",
+    "Lingga",
+    "Mia",
+    "Pertiwi",
+    "Pilar"
+  ],
+  "results": [
+    {
+      "filename": "20200312_110253-1-_jpg.rf.73598f25a671923f42fa3d7e6dd2542c.jpg",
+      "true_label": 9,
+      "true_variety": "Lingga",
+      "predicted_label": 9,
+      "predicted_variety": "Lingga",
+      "confidence": 93.24,
+      "processing_time": 3.1370797157287598,
+      "correct": true
+    },
+    {
+      "filename": "L8-39_jpg.rf.5c54349a6f8e723b2f00717f2183af4f.jpg",
+      "true_label": 4,
+      "true_variety": "Hot_beauty",
+      "predicted_label": 4,
+      "predicted_variety": "Hot_beauty",
+      "confidence": 87.9,
+      "processing_time": 2.990928888320923,
+      "correct": true
+    },
+    {
+      "filename": "20200312_131527-2-_jpg.rf.d78afbca4161273874c63fe8ddae66c8.jpg",
+      "true_label": 7,
+      "true_variety": "Ivegri",
+      "predicted_label": 7,
+      "predicted_variety": "Ivegri",
+      "confidence": 57.13,
+      "processing_time": 2.86712646484375,
+      "correct": true
+    },
+    {
+      "filename": "carvi4-5_jpg.rf.0202129d4bd92fd5adb18d86c7556b3b.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 89.3,
+      "processing_time": 3.0657882690429688,
+      "correct": true
+    },
+    {
+      "filename": "20220726_0908321_jpg.rf.96ad785b27cb82354feac1fbcdb7b0d0.jpg",
+      "true_label": 8,
+      "true_variety": "Leaf_Tanjung",
+      "predicted_label": 8,
+      "predicted_variety": "Leaf_Tanjung",
+      "confidence": 78.68,
+      "processing_time": 3.0993411540985107,
+      "correct": true
+    },
+    {
+      "filename": "L8-19_jpg.rf.208727e0e3314c75739f5b8529c1f095.jpg",
+      "true_label": 4,
+      "true_variety": "Hot_beauty",
+      "predicted_label": 4,
+      "predicted_variety": "Hot_beauty",
+      "confidence": 78.2,
+      "processing_time": 3.005631446838379,
+      "correct": true
+    },
+    {
+      "filename": "L8-18_jpg.rf.63407896f9a2f5c0b490a303d866965b.jpg",
+      "true_label": 4,
+      "true_variety": "Hot_beauty",
+      "predicted_label": 4,
+      "predicted_variety": "Hot_beauty",
+      "confidence": 78.4,
+      "processing_time": 3.292880058288574,
+      "correct": true
+    },
+    {
+      "filename": "20210521_125007e_jpg.rf.db396cda2cdf016bd23b69aec4fed769.jpg",
+      "true_label": 9,
+      "true_variety": "Lingga",
+      "predicted_label": 9,
+      "predicted_variety": "Lingga",
+      "confidence": 92.75,
+      "processing_time": 3.082455635070801,
+      "correct": true
+    },
+    {
+      "filename": "20200312_132534-1-2_jpg.rf.5f0c845d50cb82b6b35654b3b3c08208.jpg",
+      "true_label": 10,
+      "true_variety": "Mia",
+      "predicted_label": 8,
+      "predicted_variety": "Leaf_Tanjung",
+      "confidence": 82.25,
+      "processing_time": 3.1364564895629883,
+      "correct": false
+    },
+    {
+      "filename": "0308A1_jpg.rf.1ed7cf5ff1eebfd561f06c5312e57331.jpg",
+      "true_label": 0,
+      "true_variety": "Branang",
+      "predicted_label": 0,
+      "predicted_variety": "Branang",
+      "confidence": 97.65,
+      "processing_time": 3.008841037750244,
+      "correct": true
+    },
+    {
+      "filename": "c_20200313_110541_jpg.rf.3f0d912f9e3a59d8a8536f2c1e4353b9.jpg",
+      "true_label": 11,
+      "true_variety": "Pertiwi",
+      "predicted_label": 11,
+      "predicted_variety": "Pertiwi",
+      "confidence": 85.97,
+      "processing_time": 3.014954090118408,
+      "correct": true
+    },
+    {
+      "filename": "20220726_092840_jpg.rf.12cedfc79b202d9441d0baaef4edc15e.jpg",
+      "true_label": 8,
+      "true_variety": "Leaf_Tanjung",
+      "predicted_label": 8,
+      "predicted_variety": "Leaf_Tanjung",
+      "confidence": 91.14,
+      "processing_time": 3.1499698162078857,
+      "correct": true
+    },
+    {
+      "filename": "20220726_091917_jpg.rf.1fcddbfa0b0e99e11b81876475e5f6ca.jpg",
+      "true_label": 8,
+      "true_variety": "Leaf_Tanjung",
+      "predicted_label": 8,
+      "predicted_variety": "Leaf_Tanjung",
+      "confidence": 89.87,
+      "processing_time": 3.2676587104797363,
+      "correct": true
+    },
+    {
+      "filename": "IMG20210521135251-1_jpg.rf.410203d240fb7db07ead0e5cfcad02d4.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 89.89,
+      "processing_time": 3.2032721042633057,
+      "correct": true
+    },
+    {
+      "filename": "20210521_135047-3_jpg.rf.22ef2d8f1cf3d7ebe2133308905c5b81.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 91.7,
+      "processing_time": 3.1325628757476807,
+      "correct": true
+    },
+    {
+      "filename": "20200312_131924-1-_jpg.rf.b49723b1e166d6959a4e2b046504b62f.jpg",
+      "true_label": 10,
+      "true_variety": "Mia",
+      "predicted_label": 10,
+      "predicted_variety": "Mia",
+      "confidence": 89.79,
+      "processing_time": 3.1315128803253174,
+      "correct": true
+    },
+    {
+      "filename": "carvi5-5_jpg.rf.acf35039227514396b783d65b6854f4c.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 88.05,
+      "processing_time": 2.9592132568359375,
+      "correct": true
+    },
+    {
+      "filename": "0606A1_jpg.rf.f894e7851c570b06ea1ba41fa5ee3661.jpg",
+      "true_label": 6,
+      "true_variety": "Inata_agrihorti",
+      "predicted_label": 0,
+      "predicted_variety": "Branang",
+      "confidence": 64.18,
+      "processing_time": 3.034017562866211,
+      "correct": false
+    },
+    {
+      "filename": "IMG_20200312_132343_jpg.rf.61453514f9e877bb353f2f14cbc9f538.jpg",
+      "true_label": 12,
+      "true_variety": "Pilar",
+      "predicted_label": 12,
+      "predicted_variety": "Pilar",
+      "confidence": 87.96,
+      "processing_time": 2.946683645248413,
+      "correct": true
+    },
+    {
+      "filename": "IMG_20200312_131646_jpg.rf.691ded5ab1e3bec12b56a24d999197fb.jpg",
+      "true_label": 1,
+      "true_variety": "Carla_agrihorti",
+      "predicted_label": 1,
+      "predicted_variety": "Carla_agrihorti",
+      "confidence": 94.03,
+      "processing_time": 2.876992702484131,
+      "correct": true
+    },
+    {
+      "filename": "20210806_141900-3_jpg.rf.eda4ba99f053293911bd120c9d7b576c.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 88.99,
+      "processing_time": 2.9188952445983887,
+      "correct": true
+    },
+    {
+      "filename": "L8-67_jpg.rf.fd20fc4c24508efe0e26a9c0732a6f55.jpg",
+      "true_label": 4,
+      "true_variety": "Hot_beauty",
+      "predicted_label": 4,
+      "predicted_variety": "Hot_beauty",
+      "confidence": 84.48,
+      "processing_time": 2.8929874897003174,
+      "correct": true
+    },
+    {
+      "filename": "20200312_105821-1-_jpg.rf.f43b013d1e68f33edb2ee85815d72c7c.jpg",
+      "true_label": 9,
+      "true_variety": "Lingga",
+      "predicted_label": 9,
+      "predicted_variety": "Lingga",
+      "confidence": 91.62,
+      "processing_time": 2.847548246383667,
+      "correct": true
+    },
+    {
+      "filename": "20210628_110253d_jpg.rf.0d1bb13fa42b9e9592017f35dd5d974e.jpg",
+      "true_label": 9,
+      "true_variety": "Lingga",
+      "predicted_label": 9,
+      "predicted_variety": "Lingga",
+      "confidence": 92.88,
+      "processing_time": 2.883280038833618,
+      "correct": true
+    },
+    {
+      "filename": "20200312_132905_jpg.rf.e212afcf9144bc27d54df2b9e2644c89.jpg",
+      "true_label": 10,
+      "true_variety": "Mia",
+      "predicted_label": 10,
+      "predicted_variety": "Mia",
+      "confidence": 90.14,
+      "processing_time": 2.9431345462799072,
+      "correct": true
+    },
+    {
+      "filename": "0705B2_jpg.rf.fdc0bad5a0caeae22474268ad26817d7.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 90.13,
+      "processing_time": 2.804633855819702,
+      "correct": true
+    },
+    {
+      "filename": "L14-103_jpg.rf.ad62e8ee19bcf240131c503714129c97.jpg",
+      "true_label": 11,
+      "true_variety": "Pertiwi",
+      "predicted_label": 11,
+      "predicted_variety": "Pertiwi",
+      "confidence": 92.55,
+      "processing_time": 2.908245325088501,
+      "correct": true
+    },
+    {
+      "filename": "IMG_20200312_105236_jpg.rf.b6842ee54706264ae0c0adb67f83344f.jpg",
+      "true_label": 0,
+      "true_variety": "Branang",
+      "predicted_label": 4,
+      "predicted_variety": "Hot_beauty",
+      "confidence": 35.77,
+      "processing_time": 2.9850363731384277,
+      "correct": false
+    },
+    {
+      "filename": "1205B2_jpg.rf.ac77fb5b16b6b3ee8f9b776eb3d57fd1.jpg",
+      "true_label": 12,
+      "true_variety": "Pilar",
+      "predicted_label": 12,
+      "predicted_variety": "Pilar",
+      "confidence": 82.71,
+      "processing_time": 2.9016380310058594,
+      "correct": true
+    },
+    {
+      "filename": "L14-138_jpg.rf.778231d7109fbff1830a871b76416a79.jpg",
+      "true_label": 11,
+      "true_variety": "Pertiwi",
+      "predicted_label": 11,
+      "predicted_variety": "Pertiwi",
+      "confidence": 90.34,
+      "processing_time": 2.878087282180786,
+      "correct": true
+    },
+    {
+      "filename": "c_20200313_093820_jpg.rf.c1bda96ce5f425eba06c30b6b823bb6f.jpg",
+      "true_label": 8,
+      "true_variety": "Leaf_Tanjung",
+      "predicted_label": 8,
+      "predicted_variety": "Leaf_Tanjung",
+      "confidence": 75.74,
+      "processing_time": 2.915851354598999,
+      "correct": true
+    },
+    {
+      "filename": "20220726_093415_jpg.rf.ba280f939ff1410a130108ec48b46738.jpg",
+      "true_label": 8,
+      "true_variety": "Leaf_Tanjung",
+      "predicted_label": 8,
+      "predicted_variety": "Leaf_Tanjung",
+      "confidence": 91.03,
+      "processing_time": 2.8880622386932373,
+      "correct": true
+    },
+    {
+      "filename": "20210521_135741-4_jpg.rf.59c10c767ffd4ba249da0f764bff1b66.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 90.75,
+      "processing_time": 2.8287899494171143,
+      "correct": true
+    },
+    {
+      "filename": "20210806_141935-8_jpg.rf.a49b45b44974808714a0c3c63c5241e3.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 84.11,
+      "processing_time": 2.9373996257781982,
+      "correct": true
+    },
+    {
+      "filename": "20210628_110244c_jpg.rf.f9c13cf407468d81d33c4f1d54f6957c.jpg",
+      "true_label": 9,
+      "true_variety": "Lingga",
+      "predicted_label": 9,
+      "predicted_variety": "Lingga",
+      "confidence": 92.81,
+      "processing_time": 2.9736781120300293,
+      "correct": true
+    },
+    {
+      "filename": "0601A2_jpg.rf.ee92ab4bca904db9413ff2288fe82141.jpg",
+      "true_label": 6,
+      "true_variety": "Inata_agrihorti",
+      "predicted_label": 0,
+      "predicted_variety": "Branang",
+      "confidence": 39.73,
+      "processing_time": 2.822834014892578,
+      "correct": false
+    },
+    {
+      "filename": "0720A2_jpg.rf.7bf584d0e7412318454f94c876e3da87.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 45.7,
+      "processing_time": 2.789440631866455,
+      "correct": true
+    },
+    {
+      "filename": "IMG20210521135832-1_jpg.rf.41cc35c6108fcbffdbbf7405be1b4bd2.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 89.05,
+      "processing_time": 2.8499467372894287,
+      "correct": true
+    },
+    {
+      "filename": "20210521_124959e_jpg.rf.34da20c6599ad299e8b7de61279429ec.jpg",
+      "true_label": 9,
+      "true_variety": "Lingga",
+      "predicted_label": 9,
+      "predicted_variety": "Lingga",
+      "confidence": 91.87,
+      "processing_time": 2.8379156589508057,
+      "correct": true
+    },
+    {
+      "filename": "1401B2_jpg.rf.0ec41d8804acd125e0afa7f2207de010.jpg",
+      "true_label": 11,
+      "true_variety": "Pertiwi",
+      "predicted_label": 11,
+      "predicted_variety": "Pertiwi",
+      "confidence": 88.39,
+      "processing_time": 3.003072500228882,
+      "correct": true
+    },
+    {
+      "filename": "20220726_090610_jpg.rf.6e81b3fcabe8e2c23e9cfa8965770b48.jpg",
+      "true_label": 8,
+      "true_variety": "Leaf_Tanjung",
+      "predicted_label": 8,
+      "predicted_variety": "Leaf_Tanjung",
+      "confidence": 85.4,
+      "processing_time": 2.921391725540161,
+      "correct": true
+    },
+    {
+      "filename": "c_20200313_110741_jpg.rf.4e6a3d048d7d0e4e025214f42edb5f70.jpg",
+      "true_label": 11,
+      "true_variety": "Pertiwi",
+      "predicted_label": 11,
+      "predicted_variety": "Pertiwi",
+      "confidence": 84.5,
+      "processing_time": 2.882448673248291,
+      "correct": true
+    },
+    {
+      "filename": "IMG20210521135002-5_jpg.rf.154cadb6375763a5eb118015939f33df.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 89.2,
+      "processing_time": 2.8445868492126465,
+      "correct": true
+    },
+    {
+      "filename": "20200312_110514-2-k_jpg.rf.910a152c6e0386f1ca70724355f04aa6.jpg",
+      "true_label": 8,
+      "true_variety": "Leaf_Tanjung",
+      "predicted_label": 9,
+      "predicted_variety": "Lingga",
+      "confidence": 39.72,
+      "processing_time": 2.7984097003936768,
+      "correct": false
+    },
+    {
+      "filename": "0306B2_jpg.rf.e2c391a5b0f1b4a857ee6fdb91ec0c38.jpg",
+      "true_label": 0,
+      "true_variety": "Branang",
+      "predicted_label": 0,
+      "predicted_variety": "Branang",
+      "confidence": 93.09,
+      "processing_time": 2.8345587253570557,
+      "correct": true
+    },
+    {
+      "filename": "1402A2_jpg.rf.7da75dd3ae925494ddea721af204748a.jpg",
+      "true_label": 11,
+      "true_variety": "Pertiwi",
+      "predicted_label": 11,
+      "predicted_variety": "Pertiwi",
+      "confidence": 91.85,
+      "processing_time": 3.0179619789123535,
+      "correct": true
+    },
+    {
+      "filename": "20220726_091041_jpg.rf.5bb53f5fc7665e6454e6fc4ca509a001.jpg",
+      "true_label": 8,
+      "true_variety": "Leaf_Tanjung",
+      "predicted_label": 8,
+      "predicted_variety": "Leaf_Tanjung",
+      "confidence": 89.4,
+      "processing_time": 3.1407840251922607,
+      "correct": true
+    },
+    {
+      "filename": "20220726_084619d_jpg.rf.fc10fccc06ade6052e053e52ebdb8fc8.jpg",
+      "true_label": 3,
+      "true_variety": "Ciko",
+      "predicted_label": 3,
+      "predicted_variety": "Ciko",
+      "confidence": 74.65,
+      "processing_time": 2.818855047225952,
+      "correct": true
+    },
+    {
+      "filename": "20200312_134016_jpg.rf.4d2fe0f99781ac549cd7f145946bde89.jpg",
+      "true_label": 6,
+      "true_variety": "Inata_agrihorti",
+      "predicted_label": 6,
+      "predicted_variety": "Inata_agrihorti",
+      "confidence": 57.56,
+      "processing_time": 2.899683713912964,
+      "correct": true
+    },
+    {
+      "filename": "20220726_084832_jpg.rf.1e0a40db630eecafa6ff58cbd2bc0278.jpg",
+      "true_label": 3,
+      "true_variety": "Ciko",
+      "predicted_label": 8,
+      "predicted_variety": "Leaf_Tanjung",
+      "confidence": 75.41,
+      "processing_time": 2.980591297149658,
+      "correct": false
+    },
+    {
+      "filename": "carvi6-5_jpg.rf.b59ec98bba84367951f42e8ac3578e88.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 88.23,
+      "processing_time": 2.865325450897217,
+      "correct": true
+    },
+    {
+      "filename": "20210521_130313d_jpg.rf.74c75c21ed58eecf149f94ed25c57100.jpg",
+      "true_label": 9,
+      "true_variety": "Lingga",
+      "predicted_label": 9,
+      "predicted_variety": "Lingga",
+      "confidence": 93.43,
+      "processing_time": 2.824810743331909,
+      "correct": true
+    },
+    {
+      "filename": "0906B1_jpg.rf.e181d3b1577fa051ec89c7165233e4cc.jpg",
+      "true_label": 1,
+      "true_variety": "Carla_agrihorti",
+      "predicted_label": 1,
+      "predicted_variety": "Carla_agrihorti",
+      "confidence": 86.64,
+      "processing_time": 2.909123659133911,
+      "correct": true
+    },
+    {
+      "filename": "20220726_0919253_jpg.rf.6f3e2696ab437efac5f2b77e668eaf21.jpg",
+      "true_label": 8,
+      "true_variety": "Leaf_Tanjung",
+      "predicted_label": 8,
+      "predicted_variety": "Leaf_Tanjung",
+      "confidence": 92.62,
+      "processing_time": 2.9993960857391357,
+      "correct": true
+    },
+    {
+      "filename": "20220726_083533a_jpg.rf.e16750692b1e5dbe7ea332001ee3b493.jpg",
+      "true_label": 3,
+      "true_variety": "Ciko",
+      "predicted_label": 3,
+      "predicted_variety": "Ciko",
+      "confidence": 86.24,
+      "processing_time": 2.9808552265167236,
+      "correct": true
+    },
+    {
+      "filename": "20220726_084744_jpg.rf.e1f78516f31c7ab918474baec36e34b3.jpg",
+      "true_label": 3,
+      "true_variety": "Ciko",
+      "predicted_label": 3,
+      "predicted_variety": "Ciko",
+      "confidence": 90.03,
+      "processing_time": 2.8138318061828613,
+      "correct": true
+    },
+    {
+      "filename": "20210521_130531c_jpg.rf.a07fb1a352d5d16eae07b45f80d9d727.jpg",
+      "true_label": 9,
+      "true_variety": "Lingga",
+      "predicted_label": 9,
+      "predicted_variety": "Lingga",
+      "confidence": 93.03,
+      "processing_time": 2.8530499935150146,
+      "correct": true
+    },
+    {
+      "filename": "20220726_0934401a_jpg.rf.b4baf8b91921913c313ebda4641a61e8.jpg",
+      "true_label": 8,
+      "true_variety": "Leaf_Tanjung",
+      "predicted_label": 8,
+      "predicted_variety": "Leaf_Tanjung",
+      "confidence": 91.82,
+      "processing_time": 2.9146170616149902,
+      "correct": true
+    },
+    {
+      "filename": "L14-129_jpg.rf.5d1d54f19acd2151df1bbb2c2e647109.jpg",
+      "true_label": 11,
+      "true_variety": "Pertiwi",
+      "predicted_label": 11,
+      "predicted_variety": "Pertiwi",
+      "confidence": 91.43,
+      "processing_time": 2.8942339420318604,
+      "correct": true
+    },
+    {
+      "filename": "20220726_083902a_jpg.rf.b66bac590f946f92ce7ae0cb95258082.jpg",
+      "true_label": 3,
+      "true_variety": "Ciko",
+      "predicted_label": 3,
+      "predicted_variety": "Ciko",
+      "confidence": 75.33,
+      "processing_time": 2.81181263923645,
+      "correct": true
+    },
+    {
+      "filename": "20220726_09394311_jpg.rf.fd04788a4c5da220b61a0a814d4b6709.jpg",
+      "true_label": 8,
+      "true_variety": "Leaf_Tanjung",
+      "predicted_label": 8,
+      "predicted_variety": "Leaf_Tanjung",
+      "confidence": 89.37,
+      "processing_time": 2.8032920360565186,
+      "correct": true
+    },
+    {
+      "filename": "L4-31_jpg.rf.d3111344441a27ddacd2562d39fc0bca.jpg",
+      "true_label": 3,
+      "true_variety": "Ciko",
+      "predicted_label": 3,
+      "predicted_variety": "Ciko",
+      "confidence": 81.53,
+      "processing_time": 2.8884847164154053,
+      "correct": true
+    },
+    {
+      "filename": "0713A2_jpg.rf.2875ceac1b8b98cc662cbdb370fd7fd9.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 88.34,
+      "processing_time": 2.831334114074707,
+      "correct": true
+    },
+    {
+      "filename": "c_20200313_083356_jpg.rf.173beeb289d461a881a54f1f46c8c85e.jpg",
+      "true_label": 0,
+      "true_variety": "Branang",
+      "predicted_label": 0,
+      "predicted_variety": "Branang",
+      "confidence": 96.48,
+      "processing_time": 2.8871543407440186,
+      "correct": true
+    },
+    {
+      "filename": "c_20200313_093540_jpg.rf.9ccc4aed830b9314b7a3f81a8a1302dd.jpg",
+      "true_label": 8,
+      "true_variety": "Leaf_Tanjung",
+      "predicted_label": 8,
+      "predicted_variety": "Leaf_Tanjung",
+      "confidence": 70.55,
+      "processing_time": 2.8111205101013184,
+      "correct": true
+    },
+    {
+      "filename": "0907B2_jpg.rf.7c5b77fcf560c61b90d46d06cf2e77f3.jpg",
+      "true_label": 1,
+      "true_variety": "Carla_agrihorti",
+      "predicted_label": 1,
+      "predicted_variety": "Carla_agrihorti",
+      "confidence": 61.33,
+      "processing_time": 2.826138734817505,
+      "correct": true
+    },
+    {
+      "filename": "0416B2_jpg.rf.c92497c53ca5819d90627b20c8bf43cc.jpg",
+      "true_label": 3,
+      "true_variety": "Ciko",
+      "predicted_label": 3,
+      "predicted_variety": "Ciko",
+      "confidence": 84.12,
+      "processing_time": 2.8358027935028076,
+      "correct": true
+    },
+    {
+      "filename": "20200312_131216_png.rf.86e0b972a738d24686ff399d3076cc4e.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 89.55,
+      "processing_time": 3.017867088317871,
+      "correct": true
+    },
+    {
+      "filename": "carvi8-2_jpg.rf.b35ac8bda49277c274b26f2e04f6ee7d.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 89.27,
+      "processing_time": 2.851789951324463,
+      "correct": true
+    },
+    {
+      "filename": "1118A2_jpg.rf.760f8dede5ec6317d24a26ea21c78ebe.jpg",
+      "true_label": 10,
+      "true_variety": "Mia",
+      "predicted_label": 10,
+      "predicted_variety": "Mia",
+      "confidence": 84.46,
+      "processing_time": 2.802962303161621,
+      "correct": true
+    },
+    {
+      "filename": "0709A2_jpg.rf.8a2ba84b57ce74388455db92be0d6b0f.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 65.53,
+      "processing_time": 2.8869740962982178,
+      "correct": true
+    },
+    {
+      "filename": "20210628_113043-5_jpg.rf.f7eca410c48926fdea4d202fbbbca278.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 90.29,
+      "processing_time": 2.7978734970092773,
+      "correct": true
+    },
+    {
+      "filename": "c_20200313_094929_jpg.rf.02f473387bff63cccd387d209778837f.jpg",
+      "true_label": 11,
+      "true_variety": "Pertiwi",
+      "predicted_label": 11,
+      "predicted_variety": "Pertiwi",
+      "confidence": 91.15,
+      "processing_time": 2.7934796810150146,
+      "correct": true
+    },
+    {
+      "filename": "20210628_113009-5_jpg.rf.0c029a8dbc8d85a63579c20191c2d2ca.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 87.68,
+      "processing_time": 2.8420162200927734,
+      "correct": true
+    },
+    {
+      "filename": "20220726_090227_jpg.rf.e7e8ff894d09a5757f0646fdbf50c7e9.jpg",
+      "true_label": 3,
+      "true_variety": "Ciko",
+      "predicted_label": 3,
+      "predicted_variety": "Ciko",
+      "confidence": 89.48,
+      "processing_time": 2.92155385017395,
+      "correct": true
+    },
+    {
+      "filename": "1212B2_jpg.rf.6a22eaa5eded8d0fc17a4f6875cc78f1.jpg",
+      "true_label": 12,
+      "true_variety": "Pilar",
+      "predicted_label": 12,
+      "predicted_variety": "Pilar",
+      "confidence": 89.59,
+      "processing_time": 2.887251853942871,
+      "correct": true
+    },
+    {
+      "filename": "20210806_141922-7_jpg.rf.e57fd3f451741de581f465bf5b2dc1ea.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 87.91,
+      "processing_time": 2.863717794418335,
+      "correct": true
+    },
+    {
+      "filename": "20220726_083556_jpg.rf.f4c956abdd4134891344c0e6fa52e8bb.jpg",
+      "true_label": 3,
+      "true_variety": "Ciko",
+      "predicted_label": 3,
+      "predicted_variety": "Ciko",
+      "confidence": 55.72,
+      "processing_time": 3.0888731479644775,
+      "correct": true
+    },
+    {
+      "filename": "0512A1_jpg.rf.e8c6b2147066179a56b31f85c8ba3938.jpg",
+      "true_label": 9,
+      "true_variety": "Lingga",
+      "predicted_label": 9,
+      "predicted_variety": "Lingga",
+      "confidence": 87.21,
+      "processing_time": 2.8466217517852783,
+      "correct": true
+    },
+    {
+      "filename": "20220726_0934483_jpg.rf.b8c7160aebad9cb09b490bc529166e4d.jpg",
+      "true_label": 8,
+      "true_variety": "Leaf_Tanjung",
+      "predicted_label": 8,
+      "predicted_variety": "Leaf_Tanjung",
+      "confidence": 92.16,
+      "processing_time": 2.9329636096954346,
+      "correct": true
+    },
+    {
+      "filename": "20210628_113040-3_jpg.rf.67b01bf5074670116b5923a2884b98ce.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 88.17,
+      "processing_time": 2.8523237705230713,
+      "correct": true
+    },
+    {
+      "filename": "20200312_132803_jpg.rf.a7892cf0e0ea3a3f68ad16387d7637f4.jpg",
+      "true_label": 10,
+      "true_variety": "Mia",
+      "predicted_label": 10,
+      "predicted_variety": "Mia",
+      "confidence": 64.98,
+      "processing_time": 3.0590178966522217,
+      "correct": true
+    },
+    {
+      "filename": "20220726_093152_jpg.rf.42a543b50e17327f36fb34b96fa91b53.jpg",
+      "true_label": 8,
+      "true_variety": "Leaf_Tanjung",
+      "predicted_label": 8,
+      "predicted_variety": "Leaf_Tanjung",
+      "confidence": 90.38,
+      "processing_time": 2.9485321044921875,
+      "correct": true
+    },
+    {
+      "filename": "20220726_0910243_jpg.rf.1c4f323093dab711c087113ec656bdb5.jpg",
+      "true_label": 8,
+      "true_variety": "Leaf_Tanjung",
+      "predicted_label": 8,
+      "predicted_variety": "Leaf_Tanjung",
+      "confidence": 91.16,
+      "processing_time": 2.782910108566284,
+      "correct": true
+    },
+    {
+      "filename": "L8-30_jpg.rf.dfd9f36d992a481e6b9430a56df205ae.jpg",
+      "true_label": 4,
+      "true_variety": "Hot_beauty",
+      "predicted_label": 4,
+      "predicted_variety": "Hot_beauty",
+      "confidence": 91.93,
+      "processing_time": 2.9012274742126465,
+      "correct": true
+    },
+    {
+      "filename": "20220726_084813a_jpg.rf.35b091bd76bcc0346e16da86bd1e3948.jpg",
+      "true_label": 3,
+      "true_variety": "Ciko",
+      "predicted_label": 3,
+      "predicted_variety": "Ciko",
+      "confidence": 91.94,
+      "processing_time": 3.0803165435791016,
+      "correct": true
+    },
+    {
+      "filename": "c_20200313_093342_jpg.rf.f91808356526ade9b224cc7523dd7d06.jpg",
+      "true_label": 8,
+      "true_variety": "Leaf_Tanjung",
+      "predicted_label": 6,
+      "predicted_variety": "Inata_agrihorti",
+      "confidence": 37.51,
+      "processing_time": 2.8928818702697754,
+      "correct": false
+    },
+    {
+      "filename": "20210628_110241b_jpg.rf.f8d5d8078ef2ab1a2e61783b26d80a6f.jpg",
+      "true_label": 9,
+      "true_variety": "Lingga",
+      "predicted_label": 9,
+      "predicted_variety": "Lingga",
+      "confidence": 92.46,
+      "processing_time": 2.8398630619049072,
+      "correct": true
+    },
+    {
+      "filename": "L14-118-1-_jpg.rf.f74054de84da6e1f1cb570a6790812e0.jpg",
+      "true_label": 11,
+      "true_variety": "Pertiwi",
+      "predicted_label": 11,
+      "predicted_variety": "Pertiwi",
+      "confidence": 92.73,
+      "processing_time": 2.9011659622192383,
+      "correct": true
+    },
+    {
+      "filename": "20220726_093332_jpg.rf.9ca17455f3c31a5ab8c831d47e8384f6.jpg",
+      "true_label": 8,
+      "true_variety": "Leaf_Tanjung",
+      "predicted_label": 8,
+      "predicted_variety": "Leaf_Tanjung",
+      "confidence": 90.79,
+      "processing_time": 2.9112322330474854,
+      "correct": true
+    },
+    {
+      "filename": "20210521_135809-3_jpg.rf.b4ef5514dd0e451d4acdfd33ad1441be.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 90.28,
+      "processing_time": 2.847368001937866,
+      "correct": true
+    },
+    {
+      "filename": "c_20200313_084853_jpg.rf.c7dcd587378525d7590f5828c2ab57db.jpg",
+      "true_label": 0,
+      "true_variety": "Branang",
+      "predicted_label": 0,
+      "predicted_variety": "Branang",
+      "confidence": 92.34,
+      "processing_time": 2.926835775375366,
+      "correct": true
+    },
+    {
+      "filename": "L8-50_jpg.rf.1c3aceb57b770baf18307b9d2208c5ae.jpg",
+      "true_label": 4,
+      "true_variety": "Hot_beauty",
+      "predicted_label": 4,
+      "predicted_variety": "Hot_beauty",
+      "confidence": 76.51,
+      "processing_time": 2.9203617572784424,
+      "correct": true
+    },
+    {
+      "filename": "20220726_084631_jpg.rf.787ae0314e1d4864db32fe88d3243035.jpg",
+      "true_label": 3,
+      "true_variety": "Ciko",
+      "predicted_label": 3,
+      "predicted_variety": "Ciko",
+      "confidence": 87.89,
+      "processing_time": 3.066380262374878,
+      "correct": true
+    },
+    {
+      "filename": "0408A2_jpg.rf.a20ee7aff8f16efe17dfddabd394ed51.jpg",
+      "true_label": 3,
+      "true_variety": "Ciko",
+      "predicted_label": 3,
+      "predicted_variety": "Ciko",
+      "confidence": 90.44,
+      "processing_time": 2.853062391281128,
+      "correct": true
+    },
+    {
+      "filename": "20220726_0939512_jpg.rf.679eeba9e59d21cb67a41a8466c52620.jpg",
+      "true_label": 8,
+      "true_variety": "Leaf_Tanjung",
+      "predicted_label": 8,
+      "predicted_variety": "Leaf_Tanjung",
+      "confidence": 91.39,
+      "processing_time": 3.069568157196045,
+      "correct": true
+    },
+    {
+      "filename": "0208A2k_jpg.rf.f9a566853c213540613669634973691a.jpg",
+      "true_label": 8,
+      "true_variety": "Leaf_Tanjung",
+      "predicted_label": 8,
+      "predicted_variety": "Leaf_Tanjung",
+      "confidence": 35.79,
+      "processing_time": 3.0034518241882324,
+      "correct": true
+    },
+    {
+      "filename": "20220726_0934481a_jpg.rf.16797b444c2cc86f627ac109b6eace30.jpg",
+      "true_label": 8,
+      "true_variety": "Leaf_Tanjung",
+      "predicted_label": 8,
+      "predicted_variety": "Leaf_Tanjung",
+      "confidence": 91.16,
+      "processing_time": 2.9080214500427246,
+      "correct": true
+    },
+    {
+      "filename": "1012B2_jpg.rf.34dd7084a55acd44994ff3972842ffff.jpg",
+      "true_label": 7,
+      "true_variety": "Ivegri",
+      "predicted_label": 7,
+      "predicted_variety": "Ivegri",
+      "confidence": 80.77,
+      "processing_time": 2.8310821056365967,
+      "correct": true
+    },
+    {
+      "filename": "20220726_0941561_jpg.rf.78c06f9af6149372a4009e72f992d6d3.jpg",
+      "true_label": 8,
+      "true_variety": "Leaf_Tanjung",
+      "predicted_label": 8,
+      "predicted_variety": "Leaf_Tanjung",
+      "confidence": 41.86,
+      "processing_time": 2.9391655921936035,
+      "correct": true
+    },
+    {
+      "filename": "20200312_1344153_jpg.rf.6268387089f20825241fe9e63221df7b.jpg",
+      "true_label": 6,
+      "true_variety": "Inata_agrihorti",
+      "predicted_label": 6,
+      "predicted_variety": "Inata_agrihorti",
+      "confidence": 92.67,
+      "processing_time": 2.847529172897339,
+      "correct": true
+    },
+    {
+      "filename": "20220726_0833471_jpg.rf.54e62a7550c8d80a9e78822cbd1924d6.jpg",
+      "true_label": 3,
+      "true_variety": "Ciko",
+      "predicted_label": 3,
+      "predicted_variety": "Ciko",
+      "confidence": 89.02,
+      "processing_time": 2.7907209396362305,
+      "correct": true
+    },
+    {
+      "filename": "L4-11_jpg.rf.c44ca1565c5da95c5fa89048fe813ec0.jpg",
+      "true_label": 3,
+      "true_variety": "Ciko",
+      "predicted_label": 4,
+      "predicted_variety": "Hot_beauty",
+      "confidence": 82.98,
+      "processing_time": 2.898918390274048,
+      "correct": false
+    },
+    {
+      "filename": "20220726_0932231_jpg.rf.4c57c5c7a11c11722c6f93035934269a.jpg",
+      "true_label": 8,
+      "true_variety": "Leaf_Tanjung",
+      "predicted_label": 8,
+      "predicted_variety": "Leaf_Tanjung",
+      "confidence": 88.1,
+      "processing_time": 2.878682851791382,
+      "correct": true
+    },
+    {
+      "filename": "0818A1_jpg.rf.49cf66fc1da683a8ed6a46b09e701074.jpg",
+      "true_label": 4,
+      "true_variety": "Hot_beauty",
+      "predicted_label": 4,
+      "predicted_variety": "Hot_beauty",
+      "confidence": 90.46,
+      "processing_time": 2.826780080795288,
+      "correct": true
+    },
+    {
+      "filename": "20220726_093646a_jpg.rf.c78337e97be625d5390f42f2218d9bea.jpg",
+      "true_label": 8,
+      "true_variety": "Leaf_Tanjung",
+      "predicted_label": 8,
+      "predicted_variety": "Leaf_Tanjung",
+      "confidence": 91.76,
+      "processing_time": 3.2024495601654053,
+      "correct": true
+    },
+    {
+      "filename": "20200312_110125_jpg.rf.dcb85fe8f6cceedf967ee70b3358ea51.jpg",
+      "true_label": 9,
+      "true_variety": "Lingga",
+      "predicted_label": 9,
+      "predicted_variety": "Lingga",
+      "confidence": 92.49,
+      "processing_time": 2.870771646499634,
+      "correct": true
+    },
+    {
+      "filename": "s-46_jpg.rf.b949337f41f01e883c2a4f1ed45b64d0.jpg",
+      "true_label": 3,
+      "true_variety": "Ciko",
+      "predicted_label": 3,
+      "predicted_variety": "Ciko",
+      "confidence": 89.5,
+      "processing_time": 2.7733631134033203,
+      "correct": true
+    },
+    {
+      "filename": "1019A2_jpg.rf.0e194d2f50bff7114c0d8981600cadf2.jpg",
+      "true_label": 7,
+      "true_variety": "Ivegri",
+      "predicted_label": 7,
+      "predicted_variety": "Ivegri",
+      "confidence": 72.86,
+      "processing_time": 2.8451552391052246,
+      "correct": true
+    },
+    {
+      "filename": "carvi6-1_jpg.rf.fcfce25f5a09ae2cbe0f1468b6b390ce.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 88.68,
+      "processing_time": 2.8567442893981934,
+      "correct": true
+    },
+    {
+      "filename": "20220726_0934341a_jpg.rf.495ac692949fa97fa176d5db07dc15b3.jpg",
+      "true_label": 8,
+      "true_variety": "Leaf_Tanjung",
+      "predicted_label": 8,
+      "predicted_variety": "Leaf_Tanjung",
+      "confidence": 91.45,
+      "processing_time": 2.9216103553771973,
+      "correct": true
+    },
+    {
+      "filename": "20210806_141909-2_jpg.rf.536885ccb195b7d3dc2b5bcff40ee9ff.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 79.52,
+      "processing_time": 2.804915428161621,
+      "correct": true
+    },
+    {
+      "filename": "IMG_0111-3_JPG.rf.f9128e634658495cfecc64d2aaafc4f8.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 90.68,
+      "processing_time": 2.8507070541381836,
+      "correct": true
+    },
+    {
+      "filename": "20200312_105831-2-_jpg.rf.684a42e8fb3b5feab180914b2c55f9ad.jpg",
+      "true_label": 9,
+      "true_variety": "Lingga",
+      "predicted_label": 9,
+      "predicted_variety": "Lingga",
+      "confidence": 86.28,
+      "processing_time": 2.79410982131958,
+      "correct": true
+    },
+    {
+      "filename": "1211B1_jpg.rf.b2d4372fa5d23cdea23e408f870eb1b3.jpg",
+      "true_label": 12,
+      "true_variety": "Pilar",
+      "predicted_label": 12,
+      "predicted_variety": "Pilar",
+      "confidence": 86.69,
+      "processing_time": 2.8219802379608154,
+      "correct": true
+    },
+    {
+      "filename": "20210521_130538c_jpg.rf.55ac4e4785ad5bde6ba5238e35688703.jpg",
+      "true_label": 9,
+      "true_variety": "Lingga",
+      "predicted_label": 9,
+      "predicted_variety": "Lingga",
+      "confidence": 92.64,
+      "processing_time": 2.8147122859954834,
+      "correct": true
+    },
+    {
+      "filename": "20220726_0934481_jpg.rf.53ec98effc9c50effe5b861e008e936a.jpg",
+      "true_label": 8,
+      "true_variety": "Leaf_Tanjung",
+      "predicted_label": 8,
+      "predicted_variety": "Leaf_Tanjung",
+      "confidence": 90.24,
+      "processing_time": 2.9628288745880127,
+      "correct": true
+    },
+    {
+      "filename": "20200312_134037_jpg.rf.c7b4a432ff8ba389a64c67f9fd94e024.jpg",
+      "true_label": 6,
+      "true_variety": "Inata_agrihorti",
+      "predicted_label": 6,
+      "predicted_variety": "Inata_agrihorti",
+      "confidence": 64.85,
+      "processing_time": 2.959108829498291,
+      "correct": true
+    },
+    {
+      "filename": "20200312_105929_jpg.rf.d3c507e3d8e0457d3d5c3e17bccb3b46.jpg",
+      "true_label": 9,
+      "true_variety": "Lingga",
+      "predicted_label": 9,
+      "predicted_variety": "Lingga",
+      "confidence": 89.4,
+      "processing_time": 2.8623123168945312,
+      "correct": true
+    },
+    {
+      "filename": "20220726_084519b_jpg.rf.36a5d02bf3e5b288db2d6239ddde42e5.jpg",
+      "true_label": 3,
+      "true_variety": "Ciko",
+      "predicted_label": 8,
+      "predicted_variety": "Leaf_Tanjung",
+      "confidence": 46.03,
+      "processing_time": 2.8591506481170654,
+      "correct": false
+    },
+    {
+      "filename": "IMG_20210521_135531-1_jpg.rf.69e3df73ab37256f929c7f2d4c609662.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 88.71,
+      "processing_time": 2.84682297706604,
+      "correct": true
+    },
+    {
+      "filename": "20200312_1343076_jpg.rf.90085f4e543dfcb37b22b85daa5d2ceb.jpg",
+      "true_label": 6,
+      "true_variety": "Inata_agrihorti",
+      "predicted_label": 6,
+      "predicted_variety": "Inata_agrihorti",
+      "confidence": 91.56,
+      "processing_time": 2.8422296047210693,
+      "correct": true
+    },
+    {
+      "filename": "20200312_131632-2-_jpg.rf.89e0ee3e57266499f0345d397a344c2f.jpg",
+      "true_label": 7,
+      "true_variety": "Ivegri",
+      "predicted_label": 7,
+      "predicted_variety": "Ivegri",
+      "confidence": 80.21,
+      "processing_time": 2.867036819458008,
+      "correct": true
+    },
+    {
+      "filename": "20220726_084046a_jpg.rf.b12b2da3647083c0cc949ad57531b6de.jpg",
+      "true_label": 3,
+      "true_variety": "Ciko",
+      "predicted_label": 3,
+      "predicted_variety": "Ciko",
+      "confidence": 90.17,
+      "processing_time": 3.0868608951568604,
+      "correct": true
+    },
+    {
+      "filename": "20210521_130109e_jpg.rf.32f77a477f5f0da8bfd043daec882e2c.jpg",
+      "true_label": 9,
+      "true_variety": "Lingga",
+      "predicted_label": 9,
+      "predicted_variety": "Lingga",
+      "confidence": 93.43,
+      "processing_time": 2.856053590774536,
+      "correct": true
+    },
+    {
+      "filename": "1318B1_jpg.rf.cb2b1761e38f67f18dd95321f83d2434.jpg",
+      "true_label": 5,
+      "true_variety": "Hot_vision",
+      "predicted_label": 5,
+      "predicted_variety": "Hot_vision",
+      "confidence": 81.49,
+      "processing_time": 2.794260263442993,
+      "correct": true
+    },
+    {
+      "filename": "c_20200313_092934_jpg.rf.e2c3392eb4d5ac20f043c95e79ddcf70.jpg",
+      "true_label": 8,
+      "true_variety": "Leaf_Tanjung",
+      "predicted_label": 8,
+      "predicted_variety": "Leaf_Tanjung",
+      "confidence": 84.17,
+      "processing_time": 2.9126992225646973,
+      "correct": true
+    },
+    {
+      "filename": "20210521_130318e_jpg.rf.caf9dc755202114c188e417c99bdb565.jpg",
+      "true_label": 9,
+      "true_variety": "Lingga",
+      "predicted_label": 9,
+      "predicted_variety": "Lingga",
+      "confidence": 93.76,
+      "processing_time": 2.863987684249878,
+      "correct": true
+    },
+    {
+      "filename": "1014B2_jpg.rf.ef9e36511a68db51a5b06bb35326a0bf.jpg",
+      "true_label": 7,
+      "true_variety": "Ivegri",
+      "predicted_label": 7,
+      "predicted_variety": "Ivegri",
+      "confidence": 83.48,
+      "processing_time": 2.8629138469696045,
+      "correct": true
+    },
+    {
+      "filename": "20200312_105059-1-_jpg.rf.2e613339d4e814ea10f9e74611062d03.jpg",
+      "true_label": 9,
+      "true_variety": "Lingga",
+      "predicted_label": 9,
+      "predicted_variety": "Lingga",
+      "confidence": 93.63,
+      "processing_time": 3.0776822566986084,
+      "correct": true
+    },
+    {
+      "filename": "carvi7-10_jpg.rf.2c6a751d5e808a9aeb9f5adcd35ab48d.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 88.5,
+      "processing_time": 2.8751611709594727,
+      "correct": true
+    },
+    {
+      "filename": "1407B2_jpg.rf.3f47b882522ac4ae38a1f522ac915325.jpg",
+      "true_label": 11,
+      "true_variety": "Pertiwi",
+      "predicted_label": 11,
+      "predicted_variety": "Pertiwi",
+      "confidence": 92.13,
+      "processing_time": 2.8759069442749023,
+      "correct": true
+    },
+    {
+      "filename": "20210806_141931-1_jpg.rf.78f056c84451e9e60ebeea71c7664b46.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 88.47,
+      "processing_time": 2.7850866317749023,
+      "correct": true
+    },
+    {
+      "filename": "0514A2_jpg.rf.dff7d76137b977d3b3c1d9310b0371d5.jpg",
+      "true_label": 9,
+      "true_variety": "Lingga",
+      "predicted_label": 9,
+      "predicted_variety": "Lingga",
+      "confidence": 88.03,
+      "processing_time": 2.8073203563690186,
+      "correct": true
+    },
+    {
+      "filename": "carvi6-9_jpg.rf.63ac2c9d80ea111440f672818220fa23.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 89.45,
+      "processing_time": 2.847013473510742,
+      "correct": true
+    },
+    {
+      "filename": "c_20200312_134920_jpg.rf.413ecc09b5162974c836056812a83555.jpg",
+      "true_label": 3,
+      "true_variety": "Ciko",
+      "predicted_label": 3,
+      "predicted_variety": "Ciko",
+      "confidence": 85.71,
+      "processing_time": 3.005521059036255,
+      "correct": true
+    },
+    {
+      "filename": "20210521_133703a_jpg.rf.6fd1d233b6b8906a30667959a64469b3.jpg",
+      "true_label": 3,
+      "true_variety": "Ciko",
+      "predicted_label": 9,
+      "predicted_variety": "Lingga",
+      "confidence": 31.49,
+      "processing_time": 2.8302812576293945,
+      "correct": false
+    },
+    {
+      "filename": "0604B2_jpg.rf.0e53d55d91ac7c03431100e9497371be.jpg",
+      "true_label": 6,
+      "true_variety": "Inata_agrihorti",
+      "predicted_label": 6,
+      "predicted_variety": "Inata_agrihorti",
+      "confidence": 67.96,
+      "processing_time": 2.7845332622528076,
+      "correct": true
+    },
+    {
+      "filename": "1201A1_jpg.rf.057fd2ea79cc08fd005c76614b23efbe.jpg",
+      "true_label": 12,
+      "true_variety": "Pilar",
+      "predicted_label": 12,
+      "predicted_variety": "Pilar",
+      "confidence": 78.85,
+      "processing_time": 2.826097011566162,
+      "correct": true
+    },
+    {
+      "filename": "1010A1_jpg.rf.0756100f6da928c7ee94f447c1c5e1d2.jpg",
+      "true_label": 7,
+      "true_variety": "Ivegri",
+      "predicted_label": 7,
+      "predicted_variety": "Ivegri",
+      "confidence": 84.46,
+      "processing_time": 2.8330740928649902,
+      "correct": true
+    },
+    {
+      "filename": "0505A1_jpg.rf.af88592ccfeb22474fd4b5c8af9af37d.jpg",
+      "true_label": 9,
+      "true_variety": "Lingga",
+      "predicted_label": 9,
+      "predicted_variety": "Lingga",
+      "confidence": 90.76,
+      "processing_time": 2.8530073165893555,
+      "correct": true
+    },
+    {
+      "filename": "20220726_083433b_jpg.rf.af75db8328de82a8cf8139f91184463c.jpg",
+      "true_label": 3,
+      "true_variety": "Ciko",
+      "predicted_label": 3,
+      "predicted_variety": "Ciko",
+      "confidence": 90.9,
+      "processing_time": 2.9232332706451416,
+      "correct": true
+    },
+    {
+      "filename": "20210628_110239d_jpg.rf.8323b393b8d66429172203abd6e6e6b3.jpg",
+      "true_label": 9,
+      "true_variety": "Lingga",
+      "predicted_label": 9,
+      "predicted_variety": "Lingga",
+      "confidence": 93.77,
+      "processing_time": 2.862537384033203,
+      "correct": true
+    },
+    {
+      "filename": "IMG_0109-2_JPG.rf.4e284601403af5f6ee69bd732eed6e98.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 88.95,
+      "processing_time": 2.8547017574310303,
+      "correct": true
+    },
+    {
+      "filename": "20200312_132917_jpg.rf.6b23904be80048273549cc83ca9edbda.jpg",
+      "true_label": 5,
+      "true_variety": "Hot_vision",
+      "predicted_label": 5,
+      "predicted_variety": "Hot_vision",
+      "confidence": 89.89,
+      "processing_time": 2.849400043487549,
+      "correct": true
+    },
+    {
+      "filename": "20200312_110010-1-_jpg.rf.41f8584c44c78ae3582d6b078b0d7f2c.jpg",
+      "true_label": 9,
+      "true_variety": "Lingga",
+      "predicted_label": 9,
+      "predicted_variety": "Lingga",
+      "confidence": 93.74,
+      "processing_time": 2.9876790046691895,
+      "correct": true
+    },
+    {
+      "filename": "IMG_0117-2_JPG.rf.a583bca8bc91059370f503f7407d7e18.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 90.44,
+      "processing_time": 2.8328769207000732,
+      "correct": true
+    },
+    {
+      "filename": "20210521_135047-2_jpg.rf.f86433040dfaac7ca48668af650986f1.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 91.05,
+      "processing_time": 2.810450553894043,
+      "correct": true
+    },
+    {
+      "filename": "IMG_20200312_110015_jpg.rf.9023680445ed378bc8989d346cc7527a.jpg",
+      "true_label": 0,
+      "true_variety": "Branang",
+      "predicted_label": 0,
+      "predicted_variety": "Branang",
+      "confidence": 70.62,
+      "processing_time": 2.885115146636963,
+      "correct": true
+    },
+    {
+      "filename": "1018A2_jpg.rf.36b9b514218a812f895d2e8d0efd5204.jpg",
+      "true_label": 7,
+      "true_variety": "Ivegri",
+      "predicted_label": 7,
+      "predicted_variety": "Ivegri",
+      "confidence": 75.86,
+      "processing_time": 2.864661455154419,
+      "correct": true
+    },
+    {
+      "filename": "1315B2_jpg.rf.1056ca526f588274f6ec29740e29fc85.jpg",
+      "true_label": 5,
+      "true_variety": "Hot_vision",
+      "predicted_label": 5,
+      "predicted_variety": "Hot_vision",
+      "confidence": 51.9,
+      "processing_time": 2.973423719406128,
+      "correct": true
+    },
+    {
+      "filename": "20200312_1344151_jpg.rf.4dbf6cc28b4de889ae6f314852a860c7.jpg",
+      "true_label": 6,
+      "true_variety": "Inata_agrihorti",
+      "predicted_label": 6,
+      "predicted_variety": "Inata_agrihorti",
+      "confidence": 92.6,
+      "processing_time": 2.840803623199463,
+      "correct": true
+    },
+    {
+      "filename": "0707A2_jpg.rf.1a3192800392b1e647be2fbed51317e3.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 74.85,
+      "processing_time": 2.8869094848632812,
+      "correct": true
+    },
+    {
+      "filename": "0519A2_jpg.rf.af090deb9b8e17f5b2a1f424df128e1e.jpg",
+      "true_label": 9,
+      "true_variety": "Lingga",
+      "predicted_label": 9,
+      "predicted_variety": "Lingga",
+      "confidence": 86.64,
+      "processing_time": 2.809999465942383,
+      "correct": true
+    },
+    {
+      "filename": "0209A2k_jpg.rf.37bfaf1b464741a60b696f7516f2e9f2.jpg",
+      "true_label": 8,
+      "true_variety": "Leaf_Tanjung",
+      "predicted_label": 8,
+      "predicted_variety": "Leaf_Tanjung",
+      "confidence": 83.87,
+      "processing_time": 2.805283546447754,
+      "correct": true
+    },
+    {
+      "filename": "20220726_0906184_jpg.rf.78db0b3888f586f9257400d1ab786503.jpg",
+      "true_label": 8,
+      "true_variety": "Leaf_Tanjung",
+      "predicted_label": 8,
+      "predicted_variety": "Leaf_Tanjung",
+      "confidence": 91.79,
+      "processing_time": 2.8913662433624268,
+      "correct": true
+    },
+    {
+      "filename": "20220726_093620a_jpg.rf.b7c0f34b3fdcbd870c73f17295a4766d.jpg",
+      "true_label": 8,
+      "true_variety": "Leaf_Tanjung",
+      "predicted_label": 8,
+      "predicted_variety": "Leaf_Tanjung",
+      "confidence": 89.58,
+      "processing_time": 2.8396453857421875,
+      "correct": true
+    },
+    {
+      "filename": "20210628_110241d_jpg.rf.1e75c54416c9409ac682216a904606a3.jpg",
+      "true_label": 9,
+      "true_variety": "Lingga",
+      "predicted_label": 9,
+      "predicted_variety": "Lingga",
+      "confidence": 93.07,
+      "processing_time": 2.8272595405578613,
+      "correct": true
+    },
+    {
+      "filename": "carvi3-8_jpg.rf.a5d02c6bc3a5650a5bce2e57b106e198.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 87.51,
+      "processing_time": 2.818364143371582,
+      "correct": true
+    },
+    {
+      "filename": "0207B1k_jpg.rf.02b8315af484cbacb93c0c2e0bbfa2f5.jpg",
+      "true_label": 8,
+      "true_variety": "Leaf_Tanjung",
+      "predicted_label": 8,
+      "predicted_variety": "Leaf_Tanjung",
+      "confidence": 86.29,
+      "processing_time": 2.8216445446014404,
+      "correct": true
+    },
+    {
+      "filename": "carvi8-8_jpg.rf.6a4756115efbd6c0ed2285c4f8a617ca.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 87.18,
+      "processing_time": 2.8151092529296875,
+      "correct": true
+    },
+    {
+      "filename": "20210628_110328b_jpg.rf.a68bee673706afb14b3f9fa3e1b2e1d5.jpg",
+      "true_label": 9,
+      "true_variety": "Lingga",
+      "predicted_label": 9,
+      "predicted_variety": "Lingga",
+      "confidence": 93.2,
+      "processing_time": 2.817883014678955,
+      "correct": true
+    },
+    {
+      "filename": "carvi2-4_jpg.rf.7b167ff0ea5767a5642e8a2442f5a1b9.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 90.87,
+      "processing_time": 2.852329969406128,
+      "correct": true
+    },
+    {
+      "filename": "20200312_134128-1-1_jpg.rf.7e196b22841a00d1d700f36af45c4049.jpg",
+      "true_label": 6,
+      "true_variety": "Inata_agrihorti",
+      "predicted_label": 6,
+      "predicted_variety": "Inata_agrihorti",
+      "confidence": 70.29,
+      "processing_time": 2.7673165798187256,
+      "correct": true
+    },
+    {
+      "filename": "20220726_0912532_jpg.rf.2baca1a1eeea886b26ab4a547f99c07d.jpg",
+      "true_label": 8,
+      "true_variety": "Leaf_Tanjung",
+      "predicted_label": 8,
+      "predicted_variety": "Leaf_Tanjung",
+      "confidence": 91.88,
+      "processing_time": 2.8198764324188232,
+      "correct": true
+    },
+    {
+      "filename": "20220726_0933241_jpg.rf.1fed63cbe7167c5e788aafcf22ccc1c4.jpg",
+      "true_label": 8,
+      "true_variety": "Leaf_Tanjung",
+      "predicted_label": 8,
+      "predicted_variety": "Leaf_Tanjung",
+      "confidence": 91.62,
+      "processing_time": 3.2029058933258057,
+      "correct": true
+    },
+    {
+      "filename": "20200312_131037_png.rf.4db0fa69cd1214727315be5d0b81417a.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 88.79,
+      "processing_time": 2.869415760040283,
+      "correct": true
+    },
+    {
+      "filename": "IMG_20200312_131522_jpg.rf.ee955bc39135a263d46766f58efc8b9e.jpg",
+      "true_label": 1,
+      "true_variety": "Carla_agrihorti",
+      "predicted_label": 1,
+      "predicted_variety": "Carla_agrihorti",
+      "confidence": 91.61,
+      "processing_time": 2.8417930603027344,
+      "correct": true
+    },
+    {
+      "filename": "IMG_20210521_135745-5_jpg.rf.62444adb192a070dd75c98e9ded2cf82.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 88.6,
+      "processing_time": 2.904413938522339,
+      "correct": true
+    },
+    {
+      "filename": "20220726_091659_jpg.rf.553204736500b772fd00fcef26fa12d5.jpg",
+      "true_label": 8,
+      "true_variety": "Leaf_Tanjung",
+      "predicted_label": 8,
+      "predicted_variety": "Leaf_Tanjung",
+      "confidence": 90.64,
+      "processing_time": 2.7935268878936768,
+      "correct": true
+    },
+    {
+      "filename": "IMG_20210521_135005-5_jpg.rf.ea8ee80549744e3bb5515edf3f12bd9d.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 88.33,
+      "processing_time": 2.831763505935669,
+      "correct": true
+    },
+    {
+      "filename": "0420A2_jpg.rf.acf60a2fc80e05f3f9c765b1f73b7921.jpg",
+      "true_label": 3,
+      "true_variety": "Ciko",
+      "predicted_label": 3,
+      "predicted_variety": "Ciko",
+      "confidence": 76.28,
+      "processing_time": 2.8174338340759277,
+      "correct": true
+    },
+    {
+      "filename": "IMG_20200312_132317_jpg.rf.383c99e1f93f33b233088a18e07db0f1.jpg",
+      "true_label": 12,
+      "true_variety": "Pilar",
+      "predicted_label": 12,
+      "predicted_variety": "Pilar",
+      "confidence": 89.39,
+      "processing_time": 2.8148107528686523,
+      "correct": true
+    },
+    {
+      "filename": "IMG_20200312_132508_jpg.rf.4a9edd6102d0752e0a38781d5aeba93a.jpg",
+      "true_label": 12,
+      "true_variety": "Pilar",
+      "predicted_label": 12,
+      "predicted_variety": "Pilar",
+      "confidence": 89.55,
+      "processing_time": 2.829097270965576,
+      "correct": true
+    },
+    {
+      "filename": "L8-6_jpg.rf.b3c0fd0c02550ec9eedb27fc8b0d9ffc.jpg",
+      "true_label": 4,
+      "true_variety": "Hot_beauty",
+      "predicted_label": 4,
+      "predicted_variety": "Hot_beauty",
+      "confidence": 91.38,
+      "processing_time": 2.853114604949951,
+      "correct": true
+    },
+    {
+      "filename": "0819B1_jpg.rf.7aa1ae2f46ae2fe6d9908e06f575c4e0.jpg",
+      "true_label": 4,
+      "true_variety": "Hot_beauty",
+      "predicted_label": 4,
+      "predicted_variety": "Hot_beauty",
+      "confidence": 90.58,
+      "processing_time": 2.8022053241729736,
+      "correct": true
+    },
+    {
+      "filename": "20200312_130740-2-k_jpg.rf.296128f068715ff64c9b90289d6863d5.jpg",
+      "true_label": 8,
+      "true_variety": "Leaf_Tanjung",
+      "predicted_label": 8,
+      "predicted_variety": "Leaf_Tanjung",
+      "confidence": 86.87,
+      "processing_time": 2.8257369995117188,
+      "correct": true
+    },
+    {
+      "filename": "20220726_083959b_jpg.rf.720598c5f048f0c91a456786f6369ded.jpg",
+      "true_label": 3,
+      "true_variety": "Ciko",
+      "predicted_label": 8,
+      "predicted_variety": "Leaf_Tanjung",
+      "confidence": 42.1,
+      "processing_time": 2.9531726837158203,
+      "correct": false
+    },
+    {
+      "filename": "20200312_134357_jpg.rf.570bbbae91166b4f56017f1ba82ab81b.jpg",
+      "true_label": 6,
+      "true_variety": "Inata_agrihorti",
+      "predicted_label": 6,
+      "predicted_variety": "Inata_agrihorti",
+      "confidence": 84.05,
+      "processing_time": 2.858372211456299,
+      "correct": true
+    },
+    {
+      "filename": "20220726_0932501_jpg.rf.5e1d8cc674f21e6d819c40f89ac151b0.jpg",
+      "true_label": 8,
+      "true_variety": "Leaf_Tanjung",
+      "predicted_label": 8,
+      "predicted_variety": "Leaf_Tanjung",
+      "confidence": 91.82,
+      "processing_time": 3.0875680446624756,
+      "correct": true
+    },
+    {
+      "filename": "L14-115_jpg.rf.ed3be1cd0254446ca9ace2eb6c83a1e6.jpg",
+      "true_label": 11,
+      "true_variety": "Pertiwi",
+      "predicted_label": 11,
+      "predicted_variety": "Pertiwi",
+      "confidence": 93.36,
+      "processing_time": 2.8576998710632324,
+      "correct": true
+    },
+    {
+      "filename": "20220726_083513a_jpg.rf.a876992c6308b8f1c9bf9c4b38c9e58d.jpg",
+      "true_label": 3,
+      "true_variety": "Ciko",
+      "predicted_label": 3,
+      "predicted_variety": "Ciko",
+      "confidence": 90.2,
+      "processing_time": 2.785731554031372,
+      "correct": true
+    },
+    {
+      "filename": "IMG_20200312_132744_jpg.rf.5b479613aa63a3f049152375132ae92e.jpg",
+      "true_label": 12,
+      "true_variety": "Pilar",
+      "predicted_label": 12,
+      "predicted_variety": "Pilar",
+      "confidence": 90.86,
+      "processing_time": 2.8166110515594482,
+      "correct": true
+    },
+    {
+      "filename": "IMG_20200312_131257_jpg.rf.ec498e3fa81b0e802f61f53fc38f0333.jpg",
+      "true_label": 1,
+      "true_variety": "Carla_agrihorti",
+      "predicted_label": 1,
+      "predicted_variety": "Carla_agrihorti",
+      "confidence": 93.16,
+      "processing_time": 2.8416106700897217,
+      "correct": true
+    },
+    {
+      "filename": "carvi2-5_jpg.rf.85abfb2e238845195e288030a6d8eae8.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 89.75,
+      "processing_time": 2.933016300201416,
+      "correct": true
+    },
+    {
+      "filename": "IMG_20210521_134959-3_jpg.rf.fcfa9949d1d391e1c234d0daa6029965.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 90.72,
+      "processing_time": 2.8845033645629883,
+      "correct": true
+    },
+    {
+      "filename": "1416A1_jpg.rf.6db03fa80baf5641dadf1e1ff5bae821.jpg",
+      "true_label": 11,
+      "true_variety": "Pertiwi",
+      "predicted_label": 11,
+      "predicted_variety": "Pertiwi",
+      "confidence": 58.24,
+      "processing_time": 2.8237335681915283,
+      "correct": true
+    },
+    {
+      "filename": "0714A2_jpg.rf.b9ecf218003a8e6424bc70187af1045d.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 91.34,
+      "processing_time": 2.780458450317383,
+      "correct": true
+    },
+    {
+      "filename": "L14-145_jpg.rf.e8698408b6a07593174b01c340a985f4.jpg",
+      "true_label": 11,
+      "true_variety": "Pertiwi",
+      "predicted_label": 11,
+      "predicted_variety": "Pertiwi",
+      "confidence": 82.75,
+      "processing_time": 2.8481969833374023,
+      "correct": true
+    },
+    {
+      "filename": "20220726_083844_jpg.rf.ed2cd2387fa20c45c57d635f138b74e7.jpg",
+      "true_label": 3,
+      "true_variety": "Ciko",
+      "predicted_label": 3,
+      "predicted_variety": "Ciko",
+      "confidence": 85.46,
+      "processing_time": 2.908686637878418,
+      "correct": true
+    },
+    {
+      "filename": "c_20200313_093138_jpg.rf.64db6472997a086b5994b0a74df2e769.jpg",
+      "true_label": 8,
+      "true_variety": "Leaf_Tanjung",
+      "predicted_label": 8,
+      "predicted_variety": "Leaf_Tanjung",
+      "confidence": 76.55,
+      "processing_time": 2.8851723670959473,
+      "correct": true
+    },
+    {
+      "filename": "IMG_20200312_130836_jpg.rf.0a0eabf45d55faacd5d6fd9fe0dbd473.jpg",
+      "true_label": 4,
+      "true_variety": "Hot_beauty",
+      "predicted_label": 4,
+      "predicted_variety": "Hot_beauty",
+      "confidence": 85.28,
+      "processing_time": 2.8029274940490723,
+      "correct": true
+    },
+    {
+      "filename": "1207A2_jpg.rf.4d27eaf361ecdd2eb0628b709fced5bf.jpg",
+      "true_label": 12,
+      "true_variety": "Pilar",
+      "predicted_label": 12,
+      "predicted_variety": "Pilar",
+      "confidence": 75.5,
+      "processing_time": 2.8211283683776855,
+      "correct": true
+    },
+    {
+      "filename": "20220726_093607_jpg.rf.3ebf1ee4e191da55bdd600761214cff6.jpg",
+      "true_label": 8,
+      "true_variety": "Leaf_Tanjung",
+      "predicted_label": 8,
+      "predicted_variety": "Leaf_Tanjung",
+      "confidence": 88.38,
+      "processing_time": 2.796189546585083,
+      "correct": true
+    },
+    {
+      "filename": "20220726_0906102_jpg.rf.cccfab81ce1ac3d9db780cd4167554c7.jpg",
+      "true_label": 8,
+      "true_variety": "Leaf_Tanjung",
+      "predicted_label": 8,
+      "predicted_variety": "Leaf_Tanjung",
+      "confidence": 91.72,
+      "processing_time": 2.896042823791504,
+      "correct": true
+    },
+    {
+      "filename": "20210628_110226a_jpg.rf.a83a21b8be8327a451c4c9fd35234cb2.jpg",
+      "true_label": 9,
+      "true_variety": "Lingga",
+      "predicted_label": 9,
+      "predicted_variety": "Lingga",
+      "confidence": 92.1,
+      "processing_time": 2.777930498123169,
+      "correct": true
+    },
+    {
+      "filename": "0607B2_jpg.rf.7621fed50f19234abc4c7dd268293623.jpg",
+      "true_label": 6,
+      "true_variety": "Inata_agrihorti",
+      "predicted_label": 6,
+      "predicted_variety": "Inata_agrihorti",
+      "confidence": 69.54,
+      "processing_time": 2.8425800800323486,
+      "correct": true
+    },
+    {
+      "filename": "20210628_105743c_jpg.rf.8282170439beb20e650b1e0a68b4dbe7.jpg",
+      "true_label": 9,
+      "true_variety": "Lingga",
+      "predicted_label": 9,
+      "predicted_variety": "Lingga",
+      "confidence": 93.01,
+      "processing_time": 2.8131871223449707,
+      "correct": true
+    },
+    {
+      "filename": "0503A1_jpg.rf.6c79d4ce73b2203b2ee02486fde347a2.jpg",
+      "true_label": 9,
+      "true_variety": "Lingga",
+      "predicted_label": 9,
+      "predicted_variety": "Lingga",
+      "confidence": 82.67,
+      "processing_time": 2.8059725761413574,
+      "correct": true
+    },
+    {
+      "filename": "20200312_134245_jpg.rf.d4a3294569c7f615fba12ce51e88a6c2.jpg",
+      "true_label": 6,
+      "true_variety": "Inata_agrihorti",
+      "predicted_label": 6,
+      "predicted_variety": "Inata_agrihorti",
+      "confidence": 92.34,
+      "processing_time": 2.805748224258423,
+      "correct": true
+    },
+    {
+      "filename": "L8-64_jpg.rf.7663f11bdd0948e5799d228f550bc319.jpg",
+      "true_label": 4,
+      "true_variety": "Hot_beauty",
+      "predicted_label": 0,
+      "predicted_variety": "Branang",
+      "confidence": 75.79,
+      "processing_time": 2.962305784225464,
+      "correct": false
+    },
+    {
+      "filename": "1205A1_jpg.rf.16f1734dabe3e2e45c42ee247bc47aee.jpg",
+      "true_label": 12,
+      "true_variety": "Pilar",
+      "predicted_label": 7,
+      "predicted_variety": "Ivegri",
+      "confidence": 42.02,
+      "processing_time": 2.873532772064209,
+      "correct": false
+    },
+    {
+      "filename": "1214B1_jpg.rf.ff4daeac226ffa77aa341087a2e0a8e9.jpg",
+      "true_label": 12,
+      "true_variety": "Pilar",
+      "predicted_label": 12,
+      "predicted_variety": "Pilar",
+      "confidence": 51.52,
+      "processing_time": 2.816699504852295,
+      "correct": true
+    },
+    {
+      "filename": "20200312_110059_jpg.rf.4df12b25c58db557adf022fefcfd7449.jpg",
+      "true_label": 9,
+      "true_variety": "Lingga",
+      "predicted_label": 9,
+      "predicted_variety": "Lingga",
+      "confidence": 89.02,
+      "processing_time": 2.8212649822235107,
+      "correct": true
+    },
+    {
+      "filename": "20220726_084903a_jpg.rf.f9df07f0bbab05f2fd85037e004c618a.jpg",
+      "true_label": 3,
+      "true_variety": "Ciko",
+      "predicted_label": 8,
+      "predicted_variety": "Leaf_Tanjung",
+      "confidence": 87.97,
+      "processing_time": 2.969743251800537,
+      "correct": false
+    },
+    {
+      "filename": "20200312_132719-1-_jpg.rf.9be7337ff6c89e3812c319876054948a.jpg",
+      "true_label": 10,
+      "true_variety": "Mia",
+      "predicted_label": 10,
+      "predicted_variety": "Mia",
+      "confidence": 69.62,
+      "processing_time": 2.9008400440216064,
+      "correct": true
+    },
+    {
+      "filename": "1119B2_jpg.rf.69b479d97bda70a0c0f2939abdacaa4c.jpg",
+      "true_label": 10,
+      "true_variety": "Mia",
+      "predicted_label": 10,
+      "predicted_variety": "Mia",
+      "confidence": 83.44,
+      "processing_time": 2.9006426334381104,
+      "correct": true
+    },
+    {
+      "filename": "20200312_110211-2-_jpg.rf.0f620ee7ac89bce222e4673a85aa5bb7.jpg",
+      "true_label": 9,
+      "true_variety": "Lingga",
+      "predicted_label": 9,
+      "predicted_variety": "Lingga",
+      "confidence": 93.44,
+      "processing_time": 2.9225876331329346,
+      "correct": true
+    },
+    {
+      "filename": "20200312_132741_jpg.rf.ce158ce74ae2122ea5a7ffbbbafe13a9.jpg",
+      "true_label": 5,
+      "true_variety": "Hot_vision",
+      "predicted_label": 5,
+      "predicted_variety": "Hot_vision",
+      "confidence": 86.05,
+      "processing_time": 2.8421432971954346,
+      "correct": true
+    },
+    {
+      "filename": "1320B1_jpg.rf.1bf51281283d7feb6fd0d036dcda9fac.jpg",
+      "true_label": 5,
+      "true_variety": "Hot_vision",
+      "predicted_label": 5,
+      "predicted_variety": "Hot_vision",
+      "confidence": 86.24,
+      "processing_time": 2.878368854522705,
+      "correct": true
+    },
+    {
+      "filename": "L8-20_jpg.rf.a307cafa73bd5f76a6c0fba64a170dcd.jpg",
+      "true_label": 4,
+      "true_variety": "Hot_beauty",
+      "predicted_label": 4,
+      "predicted_variety": "Hot_beauty",
+      "confidence": 86.36,
+      "processing_time": 3.0746712684631348,
+      "correct": true
+    },
+    {
+      "filename": "20200312_132844_jpg.rf.421a3552f873aa5d6e917fb622ab5424.jpg",
+      "true_label": 5,
+      "true_variety": "Hot_vision",
+      "predicted_label": 5,
+      "predicted_variety": "Hot_vision",
+      "confidence": 84.64,
+      "processing_time": 2.8522448539733887,
+      "correct": true
+    },
+    {
+      "filename": "20200312_105738_jpg.rf.1266b77c28e72574452b5b5f6c609186.jpg",
+      "true_label": 9,
+      "true_variety": "Lingga",
+      "predicted_label": 9,
+      "predicted_variety": "Lingga",
+      "confidence": 88.27,
+      "processing_time": 3.026317834854126,
+      "correct": true
+    },
+    {
+      "filename": "1106B2_jpg.rf.1d85155061df0af30cf5b031945cd369.jpg",
+      "true_label": 10,
+      "true_variety": "Mia",
+      "predicted_label": 10,
+      "predicted_variety": "Mia",
+      "confidence": 83.57,
+      "processing_time": 2.8167121410369873,
+      "correct": true
+    },
+    {
+      "filename": "IMG_20200312_105818_jpg.rf.419f2d43f6b1c2e7785c9df7b04a884d.jpg",
+      "true_label": 0,
+      "true_variety": "Branang",
+      "predicted_label": 0,
+      "predicted_variety": "Branang",
+      "confidence": 92.56,
+      "processing_time": 2.8595213890075684,
+      "correct": true
+    },
+    {
+      "filename": "0309B2_jpg.rf.e3380a7ce0fac34cf073d54a1b6c228f.jpg",
+      "true_label": 0,
+      "true_variety": "Branang",
+      "predicted_label": 8,
+      "predicted_variety": "Leaf_Tanjung",
+      "confidence": 47.16,
+      "processing_time": 2.815945625305176,
+      "correct": false
+    },
+    {
+      "filename": "IMG_0119-3_JPG.rf.15143f35b190cd2dd6688f9bc548ab98.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 88.99,
+      "processing_time": 2.8025052547454834,
+      "correct": true
+    },
+    {
+      "filename": "20220726_0906444_jpg.rf.0806032b6ea725a7b1d9ed6debc389d5.jpg",
+      "true_label": 8,
+      "true_variety": "Leaf_Tanjung",
+      "predicted_label": 8,
+      "predicted_variety": "Leaf_Tanjung",
+      "confidence": 67.39,
+      "processing_time": 2.907562017440796,
+      "correct": true
+    },
+    {
+      "filename": "IMG_20200312_105701_jpg.rf.02fb31556600f4a6b44fa534c45b4266.jpg",
+      "true_label": 0,
+      "true_variety": "Branang",
+      "predicted_label": 0,
+      "predicted_variety": "Branang",
+      "confidence": 94.65,
+      "processing_time": 2.8249878883361816,
+      "correct": true
+    },
+    {
+      "filename": "1213B1_jpg.rf.a0cf4ca3d8240fe74fb6c70344efa90e.jpg",
+      "true_label": 12,
+      "true_variety": "Pilar",
+      "predicted_label": 12,
+      "predicted_variety": "Pilar",
+      "confidence": 89.25,
+      "processing_time": 2.8344626426696777,
+      "correct": true
+    },
+    {
+      "filename": "IMG_20200312_132505_jpg.rf.0f10fc7fcfe55f8efd90c648e9855cd0.jpg",
+      "true_label": 12,
+      "true_variety": "Pilar",
+      "predicted_label": 12,
+      "predicted_variety": "Pilar",
+      "confidence": 89.41,
+      "processing_time": 2.8190948963165283,
+      "correct": true
+    },
+    {
+      "filename": "0720B2_jpg.rf.9ee56df3fe1175a16eddf407f6d787a9.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 71.95,
+      "processing_time": 2.8554182052612305,
+      "correct": true
+    },
+    {
+      "filename": "IMG_20200312_130749_jpg.rf.4ef6cf4ac906ca10b320159764500838.jpg",
+      "true_label": 4,
+      "true_variety": "Hot_beauty",
+      "predicted_label": 4,
+      "predicted_variety": "Hot_beauty",
+      "confidence": 72.14,
+      "processing_time": 2.876617431640625,
+      "correct": true
+    },
+    {
+      "filename": "0918B1_jpg.rf.09321f389c7627e964c948372e9ea809.jpg",
+      "true_label": 1,
+      "true_variety": "Carla_agrihorti",
+      "predicted_label": 1,
+      "predicted_variety": "Carla_agrihorti",
+      "confidence": 85.92,
+      "processing_time": 2.8183085918426514,
+      "correct": true
+    },
+    {
+      "filename": "0615B2_jpg.rf.ccbaaae8d0872513d6308496736bf48b.jpg",
+      "true_label": 6,
+      "true_variety": "Inata_agrihorti",
+      "predicted_label": 6,
+      "predicted_variety": "Inata_agrihorti",
+      "confidence": 92.76,
+      "processing_time": 2.8141913414001465,
+      "correct": true
+    },
+    {
+      "filename": "0304A2_jpg.rf.b7d60ae518980881c01bed45e5e76b0b.jpg",
+      "true_label": 0,
+      "true_variety": "Branang",
+      "predicted_label": 0,
+      "predicted_variety": "Branang",
+      "confidence": 48.51,
+      "processing_time": 2.854260206222534,
+      "correct": true
+    },
+    {
+      "filename": "20200312_134046_jpg.rf.bf9d7531bd3a5c7137b3eb4bf0c4b302.jpg",
+      "true_label": 6,
+      "true_variety": "Inata_agrihorti",
+      "predicted_label": 6,
+      "predicted_variety": "Inata_agrihorti",
+      "confidence": 84.42,
+      "processing_time": 2.896545886993408,
+      "correct": true
+    },
+    {
+      "filename": "20220726_082523_jpg.rf.dfd06352e12d5638a8277b9273b28d5d.jpg",
+      "true_label": 3,
+      "true_variety": "Ciko",
+      "predicted_label": 3,
+      "predicted_variety": "Ciko",
+      "confidence": 86.2,
+      "processing_time": 2.9059386253356934,
+      "correct": true
+    },
+    {
+      "filename": "20210806_141856-10_jpg.rf.59f9e52687d90a16131dc5e22122b23a.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 89.49,
+      "processing_time": 2.95975399017334,
+      "correct": true
+    },
+    {
+      "filename": "IMG_20200312_131706_jpg.rf.5eba5cbab1280d6a823f5d9c0c8be98a.jpg",
+      "true_label": 1,
+      "true_variety": "Carla_agrihorti",
+      "predicted_label": 1,
+      "predicted_variety": "Carla_agrihorti",
+      "confidence": 90.83,
+      "processing_time": 2.8413572311401367,
+      "correct": true
+    },
+    {
+      "filename": "20200313_110523-1-2_jpg.rf.fe7314e08e91d9930ea70659c2480ff5.jpg",
+      "true_label": 12,
+      "true_variety": "Pilar",
+      "predicted_label": 12,
+      "predicted_variety": "Pilar",
+      "confidence": 88.12,
+      "processing_time": 2.8581888675689697,
+      "correct": true
+    },
+    {
+      "filename": "0819A2_jpg.rf.078f8350a1338b8af808cd8ec40a6bb3.jpg",
+      "true_label": 4,
+      "true_variety": "Hot_beauty",
+      "predicted_label": 4,
+      "predicted_variety": "Hot_beauty",
+      "confidence": 91.43,
+      "processing_time": 2.8067195415496826,
+      "correct": true
+    },
+    {
+      "filename": "IMG_20200312_132712_jpg.rf.0a80815e4202d88a74f47569670d6262.jpg",
+      "true_label": 12,
+      "true_variety": "Pilar",
+      "predicted_label": 12,
+      "predicted_variety": "Pilar",
+      "confidence": 89.1,
+      "processing_time": 2.878941535949707,
+      "correct": true
+    },
+    {
+      "filename": "1306A2_jpg.rf.a429bcb26941edb6c0d6ccc1589d7ef4.jpg",
+      "true_label": 5,
+      "true_variety": "Hot_vision",
+      "predicted_label": 5,
+      "predicted_variety": "Hot_vision",
+      "confidence": 72.78,
+      "processing_time": 2.773411750793457,
+      "correct": true
+    },
+    {
+      "filename": "20220726_0911492_jpg.rf.9fb845a0d3e455cd32e082b2aa595ad9.jpg",
+      "true_label": 8,
+      "true_variety": "Leaf_Tanjung",
+      "predicted_label": 8,
+      "predicted_variety": "Leaf_Tanjung",
+      "confidence": 91.79,
+      "processing_time": 2.7926828861236572,
+      "correct": true
+    },
+    {
+      "filename": "20200312_105325-1-_jpg.rf.af60d1fb43235020adefe38b5d0af0d7.jpg",
+      "true_label": 9,
+      "true_variety": "Lingga",
+      "predicted_label": 9,
+      "predicted_variety": "Lingga",
+      "confidence": 90.6,
+      "processing_time": 3.8229317665100098,
+      "correct": true
+    },
+    {
+      "filename": "0615B1_jpg.rf.87677fa74ba846e42a60a53cf103a4c0.jpg",
+      "true_label": 6,
+      "true_variety": "Inata_agrihorti",
+      "predicted_label": 6,
+      "predicted_variety": "Inata_agrihorti",
+      "confidence": 64.87,
+      "processing_time": 2.8605563640594482,
+      "correct": true
+    },
+    {
+      "filename": "L8-94_jpg.rf.17f55ab7b7547945d11482b6cc9ec594.jpg",
+      "true_label": 4,
+      "true_variety": "Hot_beauty",
+      "predicted_label": 4,
+      "predicted_variety": "Hot_beauty",
+      "confidence": 81.62,
+      "processing_time": 2.8506147861480713,
+      "correct": true
+    },
+    {
+      "filename": "20200312_134407-1-4_jpg.rf.5685a0276dd6ab23ef09acd24ebb9aa1.jpg",
+      "true_label": 6,
+      "true_variety": "Inata_agrihorti",
+      "predicted_label": 6,
+      "predicted_variety": "Inata_agrihorti",
+      "confidence": 85.7,
+      "processing_time": 2.801166534423828,
+      "correct": true
+    },
+    {
+      "filename": "20220726_0939514_jpg.rf.d75f46035c328e1856047b80ce48c809.jpg",
+      "true_label": 8,
+      "true_variety": "Leaf_Tanjung",
+      "predicted_label": 8,
+      "predicted_variety": "Leaf_Tanjung",
+      "confidence": 92.16,
+      "processing_time": 2.761422872543335,
+      "correct": true
+    },
+    {
+      "filename": "1211B2_jpg.rf.7172518e8aeeef8b30d2d8df07f79d09.jpg",
+      "true_label": 12,
+      "true_variety": "Pilar",
+      "predicted_label": 12,
+      "predicted_variety": "Pilar",
+      "confidence": 88.06,
+      "processing_time": 2.847419261932373,
+      "correct": true
+    },
+    {
+      "filename": "20200312_110322-2-_jpg.rf.53e6904b338f01507d736bb690778f39.jpg",
+      "true_label": 9,
+      "true_variety": "Lingga",
+      "predicted_label": 9,
+      "predicted_variety": "Lingga",
+      "confidence": 89.82,
+      "processing_time": 2.945382833480835,
+      "correct": true
+    },
+    {
+      "filename": "IMG_20200312_110334_jpg.rf.b57a8c28478619102da4aa9f01ea1189.jpg",
+      "true_label": 0,
+      "true_variety": "Branang",
+      "predicted_label": 0,
+      "predicted_variety": "Branang",
+      "confidence": 92.39,
+      "processing_time": 2.8640997409820557,
+      "correct": true
+    },
+    {
+      "filename": "20220726_092241_jpg.rf.5e563ad13684c05674bcd7a7108c31f1.jpg",
+      "true_label": 8,
+      "true_variety": "Leaf_Tanjung",
+      "predicted_label": 8,
+      "predicted_variety": "Leaf_Tanjung",
+      "confidence": 88.93,
+      "processing_time": 2.7870540618896484,
+      "correct": true
+    },
+    {
+      "filename": "20200312_130907-2-k_jpg.rf.724ccdb44dc5f92b63256672d167cc7d.jpg",
+      "true_label": 8,
+      "true_variety": "Leaf_Tanjung",
+      "predicted_label": 8,
+      "predicted_variety": "Leaf_Tanjung",
+      "confidence": 90.34,
+      "processing_time": 2.8369884490966797,
+      "correct": true
+    },
+    {
+      "filename": "20200312_132803-1-1_jpg.rf.c0963b76d8bd4cbf5d62847a144de74e.jpg",
+      "true_label": 10,
+      "true_variety": "Mia",
+      "predicted_label": 10,
+      "predicted_variety": "Mia",
+      "confidence": 87.88,
+      "processing_time": 2.900625467300415,
+      "correct": true
+    },
+    {
+      "filename": "20220726_093519a_jpg.rf.936eb9578bdcfdf68d5f4ab756c1d2c3.jpg",
+      "true_label": 8,
+      "true_variety": "Leaf_Tanjung",
+      "predicted_label": 8,
+      "predicted_variety": "Leaf_Tanjung",
+      "confidence": 90.48,
+      "processing_time": 2.9868195056915283,
+      "correct": true
+    },
+    {
+      "filename": "0411B1_jpg.rf.c9305cd20c1fc33c7581c9547217e809.jpg",
+      "true_label": 3,
+      "true_variety": "Ciko",
+      "predicted_label": 3,
+      "predicted_variety": "Ciko",
+      "confidence": 50.28,
+      "processing_time": 2.8319735527038574,
+      "correct": true
+    },
+    {
+      "filename": "20200312_110211-1-_jpg.rf.a5ee3bb8611b24729d0475b636fccbb6.jpg",
+      "true_label": 9,
+      "true_variety": "Lingga",
+      "predicted_label": 9,
+      "predicted_variety": "Lingga",
+      "confidence": 93.88,
+      "processing_time": 2.881704568862915,
+      "correct": true
+    },
+    {
+      "filename": "IMG20210521135524-3_jpg.rf.ef44339b2254f1020ed3eac8dac808ff.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 89.53,
+      "processing_time": 2.855146884918213,
+      "correct": true
+    },
+    {
+      "filename": "20220726_0906442_jpg.rf.6259f8e974d6ada69169ba262c273e0b.jpg",
+      "true_label": 8,
+      "true_variety": "Leaf_Tanjung",
+      "predicted_label": 8,
+      "predicted_variety": "Leaf_Tanjung",
+      "confidence": 90.57,
+      "processing_time": 3.07236385345459,
+      "correct": true
+    },
+    {
+      "filename": "0811B1_jpg.rf.9c34db14fbf7f7fe3034813df1b3e37c.jpg",
+      "true_label": 4,
+      "true_variety": "Hot_beauty",
+      "predicted_label": 4,
+      "predicted_variety": "Hot_beauty",
+      "confidence": 69.48,
+      "processing_time": 2.8676156997680664,
+      "correct": true
+    },
+    {
+      "filename": "20200312_134245-1-2_jpg.rf.32b5e7dd52756778f325ae704725ee4e.jpg",
+      "true_label": 6,
+      "true_variety": "Inata_agrihorti",
+      "predicted_label": 6,
+      "predicted_variety": "Inata_agrihorti",
+      "confidence": 88.41,
+      "processing_time": 2.8998777866363525,
+      "correct": true
+    },
+    {
+      "filename": "20200312_131454_png.rf.103c3e48283562304c114c297758c9ea.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 88.15,
+      "processing_time": 2.899758815765381,
+      "correct": true
+    },
+    {
+      "filename": "20220726_093159_jpg.rf.a4779ce6f5d584889bed0dffd1ca7a74.jpg",
+      "true_label": 8,
+      "true_variety": "Leaf_Tanjung",
+      "predicted_label": 8,
+      "predicted_variety": "Leaf_Tanjung",
+      "confidence": 90.53,
+      "processing_time": 2.962007522583008,
+      "correct": true
+    },
+    {
+      "filename": "20220726_084107d_jpg.rf.3f03bcfa7d046fd671b793b4051f623b.jpg",
+      "true_label": 3,
+      "true_variety": "Ciko",
+      "predicted_label": 3,
+      "predicted_variety": "Ciko",
+      "confidence": 86.58,
+      "processing_time": 2.874558448791504,
+      "correct": true
+    },
+    {
+      "filename": "20220726_091944_jpg.rf.d76047853671a6bc3878aff7fc1d4cf0.jpg",
+      "true_label": 8,
+      "true_variety": "Leaf_Tanjung",
+      "predicted_label": 8,
+      "predicted_variety": "Leaf_Tanjung",
+      "confidence": 90.77,
+      "processing_time": 3.181497097015381,
+      "correct": true
+    },
+    {
+      "filename": "20200312_133048_jpg.rf.274cb44eba087784bb09e73fad54e707.jpg",
+      "true_label": 5,
+      "true_variety": "Hot_vision",
+      "predicted_label": 5,
+      "predicted_variety": "Hot_vision",
+      "confidence": 85.44,
+      "processing_time": 2.8849146366119385,
+      "correct": true
+    },
+    {
+      "filename": "20210806_141935-10_jpg.rf.851cce77002a88291c68a7fb7abf7097.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 86.98,
+      "processing_time": 2.8510820865631104,
+      "correct": true
+    },
+    {
+      "filename": "IMG20210521135224-5_jpg.rf.09f48d55c7e1bb7b4cae9cbc21356e21.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 89.11,
+      "processing_time": 2.8598930835723877,
+      "correct": true
+    },
+    {
+      "filename": "20220726_0933321_jpg.rf.6c987d5d2823db680cbfda991cb50559.jpg",
+      "true_label": 8,
+      "true_variety": "Leaf_Tanjung",
+      "predicted_label": 8,
+      "predicted_variety": "Leaf_Tanjung",
+      "confidence": 91.25,
+      "processing_time": 2.843156099319458,
+      "correct": true
+    },
+    {
+      "filename": "IMG_0118-2_JPG.rf.eafdb22f966444f04e14ea848a7d34fa.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 89.93,
+      "processing_time": 2.9630746841430664,
+      "correct": true
+    },
+    {
+      "filename": "IMG_20200312_132004_jpg.rf.ec4c97d6bf290abb2061942b8fc74579.jpg",
+      "true_label": 12,
+      "true_variety": "Pilar",
+      "predicted_label": 12,
+      "predicted_variety": "Pilar",
+      "confidence": 90.09,
+      "processing_time": 2.9259116649627686,
+      "correct": true
+    },
+    {
+      "filename": "1407A2_jpg.rf.16c25830b0a47c6365602ed374b83c29.jpg",
+      "true_label": 11,
+      "true_variety": "Pertiwi",
+      "predicted_label": 11,
+      "predicted_variety": "Pertiwi",
+      "confidence": 90.86,
+      "processing_time": 3.1615517139434814,
+      "correct": true
+    },
+    {
+      "filename": "20220726_084528i_jpg.rf.13da97b92b7e4c8dd32b32611ab952fd.jpg",
+      "true_label": 3,
+      "true_variety": "Ciko",
+      "predicted_label": 3,
+      "predicted_variety": "Ciko",
+      "confidence": 89.87,
+      "processing_time": 2.994471788406372,
+      "correct": true
+    },
+    {
+      "filename": "20200312_132947-1-2_jpg.rf.f01089810b80bd98c02d4a875910c1b2.jpg",
+      "true_label": 10,
+      "true_variety": "Mia",
+      "predicted_label": 9,
+      "predicted_variety": "Lingga",
+      "confidence": 49.64,
+      "processing_time": 2.9985454082489014,
+      "correct": false
+    },
+    {
+      "filename": "20210521_130103c_jpg.rf.a000f86e54d74da6b77ab90847b40ea2.jpg",
+      "true_label": 9,
+      "true_variety": "Lingga",
+      "predicted_label": 9,
+      "predicted_variety": "Lingga",
+      "confidence": 92.52,
+      "processing_time": 2.9787514209747314,
+      "correct": true
+    },
+    {
+      "filename": "1119B1_jpg.rf.463674e94cb23d70cefe19724ecbd9f6.jpg",
+      "true_label": 10,
+      "true_variety": "Mia",
+      "predicted_label": 10,
+      "predicted_variety": "Mia",
+      "confidence": 87.11,
+      "processing_time": 2.915377140045166,
+      "correct": true
+    },
+    {
+      "filename": "20210628_113040-5_jpg.rf.de0ccad49f9fdc0eb1fb34f69e6e5c8f.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 89.02,
+      "processing_time": 2.831800699234009,
+      "correct": true
+    },
+    {
+      "filename": "IMG_0116-2_JPG.rf.5191d3b05016fb80ffcc6328afeef406.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 88.04,
+      "processing_time": 2.90453839302063,
+      "correct": true
+    },
+    {
+      "filename": "IMG_0122-1_JPG.rf.7123f8aa72050d94ea18e44acccec89b.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 89.33,
+      "processing_time": 2.887108325958252,
+      "correct": true
+    },
+    {
+      "filename": "20210628_110259c_jpg.rf.66ccc900fc93cef22c98ecc751e5fa24.jpg",
+      "true_label": 9,
+      "true_variety": "Lingga",
+      "predicted_label": 9,
+      "predicted_variety": "Lingga",
+      "confidence": 92.37,
+      "processing_time": 2.8432254791259766,
+      "correct": true
+    },
+    {
+      "filename": "IMG_20200312_131420_jpg.rf.1d342922e6cba81b93096eb2313f52e2.jpg",
+      "true_label": 1,
+      "true_variety": "Carla_agrihorti",
+      "predicted_label": 1,
+      "predicted_variety": "Carla_agrihorti",
+      "confidence": 88.48,
+      "processing_time": 2.8331007957458496,
+      "correct": true
+    },
+    {
+      "filename": "20210521_135741-2_jpg.rf.f509813ed7b77240beeeaf3ea8c20c18.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 90.31,
+      "processing_time": 2.8609890937805176,
+      "correct": true
+    },
+    {
+      "filename": "20200312_130650-2-k_jpg.rf.2d7664fbaae2db47b137e988baa5a3b2.jpg",
+      "true_label": 8,
+      "true_variety": "Leaf_Tanjung",
+      "predicted_label": 7,
+      "predicted_variety": "Ivegri",
+      "confidence": 70.45,
+      "processing_time": 2.868413209915161,
+      "correct": false
+    },
+    {
+      "filename": "1008A2_jpg.rf.b26de4951d39ccaee40517c5091cd161.jpg",
+      "true_label": 7,
+      "true_variety": "Ivegri",
+      "predicted_label": 7,
+      "predicted_variety": "Ivegri",
+      "confidence": 76.79,
+      "processing_time": 2.8628053665161133,
+      "correct": true
+    },
+    {
+      "filename": "20200312_131710-2-_jpg.rf.8c3f64a14cc77a3c1a75195f7b92c495.jpg",
+      "true_label": 7,
+      "true_variety": "Ivegri",
+      "predicted_label": 7,
+      "predicted_variety": "Ivegri",
+      "confidence": 77.04,
+      "processing_time": 2.8726813793182373,
+      "correct": true
+    },
+    {
+      "filename": "20210521_135410-1_jpg.rf.c3ef5723f1e1ed78bb87c17860a500cf.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 90.17,
+      "processing_time": 2.8422462940216064,
+      "correct": true
+    },
+    {
+      "filename": "0707B2_jpg.rf.3122ad73479ce8a53c3bb487934799c7.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 78.33,
+      "processing_time": 2.879704713821411,
+      "correct": true
+    },
+    {
+      "filename": "20220726_084545c_jpg.rf.472a4a75a9b16fc0c5066a832116df8f.jpg",
+      "true_label": 3,
+      "true_variety": "Ciko",
+      "predicted_label": 3,
+      "predicted_variety": "Ciko",
+      "confidence": 78.91,
+      "processing_time": 2.7527310848236084,
+      "correct": true
+    },
+    {
+      "filename": "IMG_20200312_131831_jpg.rf.9fd07aaf5ded1ce42f530f5ceef5b3d0.jpg",
+      "true_label": 1,
+      "true_variety": "Carla_agrihorti",
+      "predicted_label": 1,
+      "predicted_variety": "Carla_agrihorti",
+      "confidence": 92.06,
+      "processing_time": 2.9432196617126465,
+      "correct": true
+    },
+    {
+      "filename": "20220726_0934482a_jpg.rf.cc7a1651ac80b9a18dd3fd7071b6aad4.jpg",
+      "true_label": 8,
+      "true_variety": "Leaf_Tanjung",
+      "predicted_label": 8,
+      "predicted_variety": "Leaf_Tanjung",
+      "confidence": 91.06,
+      "processing_time": 3.141839027404785,
+      "correct": true
+    },
+    {
+      "filename": "20220726_093612a_jpg.rf.4cbf2543493e3431689f9c3377bf9414.jpg",
+      "true_label": 8,
+      "true_variety": "Leaf_Tanjung",
+      "predicted_label": 8,
+      "predicted_variety": "Leaf_Tanjung",
+      "confidence": 89.29,
+      "processing_time": 3.0618648529052734,
+      "correct": true
+    },
+    {
+      "filename": "20200312_132046-1-_jpg.rf.aa545876f0257173307a1cb46c0cd691.jpg",
+      "true_label": 10,
+      "true_variety": "Mia",
+      "predicted_label": 10,
+      "predicted_variety": "Mia",
+      "confidence": 88.07,
+      "processing_time": 2.8685483932495117,
+      "correct": true
+    },
+    {
+      "filename": "c_20200313_110521_jpg.rf.e6f404eec1f01e2a099a4ac3c232af8d.jpg",
+      "true_label": 11,
+      "true_variety": "Pertiwi",
+      "predicted_label": 11,
+      "predicted_variety": "Pertiwi",
+      "confidence": 81.51,
+      "processing_time": 2.888524293899536,
+      "correct": true
+    },
+    {
+      "filename": "0307A2_jpg.rf.79b38ef42a6ca918c8a3d6b19253b8e6.jpg",
+      "true_label": 0,
+      "true_variety": "Branang",
+      "predicted_label": 0,
+      "predicted_variety": "Branang",
+      "confidence": 96.18,
+      "processing_time": 2.8764359951019287,
+      "correct": true
+    },
+    {
+      "filename": "20200312_131127-2-_jpg.rf.aa0925beda649ebd26d7acf4eb1e7868.jpg",
+      "true_label": 7,
+      "true_variety": "Ivegri",
+      "predicted_label": 7,
+      "predicted_variety": "Ivegri",
+      "confidence": 78.08,
+      "processing_time": 2.851485013961792,
+      "correct": true
+    },
+    {
+      "filename": "1010B2_jpg.rf.0614c888189310a271c79bdabc43fcb5.jpg",
+      "true_label": 7,
+      "true_variety": "Ivegri",
+      "predicted_label": 7,
+      "predicted_variety": "Ivegri",
+      "confidence": 80.16,
+      "processing_time": 2.8786282539367676,
+      "correct": true
+    },
+    {
+      "filename": "0602B1_jpg.rf.53574dff9ea21ef6c265700a5aa5668f.jpg",
+      "true_label": 6,
+      "true_variety": "Inata_agrihorti",
+      "predicted_label": 6,
+      "predicted_variety": "Inata_agrihorti",
+      "confidence": 78.72,
+      "processing_time": 2.8478212356567383,
+      "correct": true
+    },
+    {
+      "filename": "0414A2_jpg.rf.d0257e6f7f24796f6274c08a8afb6302.jpg",
+      "true_label": 3,
+      "true_variety": "Ciko",
+      "predicted_label": 3,
+      "predicted_variety": "Ciko",
+      "confidence": 65.92,
+      "processing_time": 2.920985698699951,
+      "correct": true
+    },
+    {
+      "filename": "20200312_133105_jpg.rf.74c69acf05f883c442e32e2cabe946d8.jpg",
+      "true_label": 5,
+      "true_variety": "Hot_vision",
+      "predicted_label": 5,
+      "predicted_variety": "Hot_vision",
+      "confidence": 90.07,
+      "processing_time": 2.8627517223358154,
+      "correct": true
+    },
+    {
+      "filename": "20200312_105851-1-_jpg.rf.2ab74bc27d0e65cc4a2aa1e30a126c12.jpg",
+      "true_label": 9,
+      "true_variety": "Lingga",
+      "predicted_label": 9,
+      "predicted_variety": "Lingga",
+      "confidence": 93.9,
+      "processing_time": 2.922414779663086,
+      "correct": true
+    },
+    {
+      "filename": "0205A1k_jpg.rf.e437c877f42ee46cca5456f78b3f0b70.jpg",
+      "true_label": 8,
+      "true_variety": "Leaf_Tanjung",
+      "predicted_label": 8,
+      "predicted_variety": "Leaf_Tanjung",
+      "confidence": 87.11,
+      "processing_time": 2.814199209213257,
+      "correct": true
+    },
+    {
+      "filename": "1412B2_jpg.rf.e86984e2424d0dcfa8f1857a080b1919.jpg",
+      "true_label": 11,
+      "true_variety": "Pertiwi",
+      "predicted_label": 11,
+      "predicted_variety": "Pertiwi",
+      "confidence": 86.25,
+      "processing_time": 2.858208656311035,
+      "correct": true
+    },
+    {
+      "filename": "c_20200312_135034_jpg.rf.a21c86478c33180016f2e7e5a081b46b.jpg",
+      "true_label": 3,
+      "true_variety": "Ciko",
+      "predicted_label": 6,
+      "predicted_variety": "Inata_agrihorti",
+      "confidence": 63.35,
+      "processing_time": 2.939948558807373,
+      "correct": false
+    },
+    {
+      "filename": "20200313_110415-1-_jpg.rf.b4a3ceb1e48a394387ac0c3f8252d619.jpg",
+      "true_label": 12,
+      "true_variety": "Pilar",
+      "predicted_label": 12,
+      "predicted_variety": "Pilar",
+      "confidence": 90.09,
+      "processing_time": 2.921006202697754,
+      "correct": true
+    },
+    {
+      "filename": "IMG20210521135419-3_jpg.rf.3751bb32103e726dbd67b44af6d42f95.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 85.76,
+      "processing_time": 2.8723747730255127,
+      "correct": true
+    },
+    {
+      "filename": "IMG_20200312_131905_jpg.rf.d7dbf29c2568648c1a435f63dd4ffa8d.jpg",
+      "true_label": 1,
+      "true_variety": "Carla_agrihorti",
+      "predicted_label": 1,
+      "predicted_variety": "Carla_agrihorti",
+      "confidence": 89.89,
+      "processing_time": 2.8678536415100098,
+      "correct": true
+    },
+    {
+      "filename": "1420A2_jpg.rf.56c11fc746d12d120d937a9cdb068885.jpg",
+      "true_label": 11,
+      "true_variety": "Pertiwi",
+      "predicted_label": 11,
+      "predicted_variety": "Pertiwi",
+      "confidence": 78.6,
+      "processing_time": 2.868414878845215,
+      "correct": true
+    },
+    {
+      "filename": "20210806_141909-7_jpg.rf.afff261e9104624219908b8023a6e538.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 88.42,
+      "processing_time": 2.8406012058258057,
+      "correct": true
+    },
+    {
+      "filename": "0613A1_jpg.rf.e5409ba73d8be8322545f22c452e0377.jpg",
+      "true_label": 6,
+      "true_variety": "Inata_agrihorti",
+      "predicted_label": 6,
+      "predicted_variety": "Inata_agrihorti",
+      "confidence": 53.07,
+      "processing_time": 2.8427438735961914,
+      "correct": true
+    },
+    {
+      "filename": "20210521_133703c_jpg.rf.611b3bfab29e51eeef74a0225089b67e.jpg",
+      "true_label": 3,
+      "true_variety": "Ciko",
+      "predicted_label": 9,
+      "predicted_variety": "Lingga",
+      "confidence": 69.97,
+      "processing_time": 2.81392502784729,
+      "correct": false
+    },
+    {
+      "filename": "L4-34_jpg.rf.cd5f8724855d3b5eae32cc14783f69e3.jpg",
+      "true_label": 3,
+      "true_variety": "Ciko",
+      "predicted_label": 3,
+      "predicted_variety": "Ciko",
+      "confidence": 63.42,
+      "processing_time": 2.8958232402801514,
+      "correct": true
+    },
+    {
+      "filename": "20220726_090227b_jpg.rf.5c4cdcfafe24d7b06ec2381cea897fa3.jpg",
+      "true_label": 3,
+      "true_variety": "Ciko",
+      "predicted_label": 3,
+      "predicted_variety": "Ciko",
+      "confidence": 90.55,
+      "processing_time": 2.88493275642395,
+      "correct": true
+    },
+    {
+      "filename": "0919B2_jpg.rf.8777c43161e9f2fca21c3e983a619311.jpg",
+      "true_label": 1,
+      "true_variety": "Carla_agrihorti",
+      "predicted_label": 5,
+      "predicted_variety": "Hot_vision",
+      "confidence": 51.87,
+      "processing_time": 3.03362774848938,
+      "correct": false
+    },
+    {
+      "filename": "20200312_1339502_jpg.rf.d2ce333afb314ceeb9417836103198ee.jpg",
+      "true_label": 6,
+      "true_variety": "Inata_agrihorti",
+      "predicted_label": 6,
+      "predicted_variety": "Inata_agrihorti",
+      "confidence": 85.61,
+      "processing_time": 2.9220802783966064,
+      "correct": true
+    },
+    {
+      "filename": "1110A2_jpg.rf.c5c664366419d96d6de7dd2746e7b43b.jpg",
+      "true_label": 10,
+      "true_variety": "Mia",
+      "predicted_label": 10,
+      "predicted_variety": "Mia",
+      "confidence": 77.27,
+      "processing_time": 2.8284833431243896,
+      "correct": true
+    },
+    {
+      "filename": "IMG_20200312_131506_jpg.rf.9bf951e61204339c89acc0673ef87352.jpg",
+      "true_label": 1,
+      "true_variety": "Carla_agrihorti",
+      "predicted_label": 1,
+      "predicted_variety": "Carla_agrihorti",
+      "confidence": 90.41,
+      "processing_time": 2.8367462158203125,
+      "correct": true
+    },
+    {
+      "filename": "0910B1_jpg.rf.4d391596aeb3d10b7c6013b2101eb5e2.jpg",
+      "true_label": 1,
+      "true_variety": "Carla_agrihorti",
+      "predicted_label": 1,
+      "predicted_variety": "Carla_agrihorti",
+      "confidence": 66.99,
+      "processing_time": 2.820394515991211,
+      "correct": true
+    },
+    {
+      "filename": "20220726_0939439_jpg.rf.9f3be94d1996754f7235d069ca5365cd.jpg",
+      "true_label": 8,
+      "true_variety": "Leaf_Tanjung",
+      "predicted_label": 8,
+      "predicted_variety": "Leaf_Tanjung",
+      "confidence": 91.08,
+      "processing_time": 2.918534755706787,
+      "correct": true
+    },
+    {
+      "filename": "0706B2_jpg.rf.bf333cb11ed8e8ee2e077d2148a28d3c.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 87.79,
+      "processing_time": 2.8349037170410156,
+      "correct": true
+    },
+    {
+      "filename": "20200312_105929b_jpg.rf.5520972f207dda47bbf649b8e1617180.jpg",
+      "true_label": 9,
+      "true_variety": "Lingga",
+      "predicted_label": 9,
+      "predicted_variety": "Lingga",
+      "confidence": 43.93,
+      "processing_time": 2.869079113006592,
+      "correct": true
+    },
+    {
+      "filename": "20210521_135209-5_jpg.rf.bafd0bccacc8b5a2e0b038c7270df1cc.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 91.26,
+      "processing_time": 2.848106622695923,
+      "correct": true
+    },
+    {
+      "filename": "IMG_0111-1_JPG.rf.ed423c08eaf26e9da9ddde1428acad1b.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 91.05,
+      "processing_time": 2.8381848335266113,
+      "correct": true
+    },
+    {
+      "filename": "20220726_084655b_jpg.rf.03179523e4fb0dcdeb55c949d778f9e3.jpg",
+      "true_label": 3,
+      "true_variety": "Ciko",
+      "predicted_label": 3,
+      "predicted_variety": "Ciko",
+      "confidence": 83.48,
+      "processing_time": 3.0437676906585693,
+      "correct": true
+    },
+    {
+      "filename": "IMG_20210521_135459-4_jpg.rf.a7771132023d952375288222a430e65e.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 87.17,
+      "processing_time": 2.8906445503234863,
+      "correct": true
+    },
+    {
+      "filename": "0609B1_jpg.rf.784a0af74af7af2dc2131cc55798d2c8.jpg",
+      "true_label": 6,
+      "true_variety": "Inata_agrihorti",
+      "predicted_label": 6,
+      "predicted_variety": "Inata_agrihorti",
+      "confidence": 56.13,
+      "processing_time": 2.8185818195343018,
+      "correct": true
+    },
+    {
+      "filename": "1020A1_jpg.rf.251e0bc35f68b177081d09785d1e9223.jpg",
+      "true_label": 7,
+      "true_variety": "Ivegri",
+      "predicted_label": 7,
+      "predicted_variety": "Ivegri",
+      "confidence": 80.17,
+      "processing_time": 2.900475263595581,
+      "correct": true
+    },
+    {
+      "filename": "1220A2_jpg.rf.bb6a157ff6d5d26f0c2a4df1ff6064b5.jpg",
+      "true_label": 12,
+      "true_variety": "Pilar",
+      "predicted_label": 12,
+      "predicted_variety": "Pilar",
+      "confidence": 85.65,
+      "processing_time": 2.844874620437622,
+      "correct": true
+    },
+    {
+      "filename": "20200312_133524_jpg.rf.5f5602efe9f76acd003a4de016d15489.jpg",
+      "true_label": 5,
+      "true_variety": "Hot_vision",
+      "predicted_label": 5,
+      "predicted_variety": "Hot_vision",
+      "confidence": 86.45,
+      "processing_time": 2.8247828483581543,
+      "correct": true
+    },
+    {
+      "filename": "0520B1_jpg.rf.0a1d42132c1d280b94822c6ef2bebf0e.jpg",
+      "true_label": 9,
+      "true_variety": "Lingga",
+      "predicted_label": 9,
+      "predicted_variety": "Lingga",
+      "confidence": 91.25,
+      "processing_time": 2.818225860595703,
+      "correct": true
+    },
+    {
+      "filename": "20220726_092205_jpg.rf.fa45390968534475adf0a88efd996cc9.jpg",
+      "true_label": 8,
+      "true_variety": "Leaf_Tanjung",
+      "predicted_label": 8,
+      "predicted_variety": "Leaf_Tanjung",
+      "confidence": 91.82,
+      "processing_time": 2.7835023403167725,
+      "correct": true
+    },
+    {
+      "filename": "IMG_20200312_132303_jpg.rf.70ca5ec30a3e8e30b3a9c19cd6f2499b.jpg",
+      "true_label": 12,
+      "true_variety": "Pilar",
+      "predicted_label": 12,
+      "predicted_variety": "Pilar",
+      "confidence": 90.06,
+      "processing_time": 2.820676565170288,
+      "correct": true
+    },
+    {
+      "filename": "20220726_0832131_jpg.rf.34b909c307654334a301f5c51587cb86.jpg",
+      "true_label": 3,
+      "true_variety": "Ciko",
+      "predicted_label": 3,
+      "predicted_variety": "Ciko",
+      "confidence": 85.51,
+      "processing_time": 2.8036606311798096,
+      "correct": true
+    },
+    {
+      "filename": "20200312_133509_jpg.rf.d0af33e493808c9014889f2e53aad5b7.jpg",
+      "true_label": 5,
+      "true_variety": "Hot_vision",
+      "predicted_label": 5,
+      "predicted_variety": "Hot_vision",
+      "confidence": 85.37,
+      "processing_time": 2.8468375205993652,
+      "correct": true
+    },
+    {
+      "filename": "20210521_130404e_jpg.rf.8dc9d86436bd720625d73f3f0e89adeb.jpg",
+      "true_label": 9,
+      "true_variety": "Lingga",
+      "predicted_label": 9,
+      "predicted_variety": "Lingga",
+      "confidence": 93.47,
+      "processing_time": 2.8251945972442627,
+      "correct": true
+    },
+    {
+      "filename": "0504B1_jpg.rf.cd111e7dfde7587247d2a1a68f323e46.jpg",
+      "true_label": 9,
+      "true_variety": "Lingga",
+      "predicted_label": 9,
+      "predicted_variety": "Lingga",
+      "confidence": 90.18,
+      "processing_time": 2.80623722076416,
+      "correct": true
+    },
+    {
+      "filename": "20210806_141900-9_jpg.rf.50892b2f5f9303fb9271174a9c43ea18.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 86.34,
+      "processing_time": 2.9377453327178955,
+      "correct": true
+    },
+    {
+      "filename": "L8-12_jpg.rf.e2876a50bc7b504c7931df4f6f0c6ec1.jpg",
+      "true_label": 4,
+      "true_variety": "Hot_beauty",
+      "predicted_label": 4,
+      "predicted_variety": "Hot_beauty",
+      "confidence": 91.78,
+      "processing_time": 2.892108201980591,
+      "correct": true
+    },
+    {
+      "filename": "20220726_083347_jpg.rf.9bf2ad58c5e1095cc84faee3269fe02d.jpg",
+      "true_label": 3,
+      "true_variety": "Ciko",
+      "predicted_label": 3,
+      "predicted_variety": "Ciko",
+      "confidence": 90.43,
+      "processing_time": 2.900247573852539,
+      "correct": true
+    },
+    {
+      "filename": "0814A2_jpg.rf.9ab840b596ad1bc65320d65312489291.jpg",
+      "true_label": 4,
+      "true_variety": "Hot_beauty",
+      "predicted_label": 4,
+      "predicted_variety": "Hot_beauty",
+      "confidence": 67.17,
+      "processing_time": 2.825789451599121,
+      "correct": true
+    },
+    {
+      "filename": "20200312_1344154_jpg.rf.f729f57eafa0f092f6def17b40572f55.jpg",
+      "true_label": 6,
+      "true_variety": "Inata_agrihorti",
+      "predicted_label": 9,
+      "predicted_variety": "Lingga",
+      "confidence": 74.84,
+      "processing_time": 2.8521814346313477,
+      "correct": false
+    },
+    {
+      "filename": "20200312_131631-2-_jpg.rf.c090dc746281c6b208bc8525d1770af3.jpg",
+      "true_label": 7,
+      "true_variety": "Ivegri",
+      "predicted_label": 7,
+      "predicted_variety": "Ivegri",
+      "confidence": 67.33,
+      "processing_time": 2.814187526702881,
+      "correct": true
+    },
+    {
+      "filename": "0518B2_jpg.rf.e454805160e5dacd9ad44999b21a9607.jpg",
+      "true_label": 9,
+      "true_variety": "Lingga",
+      "predicted_label": 9,
+      "predicted_variety": "Lingga",
+      "confidence": 89.43,
+      "processing_time": 2.8443424701690674,
+      "correct": true
+    },
+    {
+      "filename": "c_20200313_084135_jpg.rf.8ecf7947aef51dfeb29d7030c4095bfc.jpg",
+      "true_label": 0,
+      "true_variety": "Branang",
+      "predicted_label": 0,
+      "predicted_variety": "Branang",
+      "confidence": 59.41,
+      "processing_time": 2.9157562255859375,
+      "correct": true
+    },
+    {
+      "filename": "20200312_131312-2-k_jpg.rf.353a985e7544aa29224a70a3b0b7fa8d.jpg",
+      "true_label": 8,
+      "true_variety": "Leaf_Tanjung",
+      "predicted_label": 8,
+      "predicted_variety": "Leaf_Tanjung",
+      "confidence": 83.7,
+      "processing_time": 2.835625648498535,
+      "correct": true
+    },
+    {
+      "filename": "20220726_084545a_jpg.rf.8d854483f2581b1df8da35dbf32c5f23.jpg",
+      "true_label": 3,
+      "true_variety": "Ciko",
+      "predicted_label": 8,
+      "predicted_variety": "Leaf_Tanjung",
+      "confidence": 69.68,
+      "processing_time": 2.9518558979034424,
+      "correct": false
+    },
+    {
+      "filename": "20220726_0831442_jpg.rf.09c47609ade6e8b95e77fd05b06a7df1.jpg",
+      "true_label": 3,
+      "true_variety": "Ciko",
+      "predicted_label": 3,
+      "predicted_variety": "Ciko",
+      "confidence": 90.21,
+      "processing_time": 2.789992332458496,
+      "correct": true
+    },
+    {
+      "filename": "0313A2_jpg.rf.b9079f27fa089bace7e679060ccca94a.jpg",
+      "true_label": 0,
+      "true_variety": "Branang",
+      "predicted_label": 0,
+      "predicted_variety": "Branang",
+      "confidence": 88.09,
+      "processing_time": 2.810455799102783,
+      "correct": true
+    },
+    {
+      "filename": "20200312_131505_png.rf.5edebab99dcd4c711529be6da6d61d2f.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 81.41,
+      "processing_time": 2.820913076400757,
+      "correct": true
+    },
+    {
+      "filename": "20200312_132830_jpg.rf.97d924b1d08be82895d292ad7a2d7990.jpg",
+      "true_label": 5,
+      "true_variety": "Hot_vision",
+      "predicted_label": 5,
+      "predicted_variety": "Hot_vision",
+      "confidence": 84.21,
+      "processing_time": 2.8232827186584473,
+      "correct": true
+    },
+    {
+      "filename": "IMG_20210521_135014-4_jpg.rf.2334d025526a923c275c68db025ea68d.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 88.01,
+      "processing_time": 2.8277525901794434,
+      "correct": true
+    },
+    {
+      "filename": "20200313_110430b_jpg.rf.fc82bd39127f154567a82f02cf679d6d.jpg",
+      "true_label": 12,
+      "true_variety": "Pilar",
+      "predicted_label": 12,
+      "predicted_variety": "Pilar",
+      "confidence": 90.75,
+      "processing_time": 2.8859703540802,
+      "correct": true
+    },
+    {
+      "filename": "1315A2_jpg.rf.006e01903115e3bbea137ba76d7e2663.jpg",
+      "true_label": 5,
+      "true_variety": "Hot_vision",
+      "predicted_label": 5,
+      "predicted_variety": "Hot_vision",
+      "confidence": 89.1,
+      "processing_time": 2.9274895191192627,
+      "correct": true
+    },
+    {
+      "filename": "1319B2_jpg.rf.25f5feeeed045cdd590babe22056144f.jpg",
+      "true_label": 5,
+      "true_variety": "Hot_vision",
+      "predicted_label": 5,
+      "predicted_variety": "Hot_vision",
+      "confidence": 73.18,
+      "processing_time": 2.8641059398651123,
+      "correct": true
+    },
+    {
+      "filename": "20220726_093700_jpg.rf.40348d6f3386bb00c72bbbf78cd2e23b.jpg",
+      "true_label": 8,
+      "true_variety": "Leaf_Tanjung",
+      "predicted_label": 8,
+      "predicted_variety": "Leaf_Tanjung",
+      "confidence": 90.53,
+      "processing_time": 3.1927783489227295,
+      "correct": true
+    },
+    {
+      "filename": "1115A2_jpg.rf.147036e54e14db1fe734480469bf0ae2.jpg",
+      "true_label": 10,
+      "true_variety": "Mia",
+      "predicted_label": 10,
+      "predicted_variety": "Mia",
+      "confidence": 84.84,
+      "processing_time": 2.8274776935577393,
+      "correct": true
+    },
+    {
+      "filename": "1305B2_jpg.rf.1a18e6cd135357c03a85a6261e484b9e.jpg",
+      "true_label": 5,
+      "true_variety": "Hot_vision",
+      "predicted_label": 5,
+      "predicted_variety": "Hot_vision",
+      "confidence": 70.0,
+      "processing_time": 2.8228373527526855,
+      "correct": true
+    },
+    {
+      "filename": "20200312_131019_png.rf.8fcd618a061ac38d17f5cc50e828d7b4.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 82.53,
+      "processing_time": 2.9037387371063232,
+      "correct": true
+    },
+    {
+      "filename": "IMG_20200312_131005_jpg.rf.c8cd0c3826c4ac55eeea9a2326fb6f80.jpg",
+      "true_label": 4,
+      "true_variety": "Hot_beauty",
+      "predicted_label": 4,
+      "predicted_variety": "Hot_beauty",
+      "confidence": 89.75,
+      "processing_time": 2.849879264831543,
+      "correct": true
+    },
+    {
+      "filename": "L8-16_jpg.rf.75f5d80a091f0a8c95a8313e8689269a.jpg",
+      "true_label": 4,
+      "true_variety": "Hot_beauty",
+      "predicted_label": 4,
+      "predicted_variety": "Hot_beauty",
+      "confidence": 84.65,
+      "processing_time": 2.8606905937194824,
+      "correct": true
+    },
+    {
+      "filename": "20200312_134245-1-4_jpg.rf.be1c0786558fe0b739bf314dd91f07f2.jpg",
+      "true_label": 6,
+      "true_variety": "Inata_agrihorti",
+      "predicted_label": 6,
+      "predicted_variety": "Inata_agrihorti",
+      "confidence": 87.95,
+      "processing_time": 2.824134588241577,
+      "correct": true
+    },
+    {
+      "filename": "20210628_113043-1_jpg.rf.742bc3f9e91d34b035ea7d0f6267562f.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 87.74,
+      "processing_time": 2.808008909225464,
+      "correct": true
+    },
+    {
+      "filename": "20220726_083942b_jpg.rf.66267d3767ef833aa304c6dfea643fec.jpg",
+      "true_label": 3,
+      "true_variety": "Ciko",
+      "predicted_label": 3,
+      "predicted_variety": "Ciko",
+      "confidence": 89.57,
+      "processing_time": 2.891998529434204,
+      "correct": true
+    },
+    {
+      "filename": "L8-50-1-_jpg.rf.f0343d644db35d4fb3d7feb9e4bade70.jpg",
+      "true_label": 4,
+      "true_variety": "Hot_beauty",
+      "predicted_label": 3,
+      "predicted_variety": "Ciko",
+      "confidence": 56.03,
+      "processing_time": 2.8291523456573486,
+      "correct": false
+    },
+    {
+      "filename": "20210628_112956-4_jpg.rf.8d87a7c94020d2bd7c6161ce1b18b08d.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 88.54,
+      "processing_time": 2.812217950820923,
+      "correct": true
+    },
+    {
+      "filename": "20200312_132644_jpg.rf.95965a4055d2fa452e3fe7296a286f9d.jpg",
+      "true_label": 10,
+      "true_variety": "Mia",
+      "predicted_label": 10,
+      "predicted_variety": "Mia",
+      "confidence": 77.59,
+      "processing_time": 2.828596591949463,
+      "correct": true
+    },
+    {
+      "filename": "IMG_20210521_135526-5_jpg.rf.d2f61fd779034b62539e97890290f89d.jpg",
+      "true_label": 2,
+      "true_variety": "Carvi_agrihorti",
+      "predicted_label": 2,
+      "predicted_variety": "Carvi_agrihorti",
+      "confidence": 89.41,
+      "processing_time": 2.8635413646698,
+      "correct": true
+    },
+    {
+      "filename": "20220726_0931012_jpg.rf.a21d2fdad9bc7a26455a8e852e3d7434.jpg",
+      "true_label": 8,
+      "true_variety": "Leaf_Tanjung",
+      "predicted_label": 8,
+      "predicted_variety": "Leaf_Tanjung",
+      "confidence": 91.7,
+      "processing_time": 2.9292805194854736,
+      "correct": true
+    },
+    {
+      "filename": "0903B2_jpg.rf.32f5ede9309c82b4cf195c30cda51327.jpg",
+      "true_label": 1,
+      "true_variety": "Carla_agrihorti",
+      "predicted_label": 1,
+      "predicted_variety": "Carla_agrihorti",
+      "confidence": 69.88,
+      "processing_time": 2.7764639854431152,
+      "correct": true
+    },
+    {
+      "filename": "20220726_083959d_jpg.rf.e7fcf1f9e8a744e1efdbfc548a7c8710.jpg",
+      "true_label": 3,
+      "true_variety": "Ciko",
+      "predicted_label": 3,
+      "predicted_variety": "Ciko",
+      "confidence": 82.37,
+      "processing_time": 2.9408628940582275,
+      "correct": true
+    }
+  ],
+  "summary": {
+    "total_predictions": 361,
+    "correct_predictions": 338,
+    "overall_accuracy": 0.9362880886426593
+  }
+}
