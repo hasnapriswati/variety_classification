@@ -265,6 +265,9 @@ export default function Results() {
     if (num >= 100) return `${(num/10).toFixed(1)} cm`
     return `${Math.round(num)} mm`
   }
+  const cardGreen = { bg: '#2A7F65', border: '#1D5E4D', text: '#ffffff', muted: '#FFFFFFCC' }
+  const cardStyle = { background: cardGreen.bg, border: `1px solid ${cardGreen.border}`, borderRadius: 8, padding: '8px 10px', color: cardGreen.text }
+  const mutedStyle = { color: cardGreen.muted }
   const toRange = (stat) => {
     if (!stat || typeof stat !== 'object') return '-'
     const mn = stat.min, mx = stat.max
@@ -326,37 +329,59 @@ export default function Results() {
               {imageSrc && (
                 <div className="preview"><img src={imageSrc} alt="preview hasil" loading="lazy" decoding="async" /></div>
               )}
-              <div className={`summary tone-${tone}`} style={{ borderLeft: `4px solid ${toneColor}` }}>
-                <div className="summary-top">
-                  <div className="summary-title">
-                    <span className="muted">Varietas</span>
-            <div className="summary-name">{result.variety}</div>
-            {isOutOfScope(result) && (
-              <div className="small muted" style={{ marginTop: 4 }}>Di luar cakupan daun cabai (13 varietas)</div>
-            )}
-                  </div>
-                </div>
-                <div className="summary-confidence">Confidence: {confidenceDisplay(result)}</div>
-                <div className="progress">
-                  <div className="progress-bar" style={{ width: `${confidenceValue(result) * 100}%` }} />
-                </div>
-                <div className="meta">
-                </div>
-              </div>
             </div>
             <div className="results-right">
-              <div className="section">
-                <div className="section-title">Fitur Kunci</div>
+              <div className="section" style={{ padding: '10px 12px 0', margin: '12px 0 -14px 0', border: '0.75px solid #e5e7eb' }}>
+                <div className={`summary tone-${tone}`} style={{ borderLeft: `6px solid ${cardGreen.border}`, background: '#EAF6F2', borderRadius: 12, padding: '10px 12px', marginBottom: 18 }}>
+                  <div className="summary-top">
+                    <div className="summary-title">
+                      <span className="muted">Varietas</span>
+                      <div className="summary-name">{result.variety}</div>
+                      {isOutOfScope(result) && (
+                        <div className="small muted" style={{ marginTop: 4 }}>Di luar cakupan daun cabai (13 varietas)</div>
+                      )}
+                    </div>
+                  </div>
+                  <div className="summary-confidence">Confidence: {confidenceDisplay(result)}</div>
+                  <div className="progress" style={{ height: 12, borderRadius: 9999, background: '#D6EDE6' }}>
+                    <div className="progress-bar" style={{ width: `${confidenceValue(result) * 100}%`, background: cardGreen.bg, borderRadius: 9999 }} />
+                  </div>
+                  <div className="meta"></div>
+                </div>
+                <div className="section-title" style={{ margin: '18px 0 12px' }}>Fitur Kunci</div>
                 {out ? (
                   <p className="muted">Di luar cakupan daun cabai (13 varietas). Morfologi tidak ditampilkan.</p>
                 ) : (
-                  <div className="metrics">
-                    <div className="metric"><span className="muted">Panjang</span><strong>{fmtMm(m.panjang_daun_mm)}</strong></div>
-                    <div className="metric"><span className="muted">Lebar</span><strong>{fmtMm(m.lebar_daun_mm)}</strong></div>
-                    <div className="metric"><span className="muted">Keliling</span><strong>{fmtMm(m.keliling_daun_mm)}</strong></div>
-                    <div className="metric"><span className="muted">Tulang</span><strong>{fmtMm(m.panjang_tulang_daun_mm)}</strong></div>
-                    <div className="metric"><span className="muted">Rasio</span><strong>{m.rasio_bentuk_daun != null ? Number(m.rasio_bentuk_daun).toFixed(2) : '-'}</strong></div>
+                  <div className="metrics" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, max-content))', gap: 4, marginBottom: 4, justifyContent: 'space-evenly' }}>
+                    <div className="metric" style={cardStyle}><span className="muted" style={mutedStyle}>Panjang</span><strong>{fmtMm(m.panjang_daun_mm)}</strong></div>
+                    <div className="metric" style={cardStyle}><span className="muted" style={mutedStyle}>Lebar</span><strong>{fmtMm(m.lebar_daun_mm)}</strong></div>
+                    <div className="metric" style={cardStyle}><span className="muted" style={mutedStyle}>Keliling</span><strong>{fmtMm(m.keliling_daun_mm)}</strong></div>
+                    <div className="metric" style={cardStyle}><span className="muted" style={mutedStyle}>Tulang</span><strong>{fmtMm(m.panjang_tulang_daun_mm)}</strong></div>
+                    <div className="metric" style={cardStyle}><span className="muted" style={mutedStyle}>Rasio</span><strong>{m.rasio_bentuk_daun != null ? Number(m.rasio_bentuk_daun).toFixed(2) : '-'}</strong></div>
                   </div>
+                )}
+                <div className="section-title" style={{ margin: '28px 0 12px' }}>Karakteristik Varietas</div>
+                {vc && Object.keys(vc).length > 0 ? (
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4, justifyContent: 'space-evenly', width: '100%' }}>
+                    <div style={{ ...cardStyle, minWidth: 140 }}>
+                      <div className="muted" style={{ fontSize: 12, ...mutedStyle }}>Varietas</div>
+                      <div style={{ fontWeight: 600 }}>{vc.name || '-'}</div>
+                    </div>
+                    <div style={{ ...cardStyle, minWidth: 140 }}>
+                      <div className="muted" style={{ fontSize: 12, ...mutedStyle }}>Bentuk</div>
+                      <div style={{ fontWeight: 600 }}>{vc.shape || '-'}</div>
+                    </div>
+                    <div style={{ ...cardStyle, minWidth: 160 }}>
+                      <div className="muted" style={{ fontSize: 12, ...mutedStyle }}>Rentang Panjang</div>
+                      <div style={{ fontWeight: 600 }}>{vc.length_range || '-'}</div>
+                    </div>
+                    <div style={{ ...cardStyle, minWidth: 160 }}>
+                      <div className="muted" style={{ fontSize: 12, ...mutedStyle }}>Rentang Lebar</div>
+                      <div style={{ fontWeight: 600 }}>{vc.width_range || '-'}</div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="muted">Tidak ada karakteristik tersedia.</div>
                 )}
               </div>
               {uncertain && (
@@ -371,19 +396,6 @@ export default function Results() {
                   </div>
                 </div>
               )}
-              <div className="section">
-                <div className="section-title">Karakteristik Varietas</div>
-                {vc && Object.keys(vc).length > 0 ? (
-                  <ul className="list">
-                    <li><span className="muted">Nama</span><span>{vc.name || '-'}</span></li>
-                    <li><span className="muted">Bentuk</span><span>{vc.shape || '-'}</span></li>
-                    <li><span className="muted">Panjang</span><span>{vc.length_range || '-'}</span></li>
-                    <li><span className="muted">Lebar</span><span>{vc.width_range || '-'}</span></li>
-                  </ul>
-                ) : (
-                  <div className="muted">Tidak ada karakteristik tersedia.</div>
-                )}
-              </div>
               
             </div>
           </div>
