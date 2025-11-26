@@ -8,14 +8,14 @@ function formatPercent(num) {
 
 function confidenceDisplay(r) {
   if (!r) return '-'
-  return r.confidence_percentage || (typeof r.confidence === 'number' ? formatPercent(r.confidence) : '-')
+  return r.estimated_accuracy_percentage || r.confidence_percentage || (typeof r.estimated_accuracy === 'number' ? formatPercent(r.estimated_accuracy) : (typeof r.confidence === 'number' ? formatPercent(r.confidence) : '-'))
 }
 
 function confidenceValue(r) {
-  // Numeric value in range [0,1] for progress bar
   if (!r) return 0
+  if (typeof r.estimated_accuracy === 'number' && !isNaN(r.estimated_accuracy)) return r.estimated_accuracy
   if (typeof r.confidence === 'number' && !isNaN(r.confidence)) return r.confidence
-  const s = r.confidence_percentage
+  const s = r.estimated_accuracy_percentage || r.confidence_percentage
   if (typeof s === 'string') {
     const m = s.match(/([0-9]+(?:\.[0-9]+)?)/)
     if (m) {
@@ -206,7 +206,7 @@ export default function Results() {
           <div class="muted">Ringkasan hasil klasifikasi varietas daun cabai</div>
           <div class="section">
             <div class="row"><div class="label">Varietas</div><div><strong>${result.variety || '-'}</strong></div></div>
-            <div class="row"><div class="label">Confidence</div><div>${confidenceDisplay(result)} (${level})${out ? ' · <span class="muted">Tidak berlaku untuk input di luar cakupan</span>' : ''}</div></div>
+            <div class="row"><div class="label">Akurasi prediksi (estimasi)</div><div>${confidenceDisplay(result)} (${level})${out ? ' · <span class="muted">Tidak berlaku untuk input di luar cakupan</span>' : ''}</div></div>
             <div class="row"><div class="label">Status</div><div>${uncertain ? 'Tidak Pasti' : 'Cukup Pasti'}</div></div>
           </div>
           <div class="grid">
@@ -241,7 +241,7 @@ export default function Results() {
     if (!result) return
     const uncertain = deriveUncertain(result)
     const level = confidenceLevel(result)
-    const summaryText = `Varietas: ${result.variety}\nConfidence: ${confidenceDisplay(result)} (${level})\nStatus: ${uncertain ? 'Tidak Pasti' : 'Cukup Pasti'}`
+  const summaryText = `Varietas: ${result.variety}\nAkurasi prediksi (estimasi): ${confidenceDisplay(result)} (${level})\nStatus: ${uncertain ? 'Tidak Pasti' : 'Cukup Pasti'}`
     try {
       if (navigator.share) {
         await navigator.share({ title: 'Hasil Klasifikasi', text: summaryText })
@@ -342,7 +342,7 @@ export default function Results() {
                       )}
                     </div>
                   </div>
-                  <div className="summary-confidence">Confidence: {confidenceDisplay(result)}</div>
+                  <div className="summary-confidence">Akurasi prediksi (estimasi): {confidenceDisplay(result)}</div>
                   <div className="progress" style={{ height: 12, borderRadius: 9999, background: '#D6EDE6' }}>
                     <div className="progress-bar" style={{ width: `${confidenceValue(result) * 100}%`, background: cardGreen.bg, borderRadius: 9999 }} />
                   </div>
