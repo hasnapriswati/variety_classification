@@ -466,25 +466,31 @@ def extract_morphology(roi_bgr: np.ndarray, scale_factor: float = 0.1) -> Dict[s
 def segment_leaf(roi_bgr: np.ndarray):
     try:
         hsv = cv2.cvtColor(roi_bgr, cv2.COLOR_BGR2HSV)
-        lower = np.array([30, 20, 20], dtype=np.uint8)
+        lower = np.array([25, 15, 15], dtype=np.uint8)
         upper = np.array([95, 255, 255], dtype=np.uint8)
         m_hsv = cv2.inRange(hsv, lower, upper)
 
+        lab = cv2.cvtColor(roi_bgr, cv2.COLOR_BGR2LAB)
+        L, A, B = cv2.split(lab)
+        m_lab = cv2.inRange(A, 0, 135) & cv2.inRange(B, 110, 200)
+
         rgb = cv2.cvtColor(roi_bgr, cv2.COLOR_BGR2RGB)
-        g = rgb[:, :, 1].astype(np.int16)
         r = rgb[:, :, 0].astype(np.int16)
+        g = rgb[:, :, 1].astype(np.int16)
         b = rgb[:, :, 2].astype(np.int16)
-        dom = ((g - r) + (g - b)) // 2
-        m_dom = (dom > 10).astype(np.uint8) * 255
+        exg = 2*g - r - b
+        exg = np.clip(exg, 0, None).astype(np.uint8)
+        _, m_exg = cv2.threshold(exg, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
 
-        gray = cv2.cvtColor(roi_bgr, cv2.COLOR_BGR2GRAY)
-        _, th = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
-        thr_inv = cv2.bitwise_not(th)
+        S = hsv[:, :, 1]
+        V = hsv[:, :, 2]
+        m_white = cv2.bitwise_and((S < 45).astype(np.uint8) * 255, (V > 210).astype(np.uint8) * 255)
 
-        mask = cv2.bitwise_or(m_hsv, m_dom)
-        mask = cv2.bitwise_and(mask, thr_inv)
+        mask = cv2.bitwise_or(m_hsv, m_lab)
+        mask = cv2.bitwise_or(mask, m_exg)
+        mask = cv2.bitwise_and(mask, cv2.bitwise_not(m_white))
 
-        kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))
+        kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (7, 7))
         mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel, iterations=1)
         mask = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel, iterations=2)
         mask = cv2.medianBlur(mask, 5)
@@ -492,8 +498,9 @@ def segment_leaf(roi_bgr: np.ndarray):
         cnts, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         if cnts:
             cmax = max(cnts, key=cv2.contourArea)
+            hull = cv2.convexHull(cmax)
             leaf_mask = np.zeros_like(mask)
-            cv2.drawContours(leaf_mask, [cmax], -1, color=255, thickness=cv2.FILLED)
+            cv2.drawContours(leaf_mask, [hull], -1, color=255, thickness=cv2.FILLED)
         else:
             leaf_mask = mask
 
@@ -502,7 +509,8 @@ def segment_leaf(roi_bgr: np.ndarray):
             gc_mask[leaf_mask > 0] = cv2.GC_PR_FGD
             bgdModel = np.zeros((1, 65), np.float64)
             fgdModel = np.zeros((1, 65), np.float64)
-            cv2.grabCut(roi_bgr, gc_mask, None, bgdModel, fgdModel, 3, cv2.GC_INIT_WITH_MASK)
+            rect = cv2.boundingRect(leaf_mask)
+            cv2.grabCut(roi_bgr, gc_mask, rect, bgdModel, fgdModel, 5, cv2.GC_INIT_WITH_RECT)
             gc_final = np.where((gc_mask == cv2.GC_FGD) | (gc_mask == cv2.GC_PR_FGD), 255, 0).astype('uint8')
             leaf_mask = gc_final
         except Exception:
@@ -512,15 +520,16 @@ def segment_leaf(roi_bgr: np.ndarray):
         roi_clean[leaf_mask == 0] = (255, 255, 255)
 
         ys, xs = np.where(leaf_mask > 0)
-        if len(xs) > 0 and len(ys) > 0:
-            x1 = int(np.min(xs)); y1 = int(np.min(ys))
-            x2 = int(np.max(xs)); y2 = int(np.max(ys))
-            h, w = roi_clean.shape[:2]
-            pad = int(max(2, 0.01 * min(h, w)))
-            x1 = max(0, x1 - pad); y1 = max(0, y1 - pad)
-            x2 = min(w - 1, x2 + pad); y2 = min(h - 1, y2 + pad)
-            roi_clean = roi_clean[y1:y2+1, x1:x2+1]
-            leaf_mask = leaf_mask[y1:y2+1, x1:x2+1]
+        if len(xs) == 0 or len(ys) == 0:
+            return roi_clean, leaf_mask
+        x1 = int(np.min(xs)); y1 = int(np.min(ys))
+        x2 = int(np.max(xs)); y2 = int(np.max(ys))
+        h, w = roi_clean.shape[:2]
+        pad = int(max(6, 0.02 * min(h, w)))
+        x1 = max(0, x1 - pad); y1 = max(0, y1 - pad)
+        x2 = min(w - 1, x2 + pad); y2 = min(h - 1, y2 + pad)
+        roi_clean = roi_clean[y1:y2+1, x1:x2+1]
+        leaf_mask = leaf_mask[y1:y2+1, x1:x2+1]
         return roi_clean, leaf_mask
     except Exception:
         return roi_bgr, np.zeros(roi_bgr.shape[:2], dtype=np.uint8)
@@ -761,20 +770,23 @@ def predict():
             except Exception:
                 pass
 
-        try:
-            seg_roi, seg_mask = segment_leaf(roi_morph)
-            roi_morph = seg_roi
-            roi_eff = seg_roi
-            if SAVE_PREPROC:
-                try:
-                    rgba = cv2.cvtColor(seg_roi, cv2.COLOR_BGR2BGRA)
-                    rgba[:, :, 3] = seg_mask
-                    out_leaf = os.path.join(PREPROC_SAVE_DIR, f"{base}_{ts}_leaf.png")
-                    cv2.imwrite(out_leaf, rgba)
-                except Exception:
-                    pass
-        except Exception:
-            pass
+        seg_roi, seg_mask = segment_leaf(roi_morph)
+        roi_morph = seg_roi
+        roi_eff = seg_roi
+        if SAVE_PREPROC:
+            try:
+                rgba = cv2.cvtColor(seg_roi, cv2.COLOR_BGR2BGRA)
+                rgba[:, :, 3] = seg_mask
+                out_leaf = os.path.join(PREPROC_SAVE_DIR, f"{base}_{ts}_leaf.png")
+                cv2.imwrite(out_leaf, rgba)
+                outline = cv2.cvtColor(seg_roi.copy(), cv2.COLOR_BGR2RGB)
+                contours, _ = cv2.findContours(seg_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+                if contours:
+                    cv2.drawContours(outline, contours, -1, (255, 0, 0), 2)
+                out_outline = os.path.join(PREPROC_SAVE_DIR, f"{base}_{ts}_leaf_outline.jpg")
+                cv2.imwrite(out_outline, cv2.cvtColor(outline, cv2.COLOR_RGB2BGR))
+            except Exception:
+                pass
 
         sf = (MM_PER_PX if MORPH_UNITS == "mm" else 1.0)
         try:
