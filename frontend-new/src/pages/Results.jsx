@@ -262,7 +262,6 @@ export default function Results() {
     if (v == null) return '-'
     const num = Number(v)
     if (isNaN(num)) return '-'
-    if (num >= 100) return `${(num/10).toFixed(1)} cm`
     return `${Math.round(num)} mm`
   }
   const cardGreen = { bg: '#2A7F65', border: '#1D5E4D', text: '#ffffff', muted: '#FFFFFFCC' }

@@ -10,7 +10,6 @@ models/
 *.pt
 *.pth
 *.pkl
-models.zip
 
 *.swp
 .DS_Store

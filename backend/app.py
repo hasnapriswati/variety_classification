@@ -39,7 +39,7 @@ UPLOAD_FOLDER = os.environ.get("UPLOAD_FOLDER", "uploads")
 MODEL_PATH = os.environ.get("MODEL_PATH", os.path.join(os.getcwd(), "models"))
 PREPROC_SAVE_DIR = os.environ.get("PREPROC_SAVE_DIR", os.path.join(UPLOAD_FOLDER, "preprocessed"))
 SAVE_PREPROC = str(os.environ.get("SAVE_PREPROC", "1")).lower() in ("1","true","yes","y")
-MM_PER_PX = float(os.environ.get("MM_PER_PX", "0.1"))
+MM_PER_PX = float(os.environ.get("MM_PER_PX", "0.03"))
 MORPH_UNITS = os.environ.get("MORPH_UNITS", "mm").strip().lower()  # 'mm' atau 'px'
 USE_COMBINED = True
 USE_EFF_ONLY = str(os.environ.get("USE_EFF_ONLY", "0")).lower() in ("1","true","yes","y")
@@ -447,6 +447,24 @@ def extract_morphology(roi_bgr: np.ndarray, scale_factor: float = 0.1) -> Dict[s
     luas_mm2 = area_px * (scale_factor ** 2)
 
     try:
+        auto = str(os.environ.get("AUTO_CALIBRATE_MM", "1")).lower() in ("1","true","yes","y")
+    except Exception:
+        auto = True
+    if auto and (panjang_mm > 100.0 or panjang_mm < 25.0):
+        target = 55.0
+        base = max(panjang_mm, 1e-6)
+        sf_new = scale_factor * (target / base)
+        sf_new = float(np.clip(sf_new, 0.015, 0.08))
+        if abs(sf_new - scale_factor) / max(scale_factor, 1e-6) > 0.10:
+            scale_factor = sf_new
+            panjang_mm = panjang * scale_factor
+            lebar_mm = lebar * scale_factor
+            keliling_mm = peri * scale_factor
+            panjang_tulang_mm = panjang_tulang_px * scale_factor
+            luas_mm2 = area_px * (scale_factor ** 2)
+            measurement_quality.setdefault("issues", []).append("scale_auto_adjusted")
+
+    try:
         if (panjang_mm < 15.0 or panjang_mm > 200.0) or (lebar_mm < 5.0 or lebar_mm > 120.0):
             measurement_quality["status"] = "warn"
             measurement_quality.setdefault("issues", []).append("kalibrasi_mencurigakan")
@@ -460,6 +478,7 @@ def extract_morphology(roi_bgr: np.ndarray, scale_factor: float = 0.1) -> Dict[s
         "rasio_bentuk": rasio,
         "panjang_tulang_mm": panjang_tulang_mm,
         "luas_mm2": luas_mm2,
+        "scale_mm_per_px": float(scale_factor),
         "measurement_quality": measurement_quality,
     }
 
