@@ -109,9 +109,9 @@ export default function LiveDetect() {
     } catch {}
     setLoading(true)
     setResult(null)
-    const fd = new FormData()
-    fd.append('file', file)
     try {
+      const fd = new FormData()
+      fd.append('file', file)
       const res = await fetch(`${API_URL}/predict`, { method: 'POST', body: fd })
       const data = await res.json()
       setLoading(false)
@@ -119,74 +119,58 @@ export default function LiveDetect() {
         try { drawDetections(data?.yolo?.detections || []) } catch {}
         const dets = Array.isArray(data?.yolo?.detections) ? data.yolo.detections : []
         setLastDetections(dets)
-        const maxDetConf = dets.length ? Math.max(...dets.map(d => Number(d?.confidence || 0))) : 0
-        const hasLeaf = dets.length > 0
-        const qualityStatus = data?.measurement_quality?.status || 'ok'
-        const confNumRaw = typeof data.confidence === 'number' && !isNaN(data.confidence) ? data.confidence : 0
         const out = (!!data.is_out_of_scope)
           || (String(data.variety || '').trim().toLowerCase() === 'unknown')
-          || (!hasLeaf)
+          || (dets.length === 0)
         try {
           const raw = JSON.stringify(data)
           sessionStorage.setItem('last_result', raw)
           localStorage.setItem('last_result', raw)
-          if (!out) {
-            const { data: sessionData } = await supabase.auth.getSession()
-            const user = sessionData?.session?.user
-            if (user) {
-              const confNum = (typeof data.confidence === 'number' && !isNaN(data.confidence))
-                ? data.confidence
-                : (typeof data.confidence_percentage === 'string'
-                    ? (parseFloat((data.confidence_percentage.match(/([0-9]+(?:\.[0-9]+)?)/)?.[1] || '0')) / 100)
-                    : 0)
-              const base = {
+          const { data: sessionData } = await supabase.auth.getSession()
+          const user = sessionData?.session?.user
+          if (user && !out) {
+            const confNum = (typeof data.confidence === 'number' && !isNaN(data.confidence))
+              ? data.confidence
+              : (typeof data.confidence_percentage === 'string'
+                  ? (parseFloat((data.confidence_percentage.match(/([0-9]+(?:\.[0-9]+)?)/)?.[1] || '0')) / 100)
+                  : 0)
+            let payload = {
+              user_id: user.id,
+              filename: 'snapshot.jpg',
+              confidence: confNum,
+              confidence_percentage: data.confidence_percentage || null,
+              predicted_class: data.variety,
+              api_version: data.api_version || null,
+              model_version: JSON.stringify({ pipeline: data.decision_rule || 'efficientnet_only' }),
+              morphology_info: data.morphology_info || null,
+              measurement_quality: data.measurement_quality || null,
+              variety_characteristics: data.variety_characteristics || null
+            }
+            let error = null
+            for (let i = 0; i < 6; i++) {
+              const r = await supabase.from('predictions').insert([payload])
+              error = r.error
+              if (!error) break
+              const msg = String(error.message || '')
+              const m = msg.match(/column \"([^\"]+)\"/i)
+              if (m && m[1]) {
+                delete payload[m[1]]
+                continue
+              }
+              if (payload.predicted_class && !payload.variety) {
+                payload = { ...payload, variety: payload.predicted_class }
+              }
+              payload = {
                 user_id: user.id,
+                filename: 'snapshot.jpg',
                 confidence: confNum,
-                confidence_percentage: data.confidence_percentage || null,
-                filename: 'snapshot.jpg'
-              }
-              const extra = {
-                api_version: data.api_version || null,
-                model_version: JSON.stringify({ pipeline: data.decision_rule || 'efficientnet_only' })
-              }
-              const essentials = {
-                user_id: base.user_id,
-                filename: base.filename,
-                confidence: base.confidence
-              }
-              let payload = {
-                ...base,
                 predicted_class: data.variety,
-                ...extra,
+                api_version: data.api_version || null,
+                model_version: JSON.stringify({ pipeline: data.decision_rule || 'efficientnet_only' }),
                 morphology_info: data.morphology_info || null,
                 measurement_quality: data.measurement_quality || null,
                 variety_characteristics: data.variety_characteristics || null
               }
-              let error = null
-              for (let i = 0; i < 6; i++) {
-                const r = await supabase.from('predictions').insert([payload])
-                error = r.error
-                if (!error) break
-                const msg = String(error.message || '')
-                const m = msg.match(/column \"([^\"]+)\"/i)
-                if (m && m[1]) {
-                  delete payload[m[1]]
-                  continue
-                }
-                if (payload.predicted_class && !payload.variety) {
-                  payload = { ...payload, variety: payload.predicted_class }
-                }
-                payload = {
-                  ...essentials,
-                  predicted_class: data.variety,
-                  api_version: data.api_version || null,
-                  model_version: JSON.stringify({ pipeline: data.decision_rule || 'efficientnet_only' }),
-                  morphology_info: data.morphology_info || null,
-                  measurement_quality: data.measurement_quality || null,
-                  variety_characteristics: data.variety_characteristics || null
-                }
-              }
-              if (error) console.error('Error saving prediction:', error)
             }
           }
         } catch {}
@@ -209,9 +193,9 @@ export default function LiveDetect() {
               sessionStorage.setItem('last_preview', data.preview_base64)
               localStorage.setItem('last_preview', data.preview_base64)
             } else {
-              const reader = new FileReader()
-              reader.onload = () => { try { sessionStorage.setItem('last_preview', reader.result); localStorage.setItem('last_preview', reader.result) } catch {} }
-              reader.readAsDataURL(blob)
+              const reader2 = new FileReader()
+              reader2.onload = () => { try { sessionStorage.setItem('last_preview', reader2.result); localStorage.setItem('last_preview', reader2.result) } catch {} }
+              reader2.readAsDataURL(blob)
             }
           } catch {}
           navigate('/results', { state: { result: data, previewUrl: url } })

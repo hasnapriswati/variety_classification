@@ -123,6 +123,8 @@ export default function Results() {
     }
   }, [input])
   const previewUrlInitial = (() => {
+    const fromResult = input?.preview_base64 || null
+    if (fromResult) return fromResult
     const fromState = location.state?.previewUrl || null
     if (fromState) return fromState
     try {
@@ -162,10 +164,14 @@ export default function Results() {
     }
   }, [imageSrc])
   useEffect(() => {
-    if (!imageSrc && result?.preview_base64) {
+    if (result?.preview_base64) {
       setImageSrc(result.preview_base64)
+      try {
+        sessionStorage.setItem('last_preview', result.preview_base64)
+        localStorage.setItem('last_preview', result.preview_base64)
+      } catch {}
     }
-  }, [imageSrc, result])
+  }, [result])
 
   useEffect(() => {
     let active = true

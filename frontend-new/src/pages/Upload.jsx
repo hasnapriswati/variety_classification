@@ -232,7 +232,7 @@ export default function Upload() {
               if (error) console.error('Error saving prediction:', error)
             }
           } catch (_) {}
-          navigate('/results', { state: { result: data, previewUrl } })
+          navigate('/results', { state: { result: data, previewUrl: (data.preview_base64 || previewUrl) } })
         }
       } else {
         setResult({ error: data?.error || 'Prediksi gagal' })
