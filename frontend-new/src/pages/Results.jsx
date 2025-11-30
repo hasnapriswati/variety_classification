@@ -135,6 +135,22 @@ export default function Results() {
     }
   })()
   const [imageSrc, setImageSrc] = useState(previewUrlInitial)
+  const [imageSize, setImageSize] = useState(null)
+  const imageName = useMemo(() => {
+    const processed = result?.processed_filename || result?.preprocessed_files?.white_tight || result?.preprocessed_files?.white || result?.preprocessed_files?.white_full || result?.preprocessed_files?.png || result?.preprocessed_files?.outline || result?.preprocessed_files?.roi || null
+    if (processed) return String(processed).split(/[\\/]/).pop()
+    const fromResult = result?.filename || result?.input_filename || result?.original_filename || null
+    if (fromResult) return String(fromResult).split(/[\\/]/).pop()
+    if (!imageSrc) return null
+    try {
+      const u = new URL(imageSrc, window.location.origin)
+      const p = u.pathname || ''
+      return p.split('/').pop() || null
+    } catch {
+      const parts = String(imageSrc).split(/[\\/]/)
+      return parts.length ? parts[parts.length - 1] : null
+    }
+  }, [imageSrc, result])
   useEffect(() => {
     if (!imageSrc) {
       try {
@@ -150,6 +166,31 @@ export default function Results() {
       setImageSrc(result.preview_base64)
     }
   }, [imageSrc, result])
+
+  useEffect(() => {
+    let active = true
+    const calc = async () => {
+      if (!imageSrc) { setImageSize(null); return }
+      try {
+        const resp = await fetch(imageSrc)
+        const blob = await resp.blob()
+        if (active) setImageSize(blob.size || null)
+        return
+      } catch {}
+      try {
+        const s = String(imageSrc)
+        const idx = s.indexOf(',')
+        const b64 = idx >= 0 ? s.slice(idx + 1) : s
+        const pad = (b64.match(/=+$/) || [''])[0].length
+        const bytes = Math.floor((b64.length * 3) / 4) - pad
+        if (active) setImageSize(bytes)
+      } catch {
+        if (active) setImageSize(null)
+      }
+    }
+    calc()
+    return () => { active = false }
+  }, [imageSrc])
 
   
 
@@ -278,7 +319,7 @@ export default function Results() {
   const vcDisplay = (raw) => {
     if (!raw || typeof raw !== 'object' || Object.keys(raw).length === 0) return {}
     const ratio = Number(m?.rasio_bentuk_daun)
-    const shape = (isNaN(ratio) ? '-' : (ratio >= 0.85 ? 'bulat' : (ratio >= 0.65 ? 'oval' : 'lonjong')))
+    const shape = shapeFromRatio(ratio)
     return {
       name: result?.variety,
       shape,
@@ -326,7 +367,15 @@ export default function Results() {
           <div className="results-grid">
             <div className="results-left">
               {imageSrc && (
-                <div className="preview"><img src={imageSrc} alt="preview hasil" loading="lazy" decoding="async" /></div>
+                <div className="preview">
+                  <img src={imageSrc} alt="preview hasil" loading="lazy" decoding="async" />
+                  {(imageName || imageSize != null) && (
+                    <div style={{ marginTop: 10 }}>
+                      {imageName && (<p className="small"><strong>File:</strong> {imageName}</p>)}
+                      {imageSize != null && (<p className="small"><strong>Ukuran:</strong> {(imageSize / 1024).toFixed(2)} KB</p>)}
+                    </div>
+                  )}
+                </div>
               )}
             </div>
             <div className="results-right">
@@ -355,8 +404,8 @@ export default function Results() {
                     <div className="metric" style={cardStyle}><span className="muted" style={mutedStyle}>Panjang</span><strong>{fmtMm(m.panjang_daun_mm)}</strong></div>
                     <div className="metric" style={cardStyle}><span className="muted" style={mutedStyle}>Lebar</span><strong>{fmtMm(m.lebar_daun_mm)}</strong></div>
                     <div className="metric" style={cardStyle}><span className="muted" style={mutedStyle}>Keliling</span><strong>{fmtMm(m.keliling_daun_mm)}</strong></div>
-                    <div className="metric" style={cardStyle}><span className="muted" style={mutedStyle}>Tulang</span><strong>{fmtMm(m.panjang_tulang_daun_mm)}</strong></div>
-                    <div className="metric" style={cardStyle}><span className="muted" style={mutedStyle}>Rasio</span><strong>{m.rasio_bentuk_daun != null ? Number(m.rasio_bentuk_daun).toFixed(2) : '-'}</strong></div>
+                  <div className="metric" style={cardStyle}><span className="muted" style={mutedStyle}>Tulang</span><strong>{fmtMm(m.panjang_tulang_daun_mm)}</strong></div>
+                  <div className="metric" style={cardStyle}><span className="muted" style={mutedStyle}>Rasio</span><strong>{m.rasio_bentuk_daun != null ? `${Number(m.rasio_bentuk_daun).toFixed(2)} (${shapeFromRatio(m.rasio_bentuk_daun)})` : '-'}</strong></div>
                   </div>
                 )}
                 <div className="section-title" style={{ margin: '28px 0 12px' }}>Karakteristik Varietas</div>
@@ -386,9 +435,9 @@ export default function Results() {
               {uncertain && (
                 <div className="section" style={{ marginTop: 12 }}>
                   <div className="section-title">Peringatan Akurasi</div>
-                  <p className="error">Confidence rendah atau pengukuran kurang stabil. Disarankan foto ulang agar hasil lebih akurat.</p>
-                  {mq && Array.isArray(mq.issues) && mq.issues.length > 0 && (
-                    <div className="small muted" style={{ marginTop: 6 }}>Catatan: {mq.issues.join(', ')}</div>
+                  <p className="error">Akurasi rendah atau pengukuran kurang stabil. Disarankan foto ulang agar hasil lebih akurat.</p>
+                  {mq && Array.isArray(mq.issues) && mq.issues.filter(i => i !== 'tulang_melebihi_batas_konservatif').length > 0 && (
+                    <div className="small muted" style={{ marginTop: 6 }}>Catatan: {mq.issues.filter(i => i !== 'tulang_melebihi_batas_konservatif').join(', ')}</div>
                   )}
                   <div className="actions" style={{ marginTop: 10 }}>
                     <button className="btn" onClick={() => navigate('/upload')}>Ambil Ulang</button>
@@ -406,4 +455,9 @@ export default function Results() {
       )}
     </section>
   )
+}
+function shapeFromRatio(ratio) {
+  const v = Number(ratio)
+  if (isNaN(v)) return '-'
+  return v >= 0.85 ? 'bulat' : (v >= 0.65 ? 'oval' : 'lonjong')
 }

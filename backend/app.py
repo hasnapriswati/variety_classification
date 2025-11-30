@@ -37,10 +37,31 @@ logger = logging.getLogger(__name__)
 API_VERSION = "1.0.0"
 UPLOAD_FOLDER = os.environ.get("UPLOAD_FOLDER", "uploads")
 MODEL_PATH = os.environ.get("MODEL_PATH", os.path.join(os.getcwd(), "models"))
-PREPROC_SAVE_DIR = os.environ.get("PREPROC_SAVE_DIR", os.path.join(UPLOAD_FOLDER, "preprocessed"))
+PREPROC_SAVE_BASE = os.environ.get("PREPROC_SAVE_DIR", os.path.join(os.getcwd(), "compare"))
+PREPROC_TAG = os.environ.get("PREPROC_TAG", "").strip()
+PREPROC_SAVE_DIR = os.path.join(PREPROC_SAVE_BASE, PREPROC_TAG) if PREPROC_TAG else PREPROC_SAVE_BASE
 SAVE_PREPROC = str(os.environ.get("SAVE_PREPROC", "1")).lower() in ("1","true","yes","y")
+PREPROC_VARIANTS = os.environ.get("PREPROC_VARIANTS", "white_full").strip().lower()
+PREPROC_VARIANTS_SET = set([x.strip() for x in PREPROC_VARIANTS.split(",") if x.strip()])
+SINGLE_LEAF_STRICT = str(os.environ.get("SINGLE_LEAF_STRICT", "1")).lower() in ("1","true","yes","y")
 MM_PER_PX = float(os.environ.get("MM_PER_PX", "0.03"))
-MORPH_UNITS = os.environ.get("MORPH_UNITS", "mm").strip().lower()  # 'mm' atau 'px'
+MORPH_UNITS = os.environ.get("MORPH_UNITS", "mm").strip().lower()
+LEAF_CLASS_NAME = os.environ.get("LEAF_CLASS_NAME", "leaf").strip().lower()
+ALT_LEAF_NAME = os.environ.get("ALT_LEAF_NAME", "daun").strip().lower()
+try:
+    OOS_CONF_MIN = float(os.environ.get("OOS_CONF_MIN", "0.35"))
+except Exception:
+    OOS_CONF_MIN = 0.35
+try:
+    OOS_MARGIN_MIN = float(os.environ.get("OOS_MARGIN_MIN", "0.08"))
+except Exception:
+    OOS_MARGIN_MIN = 0.08
+OOS_REQUIRE_LOW_QUALITY = str(os.environ.get("OOS_REQUIRE_LOW_QUALITY", "1")).lower() in ("1","true","yes","y")
+FINAL_USE_HULL = str(os.environ.get("FINAL_USE_HULL", "0")).lower() in ("1","true","yes","y")
+try:
+    TULANG_MAX_RATIO = float(os.environ.get("TULANG_MAX_RATIO", "0.98"))
+except Exception:
+    TULANG_MAX_RATIO = 0.98
 USE_COMBINED = True
 USE_EFF_ONLY = str(os.environ.get("USE_EFF_ONLY", "0")).lower() in ("1","true","yes","y")
 USE_GATING = True
@@ -72,16 +93,16 @@ LT_EFF_CONF_MIN = float(os.environ.get("LT_EFF_CONF_MIN", "0.55"))
 LT_PENALTY = float(os.environ.get("LT_PENALTY", "0.08"))
 DISABLE_TARGETED_TIEBREAK = False
 # Runtime tuning for ROI expansion and tie-breaks
-USE_EXPANDED_ROI = str(os.environ.get("USE_EXPANDED_ROI", "1")).lower() in ("1","true","yes","y")
-ROI_MARGIN = float(os.environ.get("ROI_MARGIN", "0.12"))
+USE_EXPANDED_ROI = str(os.environ.get("USE_EXPANDED_ROI", "0")).lower() in ("1","true","yes","y")
+ROI_MARGIN = float(os.environ.get("ROI_MARGIN", "0.08"))
 try:
     AUG_LEVEL_CAP = int(os.environ.get("AUG_LEVEL_CAP", "2"))
 except Exception:
     AUG_LEVEL_CAP = 2
 try:
-    MAX_ROIS = int(os.environ.get("MAX_ROIS", "5"))
+    MAX_ROIS = int(os.environ.get("MAX_ROIS", "3"))
 except Exception:
-    MAX_ROIS = 5
+    MAX_ROIS = 3
 try:
     LT_MORPH_MIN = float(os.environ.get("LT_MORPH_MIN", "0.40"))
 except Exception:
@@ -90,6 +111,7 @@ try:
     ALT_MORPH_MIN = float(os.environ.get("ALT_MORPH_MIN", "0.55"))
 except Exception:
     ALT_MORPH_MIN = 0.55
+SKIP_GRABCUT = str(os.environ.get("SKIP_GRABCUT", "1")).lower() in ("1","true","yes","y")
 try:
     ALT_EFF_MIN = float(os.environ.get("ALT_EFF_MIN", "0.60"))
 except Exception:
@@ -159,6 +181,16 @@ def load_artifacts() -> None:
         logger.warning("⚠ EfficientNet weights file not found; using base architecture")
         try:
             effnet.classifier = torch.nn.Identity()
+        except Exception:
+            pass
+        # pastikan hanya komponen terbesar yang dipertahankan sebelum simpan
+        try:
+            num_f, labels_f, stats_f, _ = cv2.connectedComponentsWithStats(seg_mask, 8, cv2.CV_32S)
+            if num_f >= 2:
+                areas_f = stats_f[1:, cv2.CC_STAT_AREA]
+                main_f = 1 + int(np.argmax(areas_f))
+                seg_mask = ((labels_f == main_f).astype(np.uint8)) * 255
+                seg_roi = cv2.bitwise_and(seg_roi, seg_roi, mask=seg_mask)
         except Exception:
             pass
     # Scalers
@@ -429,16 +461,30 @@ def extract_morphology(roi_bgr: np.ndarray, scale_factor: float = 0.1) -> Dict[s
     lebar = float(min(rw, rh))
     rasio = float(lebar / panjang) if panjang > 0 else 0.0
 
-    skeleton = skeletonize((mask > 0).astype(np.uint8)).astype(np.uint8) * 255
+    h, w = mask.shape
+    ksz = max(3, int(round(min(h, w) * 0.01)) | 1)
+    kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (ksz, ksz))
+    strong = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel, iterations=1)
+    max_dim = max(h, w)
+    ratio = 1.0
+    if max_dim > 800:
+        ratio = 800.0 / float(max_dim)
+        small = cv2.resize(strong, (int(round(w * ratio)), int(round(h * ratio))), interpolation=cv2.INTER_NEAREST)
+    else:
+        small = strong
+    skeleton = skeletonize((small > 0).astype(np.uint8)).astype(np.uint8) * 255
     panjang_tulang_px = find_longest_skeleton_path(skeleton)
-    if panjang_tulang_px < (panjang * 0.25):
+    if ratio != 1.0 and panjang_tulang_px > 0:
+        panjang_tulang_px = float(panjang_tulang_px) / ratio
+    if panjang_tulang_px < (panjang * 0.7):
         measurement_quality["status"] = "warn"
-        measurement_quality["issues"].append("tulang_daun_tidak_jelas")
-        panjang_tulang_px = float(panjang * 0.55)
-    if panjang_tulang_px > panjang:
+        measurement_quality["issues"].append("tulang_estimasi_major_axis")
+        panjang_tulang_px = float(panjang * 0.9)
+    max_tulang = float(TULANG_MAX_RATIO * panjang)
+    if panjang_tulang_px > max_tulang:
         measurement_quality["status"] = "warn"
-        measurement_quality["issues"].append("tulang_melebihi_panjang_daun")
-        panjang_tulang_px = float(panjang)
+        measurement_quality["issues"].append("tulang_melebihi_batas_konservatif")
+        panjang_tulang_px = float(max_tulang)
 
     panjang_mm = panjang * scale_factor
     lebar_mm = lebar * scale_factor
@@ -493,48 +539,324 @@ def segment_leaf(roi_bgr: np.ndarray):
         L, A, B = cv2.split(lab)
         m_lab = cv2.inRange(A, 0, 135) & cv2.inRange(B, 110, 200)
 
-        rgb = cv2.cvtColor(roi_bgr, cv2.COLOR_BGR2RGB)
-        r = rgb[:, :, 0].astype(np.int16)
-        g = rgb[:, :, 1].astype(np.int16)
-        b = rgb[:, :, 2].astype(np.int16)
+        # gunakan kanal langsung dari BGR untuk menghitung ExG tanpa konversi tambahan
+        r = roi_bgr[:, :, 2].astype(np.int16)
+        g = roi_bgr[:, :, 1].astype(np.int16)
+        b = roi_bgr[:, :, 0].astype(np.int16)
         exg = 2*g - r - b
         exg = np.clip(exg, 0, None).astype(np.uint8)
         _, m_exg = cv2.threshold(exg, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
 
         S = hsv[:, :, 1]
         V = hsv[:, :, 2]
-        m_white = cv2.bitwise_and((S < 45).astype(np.uint8) * 255, (V > 210).astype(np.uint8) * 255)
+        m_white = cv2.bitwise_and((S < 60).astype(np.uint8) * 255, (V > 200).astype(np.uint8) * 255)
 
-        mask = cv2.bitwise_or(m_hsv, m_lab)
-        mask = cv2.bitwise_or(mask, m_exg)
-        mask = cv2.bitwise_and(mask, cv2.bitwise_not(m_white))
+        mask_green = cv2.bitwise_or(m_hsv, m_lab)
+        mask_green = cv2.bitwise_or(mask_green, m_exg)
+        dil = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5,5))
+        near_green = cv2.dilate(mask_green, dil, iterations=3)
+        white_near_green = cv2.bitwise_and(m_white, near_green)
+        white_far = cv2.bitwise_and(m_white, cv2.bitwise_not(near_green))
+        mask = cv2.bitwise_or(mask_green, white_near_green)
+        mask = cv2.bitwise_and(mask, cv2.bitwise_not(white_far))
 
-        kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (7, 7))
-        mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel, iterations=1)
-        mask = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel, iterations=2)
-        mask = cv2.medianBlur(mask, 5)
+        kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))
+        mask = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel, iterations=1)
+        mask = cv2.medianBlur(mask, 3)
 
         cnts, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         if cnts:
-            cmax = max(cnts, key=cv2.contourArea)
-            hull = cv2.convexHull(cmax)
+            H, W = mask.shape
+            cx0, cy0 = W * 0.5, H * 0.5
+            best = None
+            best_score = -1e9
+            for c in cnts:
+                area = float(cv2.contourArea(c))
+                if area <= 50: 
+                    continue
+                M = cv2.moments(c)
+                cx = (M['m10']/M['m00']) if M['m00'] else cx0
+                cy = (M['m01']/M['m00']) if M['m00'] else cy0
+                dist = ((cx - cx0)**2 + (cy - cy0)**2) ** 0.5
+                dn = dist / float(max(W, H))
+                score = area - (dn * 0.4 * area)
+                if score > best_score:
+                    best_score = score
+                    best = c
             leaf_mask = np.zeros_like(mask)
-            cv2.drawContours(leaf_mask, [hull], -1, color=255, thickness=cv2.FILLED)
+            if best is None:
+                best = max(cnts, key=cv2.contourArea)
+            cv2.drawContours(leaf_mask, [best], -1, color=255, thickness=cv2.FILLED)
+            # gunakan hull dari kontur daun utama agar background tidak terserap
+            try:
+                hull = cv2.convexHull(best)
+                leaf_mask = np.zeros_like(mask)
+                cv2.drawContours(leaf_mask, [hull], -1, color=255, thickness=cv2.FILLED)
+            except Exception:
+                pass
+            # batasi hull dengan warna daun (hijau + putih dekat hijau) agar background gelap tidak ikut
+            try:
+                fg_color = mask_green
+                leaf_mask = cv2.bitwise_and(leaf_mask, fg_color)
+                cnts_leaf, _ = cv2.findContours(leaf_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+                if cnts_leaf:
+                    c_main = max(cnts_leaf, key=cv2.contourArea)
+                    leaf_mask = np.zeros_like(leaf_mask)
+                    cv2.drawContours(leaf_mask, [c_main], -1, color=255, thickness=cv2.FILLED)
+            except Exception:
+                pass
+            # bridge internal gaps dalam daun utama tanpa menyerap daun tetangga
+            ksize = max(3, int(round(min(H, W) * 0.010)) | 1)
+            leaf_mask = cv2.morphologyEx(leaf_mask, cv2.MORPH_CLOSE, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (ksize, ksize)), iterations=1)
+            # rapatkan tepi dengan closing kecil (hindari celah), tanpa memperlebar berlebihan
+            try:
+                leaf_mask = cv2.morphologyEx(leaf_mask, cv2.MORPH_CLOSE, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (3,3)), iterations=1)
+            except Exception:
+                pass
+            # masukkan kembali garis tulang daun agar tidak membelah mask
+            try:
+                midrib = cv2.bitwise_and(((S < 95).astype(np.uint8) * 255), ((V > 120).astype(np.uint8) * 255))
+                near_leaf = cv2.dilate(leaf_mask, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (3,3)), iterations=1)
+                midrib_in = cv2.bitwise_and(midrib, near_leaf)
+                leaf_mask = cv2.bitwise_or(leaf_mask, midrib_in)
+            except Exception:
+                pass
+            try:
+                cnts_tmp, _ = cv2.findContours(leaf_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+                if cnts_tmp:
+                    c0 = max(cnts_tmp, key=cv2.contourArea)
+                    rect = cv2.minAreaRect(c0)
+                    ((cxr, cyr), (rw, rh), ang) = rect
+                    L = int(max(11, round(max(rw, rh) * 0.10)))
+                    if (L % 2) == 0:
+                        L += 1
+                    if rh >= rw:
+                        lk = cv2.getStructuringElement(cv2.MORPH_RECT, (1, L))
+                    else:
+                        lk = cv2.getStructuringElement(cv2.MORPH_RECT, (L, 1))
+                    leaf_mask = cv2.morphologyEx(leaf_mask, cv2.MORPH_CLOSE, lk, iterations=1)
+                    try:
+                        flood = leaf_mask.copy()
+                        h2, w2 = flood.shape
+                        pad = cv2.copyMakeBorder(flood, 1,1,1,1, cv2.BORDER_CONSTANT, value=0)
+                        ff = np.zeros((h2+2, w2+2), np.uint8)
+                        cv2.floodFill(pad, ff, (0,0), 255)
+                        flood = pad[1:-1,1:-1]
+                        holes = cv2.bitwise_not(flood)
+                        leaf_mask = cv2.bitwise_or(leaf_mask, holes)
+                    except Exception:
+                        pass
+                try:
+                    Hch = hsv[:, :, 0]
+                    vals_h = Hch[leaf_mask == 255]
+                    if vals_h.size > 25:
+                        hmed = int(np.median(vals_h))
+                        tol = 12
+                        hl = int(max(0, hmed - tol))
+                        hu = int(min(179, hmed + tol))
+                        gate = cv2.inRange(hsv, np.array([hl, 40, 0], dtype=np.uint8), np.array([hu, 255, 255], dtype=np.uint8))
+                        _ = gate  # keep leaf_mask unchanged
+                    try:
+                        Sch = hsv[:, :, 1]
+                        Vch = hsv[:, :, 2]
+                        vals_s = Sch[leaf_mask == 255]
+                        vals_v = Vch[leaf_mask == 255]
+                        if vals_s.size > 0 and vals_v.size > 0:
+                            smed = int(np.median(vals_s))
+                            vmed = int(np.median(vals_v))
+                            sl = int(max(0, smed - 25))
+                            su = int(min(255, smed + 25))
+                            vl = int(max(0, vmed - 35))
+                            vu = int(min(255, vmed + 35))
+                            gate_sv = cv2.bitwise_and(cv2.inRange(Sch, sl, su), cv2.inRange(Vch, vl, vu))
+                            _ = gate_sv  # keep leaf_mask unchanged
+                    except Exception:
+                        pass
+                    cnts_leaf2, _ = cv2.findContours(leaf_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+                    if cnts_leaf2:
+                        c_main2 = max(cnts_leaf2, key=cv2.contourArea)
+                        # clamp bentuk ke elips terorientasi agar bagian hijau di sekitar tidak ikut
+                        try:
+                            r2 = cv2.minAreaRect(c_main2)
+                            (cx2, cy2), (rw2, rh2), ang2 = r2
+                            a_long = int(max(1, max(rw2, rh2) * 0.96))
+                            a_short = int(max(1, min(rw2, rh2) * 0.45))
+                            if rh2 >= rw2:
+                                ax1, ax2 = a_short, a_long
+                            else:
+                                ax1, ax2 = a_long, a_short
+                            ell2 = np.zeros_like(leaf_mask)
+                            cv2.ellipse(ell2, (int(cx2), int(cy2)), (max(1, ax1//2), max(1, ax2//2)), float(ang2), 0, 360, 255, -1)
+                            mm2 = np.zeros_like(leaf_mask)
+                            cv2.drawContours(mm2, [c_main2], -1, 255, cv2.FILLED)
+                            mm2 = cv2.bitwise_and(mm2, ell2)
+                        except Exception:
+                            mm2 = np.zeros_like(leaf_mask)
+                            cv2.drawContours(mm2, [c_main2], -1, 255, cv2.FILLED)
+                        leaf_mask = mm2
+                except Exception:
+                    pass
+            except Exception:
+                pass
+            # haluskan tepi
+            leaf_mask = cv2.morphologyEx(leaf_mask, cv2.MORPH_OPEN, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (3,3)), iterations=1)
+            # hapus komponen kecil terpisah yang bukan bagian daun utama
+            try:
+                num, labels, stats, _ = cv2.connectedComponentsWithStats(leaf_mask, 8, cv2.CV_32S)
+                if num > 2:
+                    areas = stats[1:, cv2.CC_STAT_AREA]
+                    main = 1 + int(np.argmax(areas))
+                    leaf_mask = ((labels == main).astype(np.uint8)) * 255
+            except Exception:
+                pass
+            try:
+                dist = cv2.distanceTransform((leaf_mask > 0).astype(np.uint8), cv2.DIST_L2, 3)
+                th = max(2, int(round(0.020 * min(H, W))))
+                core = (dist >= th).astype(np.uint8) * 255
+                ks = max(3, (th | 1))
+                core = cv2.dilate(core, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (ks, ks)), iterations=1)
+                cnts_core, _ = cv2.findContours(core, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+                if cnts_core:
+                    c_main = max(cnts_core, key=cv2.contourArea)
+                    core_mask = np.zeros_like(core)
+                    cv2.drawContours(core_mask, [c_main], -1, 255, cv2.FILLED)
+                    leaf_mask = cv2.bitwise_and(leaf_mask, core_mask)
+                    if not SKIP_GRABCUT:
+                        gc_mask2 = np.zeros(roi_bgr.shape[:2], np.uint8)
+                        gc_mask2[core_mask > 0] = cv2.GC_FGD
+                        gc_mask2[core_mask == 0] = cv2.GC_PR_BGD
+                        b2 = 4
+                        gc_mask2[:b2, :] = cv2.GC_BGD
+                        gc_mask2[-b2:, :] = cv2.GC_BGD
+                        gc_mask2[:, :b2] = cv2.GC_BGD
+                        gc_mask2[:, -b2:] = cv2.GC_BGD
+                        bgd2 = np.zeros((1, 65), np.float64)
+                        fgd2 = np.zeros((1, 65), np.float64)
+                        cv2.grabCut(roi_bgr, gc_mask2, None, bgd2, fgd2, 2, cv2.GC_INIT_WITH_MASK)
+                        leaf_mask = np.where((gc_mask2 == cv2.GC_FGD) | (gc_mask2 == cv2.GC_PR_FGD), 255, 0).astype('uint8')
+                        k2 = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5,5))
+                        leaf_mask = cv2.morphologyEx(leaf_mask, cv2.MORPH_CLOSE, k2, iterations=1)
+                        leaf_mask = cv2.morphologyEx(leaf_mask, cv2.MORPH_OPEN, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (3,3)), iterations=1)
+                        num2, labels2, stats2, _ = cv2.connectedComponentsWithStats(leaf_mask, 8, cv2.CV_32S)
+                        if num2 > 2:
+                            areas2 = stats2[1:, cv2.CC_STAT_AREA]
+                            main2 = 1 + int(np.argmax(areas2))
+                            leaf_mask = ((labels2 == main2).astype(np.uint8)) * 255
+            except Exception:
+                pass
+            # mode ketat satu daun: clamp ke bounding hull agar daun lain di tepi ROI tidak ikut
+            if SINGLE_LEAF_STRICT:
+                try:
+                    cnts_final, _ = cv2.findContours(leaf_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+                    if cnts_final:
+                        cfin = max(cnts_final, key=cv2.contourArea)
+                        hull = cv2.convexHull(cfin)
+                        clamp = np.zeros_like(leaf_mask)
+                        cv2.drawContours(clamp, [hull], -1, 255, cv2.FILLED)
+                        leaf_mask = cv2.bitwise_and(leaf_mask, clamp)
+                except Exception:
+                    pass
         else:
             leaf_mask = mask
 
         try:
-            gc_mask = np.zeros(roi_bgr.shape[:2], np.uint8)
-            gc_mask[leaf_mask > 0] = cv2.GC_PR_FGD
-            bgdModel = np.zeros((1, 65), np.float64)
-            fgdModel = np.zeros((1, 65), np.float64)
-            rect = cv2.boundingRect(leaf_mask)
-            cv2.grabCut(roi_bgr, gc_mask, rect, bgdModel, fgdModel, 5, cv2.GC_INIT_WITH_RECT)
-            gc_final = np.where((gc_mask == cv2.GC_FGD) | (gc_mask == cv2.GC_PR_FGD), 255, 0).astype('uint8')
-            leaf_mask = gc_final
+            if not SKIP_GRABCUT:
+                gc_mask = np.zeros(roi_bgr.shape[:2], np.uint8)
+                gc_mask[leaf_mask > 0] = cv2.GC_PR_FGD
+                gc_mask[leaf_mask == 0] = cv2.GC_PR_BGD
+                h, w = gc_mask.shape
+                border = 4
+                gc_mask[:border, :] = cv2.GC_BGD
+                gc_mask[-border:, :] = cv2.GC_BGD
+                gc_mask[:, :border] = cv2.GC_BGD
+                gc_mask[:, -border:] = cv2.GC_BGD
+                bgdModel = np.zeros((1, 65), np.float64)
+                fgdModel = np.zeros((1, 65), np.float64)
+                cv2.grabCut(roi_bgr, gc_mask, None, bgdModel, fgdModel, 1, cv2.GC_INIT_WITH_MASK)
+                gc_final = np.where((gc_mask == cv2.GC_FGD) | (gc_mask == cv2.GC_PR_FGD), 255, 0).astype('uint8')
+                leaf_mask = gc_final
+                leaf_mask = cv2.morphologyEx(leaf_mask, cv2.MORPH_CLOSE, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5,5)), iterations=1)
+                leaf_mask = cv2.morphologyEx(leaf_mask, cv2.MORPH_OPEN, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (3,3)), iterations=1)
+                try:
+                    num_g, labels_g, stats_g, _ = cv2.connectedComponentsWithStats(leaf_mask, 8, cv2.CV_32S)
+                    if num_g > 2:
+                        areas_g = stats_g[1:, cv2.CC_STAT_AREA]
+                        main_g = 1 + int(np.argmax(areas_g))
+                        leaf_mask = ((labels_g == main_g).astype(np.uint8)) * 255
+                except Exception:
+                    pass
         except Exception:
             pass
 
+        try:
+            mh, mw = leaf_mask.shape
+            ksz2 = max(3, int(round(min(mh, mw) * 0.015)) | 1)
+            leaf_mask = cv2.morphologyEx(leaf_mask, cv2.MORPH_CLOSE, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (ksz2, ksz2)), iterations=1)
+            flood = leaf_mask.copy()
+            h2, w2 = flood.shape
+            flood_pad = cv2.copyMakeBorder(flood, 1,1,1,1, cv2.BORDER_CONSTANT, value=0)
+            mask_ff2 = np.zeros((h2+2, w2+2), np.uint8)
+            cv2.floodFill(flood_pad, mask_ff2, (0,0), 255)
+            flood = flood_pad[1:-1,1:-1]
+            holes2 = cv2.bitwise_not(flood)
+            leaf_mask = cv2.bitwise_or(leaf_mask, holes2)
+            try:
+                midrib = cv2.bitwise_and(((S < 80).astype(np.uint8) * 255), ((V > 140).astype(np.uint8) * 255))
+                near_leaf = cv2.dilate(leaf_mask, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (3,3)), iterations=1)
+                midrib_in = cv2.bitwise_and(midrib, near_leaf)
+                leaf_mask = cv2.bitwise_or(leaf_mask, midrib_in)
+            except Exception:
+                pass
+            cnts_f, _ = cv2.findContours(leaf_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+            if cnts_f:
+                Hc, Wc = leaf_mask.shape[:2]
+                cx0, cy0 = Wc * 0.5, Hc * 0.5
+                best_c = None
+                best_s = -1e9
+                for c in cnts_f:
+                    a = float(cv2.contourArea(c))
+                    if a <= 0:
+                        continue
+                    m = cv2.moments(c)
+                    if m['m00'] == 0:
+                        continue
+                    cx = float(m['m10'] / m['m00'])
+                    cy = float(m['m01'] / m['m00'])
+                    d = ((cx - cx0)**2 + (cy - cy0)**2) ** 0.5
+                    dn = d / float(max(1.0, max(Hc, Wc)))
+                    s = a * (1.0 - 0.6 * dn)
+                    if s > best_s:
+                        best_s = s
+                        best_c = c
+                if best_c is None:
+                    best_c = max(cnts_f, key=cv2.contourArea)
+                leaf_mask = np.zeros_like(leaf_mask)
+                cv2.drawContours(leaf_mask, [best_c], -1, 255, cv2.FILLED)
+        except Exception:
+            pass
+        try:
+            sk = skeletonize((leaf_mask > 0).astype(np.uint8)).astype(np.uint8) * 255
+            ksk = cv2.getStructuringElement(cv2.MORPH_RECT, (3,3))
+            skd = cv2.dilate(sk, ksk, iterations=1)
+            leaf_mask = cv2.bitwise_or(leaf_mask, skd)
+            cnts_s, _ = cv2.findContours(leaf_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+            if cnts_s:
+                c_main_s = max(cnts_s, key=cv2.contourArea)
+                leaf_mask = np.zeros_like(leaf_mask)
+                cv2.drawContours(leaf_mask, [c_main_s], -1, 255, cv2.FILLED)
+        except Exception:
+            pass
+        if FINAL_USE_HULL:
+            try:
+                ys_all, xs_all = np.where(leaf_mask > 0)
+                if len(xs_all) > 20:
+                    pts = np.column_stack((xs_all, ys_all)).astype(np.int32)
+                    hull_final = cv2.convexHull(pts)
+                    mask_final = np.zeros_like(leaf_mask)
+                    cv2.drawContours(mask_final, [hull_final], -1, 255, cv2.FILLED)
+                    leaf_mask = mask_final
+            except Exception:
+                pass
         roi_clean = roi_bgr.copy()
         roi_clean[leaf_mask == 0] = (255, 255, 255)
 
@@ -544,7 +866,7 @@ def segment_leaf(roi_bgr: np.ndarray):
         x1 = int(np.min(xs)); y1 = int(np.min(ys))
         x2 = int(np.max(xs)); y2 = int(np.max(ys))
         h, w = roi_clean.shape[:2]
-        pad = int(max(6, 0.02 * min(h, w)))
+        pad = int(max(12, 0.10 * min(h, w)))
         x1 = max(0, x1 - pad); y1 = max(0, y1 - pad)
         x2 = min(w - 1, x2 + pad); y2 = min(h - 1, y2 + pad)
         roi_clean = roi_clean[y1:y2+1, x1:x2+1]
@@ -618,9 +940,9 @@ def predict():
             if img is not None and max_dim > 1500:
                 scale = 1500.0 / float(max_dim)
                 img_yolo = cv2.resize(img, (int(img.shape[1]*scale), int(img.shape[0]*scale)), interpolation=cv2.INTER_AREA)
-            y_conf = float(os.environ.get("YOLO_CONF", "0.20"))
-            y_imgsz = int(os.environ.get("YOLO_IMGSZ", "1024"))
-            y_maxdim = int(os.environ.get("YOLO_MAX_DIM", "1800"))
+            y_conf = float(os.environ.get("YOLO_CONF", "0.35"))
+            y_imgsz = int(os.environ.get("YOLO_IMGSZ", "416"))
+            y_maxdim = int(os.environ.get("YOLO_MAX_DIM", "900"))
             if img is not None and max_dim > y_maxdim:
                 scale = float(y_maxdim) / float(max_dim)
                 img_yolo = cv2.resize(img, (int(img.shape[1]*scale), int(img.shape[0]*scale)), interpolation=cv2.INTER_AREA)
@@ -635,12 +957,15 @@ def predict():
                     x1, y1, x2, y2 = x1*inv, y1*inv, x2*inv, y2*inv
                 conf = float(b.conf[0].item())
                 cls_id = int(b.cls[0].item())
-                dets.append({
-                    "bbox": [x1, y1, x2, y2],
-                    "class_id": cls_id,
-                    "class_name": names.get(cls_id, f"class_{cls_id}"),
-                    "confidence": conf,
-                })
+                cname = names.get(cls_id, f"class_{cls_id}")
+                cname_l = str(cname).strip().lower()
+                if (LEAF_CLASS_NAME and LEAF_CLASS_NAME in cname_l) or (ALT_LEAF_NAME and ALT_LEAF_NAME in cname_l) or (not LEAF_CLASS_NAME):
+                    dets.append({
+                        "bbox": [x1, y1, x2, y2],
+                        "class_id": cls_id,
+                        "class_name": cname,
+                        "confidence": conf,
+                    })
         if (ignore_yolo or len(dets) == 0) and img is not None:
             try:
                 hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
@@ -691,21 +1016,10 @@ def predict():
                 }), 200
 
         try:
-            H, W = img.shape[:2]
-            def _score(d):
+            def _area(d):
                 x1, y1, x2, y2 = map(float, d["bbox"])
-                w = max(1.0, x2 - x1)
-                h = max(1.0, y2 - y1)
-                area = w * h
-                conf = float(d.get("confidence", 0.0))
-                cx = (x1 + x2) * 0.5
-                cy = (y1 + y2) * 0.5
-                dx = abs(cx - (W * 0.5)) / float(W)
-                dy = abs(cy - (H * 0.5)) / float(H)
-                off = (dx + dy) * 0.5
-                area_n = area / float(W * H)
-                return (ROI_PICK_AREA_W * area_n) + (ROI_PICK_CONF_W * conf) - (ROI_PICK_OFF_W * off)
-            best = max(dets, key=_score)
+                return max(1.0, (x2 - x1)) * max(1.0, (y2 - y1))
+            best = max(dets, key=_area)
         except Exception:
             best = max(dets, key=lambda d: d["confidence"]) 
         img = cv2.imread(tmp_path)
@@ -733,8 +1047,13 @@ def predict():
         bw = max(1, x2 - x1)
         bh = max(1, y2 - y1)
         extra_margin = 0.12 if bool(best.get("fallback", False)) else 0.08
-        mx = int(bw * extra_margin)
-        my = int(bh * extra_margin)
+        # beri margin lebih pada sumbu panjang daun agar pangkal/ujung tidak terpotong
+        if bh >= bw:
+            mx = int(bw * extra_margin)
+            my = int(bh * (extra_margin * 1.5))
+        else:
+            mx = int(bw * (extra_margin * 1.5))
+            my = int(bh * extra_margin)
         x1 = max(0, x1 - mx)
         y1 = max(0, y1 - my)
         x2 = min(img.shape[1]-1, x2 + mx)
@@ -769,41 +1088,121 @@ def predict():
                 "api_version": API_VERSION,
                 "yolo": {"detections": dets}
             }), 200
-        # guard for too-small ROI
-        h_roi, w_roi = roi_morph.shape[:2]
-        if h_roi < 24 or w_roi < 24:
-            return jsonify({
-                "success": True,
-                "is_out_of_scope": True,
-                "out_of_scope_reasons": ["roi_too_small"],
-                "api_version": API_VERSION,
-                "yolo": {"detections": dets}
-            }), 200
 
         base = os.path.splitext(os.path.basename(tmp_path))[0]
         ts = time.strftime("%Y%m%d_%H%M%S")
+        out_roi = None
+        out_leaf = None
+        out_white = None
+        out_white_tight = None
+        out_white_full = None
+        out_outline = None
         if SAVE_PREPROC:
             try:
-                out_roi = os.path.join(PREPROC_SAVE_DIR, f"{base}_{ts}_roi.jpg")
-                cv2.imwrite(out_roi, roi_morph)
+                if 'roi' in PREPROC_VARIANTS_SET:
+                    out_roi = os.path.join(PREPROC_SAVE_DIR, f"{base}_{ts}_roi.jpg")
+                    cv2.imwrite(out_roi, roi_morph)
             except Exception:
                 pass
 
         seg_roi, seg_mask = segment_leaf(roi_morph)
+        try:
+            cnts_s, _ = cv2.findContours(seg_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+            if cnts_s:
+                c_main_s = max(cnts_s, key=cv2.contourArea)
+                mm = np.zeros_like(seg_mask)
+                cv2.drawContours(mm, [c_main_s], -1, 255, cv2.FILLED)
+                try:
+                    hull = cv2.convexHull(c_main_s)
+                    mm = np.zeros_like(seg_mask)
+                    cv2.drawContours(mm, [hull], -1, 255, cv2.FILLED)
+                except Exception:
+                    pass
+                seg_mask = mm
+                seg_roi = cv2.bitwise_and(seg_roi, seg_roi, mask=mm)
+        except Exception:
+            pass
+        # jika daun menyentuh tepi ROI, perluas ROI dari gambar asli lalu segmentasi ulang
+        try:
+            h_s, w_s = seg_mask.shape
+            touches_edge = (np.any(seg_mask[0, :] > 0) or np.any(seg_mask[-1, :] > 0) or np.any(seg_mask[:, 0] > 0) or np.any(seg_mask[:, -1] > 0))
+        except Exception:
+            touches_edge = False
+        if touches_edge:
+            bw = max(1, x2 - x1)
+            bh = max(1, y2 - y1)
+            add = int(max(bw, bh) * 0.20)
+            nx1 = max(0, x1 - add)
+            ny1 = max(0, y1 - add)
+            nx2 = min(img.shape[1]-1, x2 + add)
+            ny2 = min(img.shape[0]-1, y2 + add)
+            roi_big = img[ny1:ny2, nx1:nx2]
+            seg_roi2, seg_mask2 = segment_leaf(roi_big)
+            try:
+                cnts_sb, _ = cv2.findContours(seg_mask2, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+                if cnts_sb:
+                    c_main_sb = max(cnts_sb, key=cv2.contourArea)
+                    mb = np.zeros_like(seg_mask2)
+                    cv2.drawContours(mb, [c_main_sb], -1, 255, cv2.FILLED)
+                    seg_mask2 = mb
+                    seg_roi2 = cv2.bitwise_and(seg_roi2, seg_roi2, mask=mb)
+            except Exception:
+                pass
+            seg_roi, seg_mask = seg_roi2, seg_mask2
+            ox1, oy1 = nx1, ny1
+        else:
+            ox1, oy1 = x1, y1
         roi_morph = seg_roi
         roi_eff = seg_roi
         if SAVE_PREPROC:
             try:
-                rgba = cv2.cvtColor(seg_roi, cv2.COLOR_BGR2BGRA)
-                rgba[:, :, 3] = seg_mask
-                out_leaf = os.path.join(PREPROC_SAVE_DIR, f"{base}_{ts}_leaf.png")
-                cv2.imwrite(out_leaf, rgba)
-                outline = cv2.cvtColor(seg_roi.copy(), cv2.COLOR_BGR2RGB)
-                contours, _ = cv2.findContours(seg_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-                if contours:
-                    cv2.drawContours(outline, contours, -1, (255, 0, 0), 2)
-                out_outline = os.path.join(PREPROC_SAVE_DIR, f"{base}_{ts}_leaf_outline.jpg")
-                cv2.imwrite(out_outline, cv2.cvtColor(outline, cv2.COLOR_RGB2BGR))
+                # crop lagi ke bounding mask agar tidak ada sudut putih berlebihan
+                x_m, y_m, w_m, h_m = cv2.boundingRect(seg_mask)
+                pad_m = int(max(6, 0.04 * min(h_m, w_m)))
+                x0 = max(0, x_m - pad_m)
+                y0 = max(0, y_m - pad_m)
+                x1 = min(seg_roi.shape[1], x_m + w_m + pad_m)
+                y1 = min(seg_roi.shape[0], y_m + h_m + pad_m)
+                seg_roi_c = seg_roi[y0:y1, x0:x1]
+                seg_mask_c = seg_mask[y0:y1, x0:x1]
+                if 'png' in PREPROC_VARIANTS_SET:
+                    rgba = cv2.cvtColor(seg_roi_c, cv2.COLOR_BGR2BGRA)
+                    rgba[:, :, 3] = seg_mask_c
+                    out_leaf = os.path.join(PREPROC_SAVE_DIR, f"{base}_{ts}_leaf.png")
+                    cv2.imwrite(out_leaf, rgba)
+                if 'white' in PREPROC_VARIANTS_SET:
+                    white = np.full_like(seg_roi_c, 255)
+                    leaf_on_white = white.copy()
+                    leaf_on_white[seg_mask_c == 255] = seg_roi_c[seg_mask_c == 255]
+                    out_white = os.path.join(PREPROC_SAVE_DIR, f"{base}_{ts}_leaf_white.jpg")
+                    cv2.imwrite(out_white, leaf_on_white)
+                if 'white_tight' in PREPROC_VARIANTS_SET:
+                    x_m2, y_m2, w_m2, h_m2 = cv2.boundingRect(seg_mask)
+                    seg_roi_t = seg_roi[y_m2:y_m2+h_m2, x_m2:x_m2+w_m2]
+                    seg_mask_t = seg_mask[y_m2:y_m2+h_m2, x_m2:x_m2+w_m2]
+                    white_t = np.full_like(seg_roi_t, 255)
+                    leaf_on_white_t = white_t.copy()
+                    leaf_on_white_t[seg_mask_t == 255] = seg_roi_t[seg_mask_t == 255]
+                    out_white_tight = os.path.join(PREPROC_SAVE_DIR, f"{base}_{ts}_leaf_white_tight.jpg")
+                    cv2.imwrite(out_white_tight, leaf_on_white_t)
+                if 'white_full' in PREPROC_VARIANTS_SET:
+                    full = np.full_like(img, 255)
+                    h_r, w_r = seg_roi.shape[:2]
+                    y_end = min(full.shape[0], oy1 + h_r)
+                    x_end = min(full.shape[1], ox1 + w_r)
+                    sub = full[oy1:y_end, ox1:x_end]
+                    sub_mask = seg_mask[:(y_end - oy1), :(x_end - ox1)]
+                    sub_roi = seg_roi[:(y_end - oy1), :(x_end - ox1)]
+                    sub[sub_mask == 255] = sub_roi[sub_mask == 255]
+                    out_white_full = os.path.join(PREPROC_SAVE_DIR, f"{base}_{ts}_leaf_white_full.jpg")
+                    cv2.imwrite(out_white_full, full)
+                if 'outline' in PREPROC_VARIANTS_SET:
+                    outline = cv2.cvtColor(seg_roi_c.copy(), cv2.COLOR_BGR2RGB)
+                    contours, _ = cv2.findContours(seg_mask_c, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+                    if contours:
+                        cv2.drawContours(outline, contours, -1, (255, 0, 0), 2)
+                    out_outline = os.path.join(PREPROC_SAVE_DIR, f"{base}_{ts}_leaf_outline.jpg")
+                    cv2.imwrite(out_outline, cv2.cvtColor(outline, cv2.COLOR_RGB2BGR))
             except Exception:
                 pass
 
@@ -828,99 +1227,104 @@ def predict():
             aug_level = 1
             try:
                 bc = float(best.get("confidence", 0.0))
-                if bool(best.get("fallback", False)) or grabcut_used or bc < 0.40:
+                if bool(best.get("fallback", False)) or (not SKIP_GRABCUT and grabcut_used) or bc < 0.40:
                     aug_level = 3
                 elif bc < 0.75:
                     aug_level = 2
             except Exception:
                 aug_level = 2
             try:
-                m = roi_eff.mean(axis=(0,1)).astype(np.float32)
-                m[m <= 1] = 1.0
-                gain = (np.mean(m) / m)
-                wb = np.clip(roi_eff.astype(np.float32) * gain, 0, 255).astype(np.uint8)
-                if aug_level >= 2 and len(rois) < MAX_ROIS:
-                    rois.append(wb)
+                aug_level = max(1, min(aug_level, AUG_LEVEL_CAP))
             except Exception:
                 pass
-            try:
-                ycc = cv2.cvtColor(roi_eff, cv2.COLOR_BGR2YCrCb)
-                y_chan, cr, cb = cv2.split(ycc)
-                clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
-                y_eq = clahe.apply(y_chan)
-                eq = cv2.cvtColor(cv2.merge([y_eq, cr, cb]), cv2.COLOR_YCrCb2BGR)
-                if len(rois) < MAX_ROIS:
-                    rois.append(eq)
-            except Exception:
-                if len(rois) < MAX_ROIS:
-                    rois.append(roi_eff)
-            try:
-                if aug_level >= 2:
-                    g_low = np.clip(((roi_eff.astype(np.float32)/255.0) ** 0.9) * 255.0, 0, 255).astype(np.uint8)
-                    g_high = np.clip(((roi_eff.astype(np.float32)/255.0) ** 1.1) * 255.0, 0, 255).astype(np.uint8)
+            if MAX_ROIS > 1:
+                try:
+                    m = roi_eff.mean(axis=(0,1)).astype(np.float32)
+                    m[m <= 1] = 1.0
+                    gain = (np.mean(m) / m)
+                    wb = np.clip(roi_eff.astype(np.float32) * gain, 0, 255).astype(np.uint8)
+                    if aug_level >= 2 and len(rois) < MAX_ROIS:
+                        rois.append(wb)
+                except Exception:
+                    pass
+                try:
                     if len(rois) < MAX_ROIS:
-                        rois.append(g_low)
+                        ycc = cv2.cvtColor(roi_eff, cv2.COLOR_BGR2YCrCb)
+                        y_chan, cr, cb = cv2.split(ycc)
+                        clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
+                        y_eq = clahe.apply(y_chan)
+                        eq = cv2.cvtColor(cv2.merge([y_eq, cr, cb]), cv2.COLOR_YCrCb2BGR)
+                        rois.append(eq)
+                except Exception:
                     if len(rois) < MAX_ROIS:
-                        rois.append(g_high)
-            except Exception:
-                pass
-            try:
-                if aug_level >= 2:
-                    hsv_r = cv2.cvtColor(roi_eff, cv2.COLOR_BGR2HSV)
-                    hch, sch, vch = cv2.split(hsv_r)
-                    hl = int(max(30, float(np.mean(hch)) - 25))
-                    hu = int(min(95, float(np.mean(hch)) + 25))
-                    sl = int(max(25, float(np.mean(sch)) - 20))
-                    vl = int(max(25, float(np.mean(vch)) - 30))
-                    lower_r = np.array([hl, sl, vl], dtype=np.uint8)
-                    upper_r = np.array([hu, 255, 255], dtype=np.uint8)
-                    mask_r = cv2.inRange(hsv_r, lower_r, upper_r)
-                    rgb_r = cv2.cvtColor(roi_eff, cv2.COLOR_BGR2RGB)
-                    g = rgb_r[:, :, 1].astype(np.int16)
-                    r = rgb_r[:, :, 0].astype(np.int16)
-                    b = rgb_r[:, :, 2].astype(np.int16)
-                    diff = ((g - r) + (g - b)) // 2
-                    mask_dom = (diff > 15).astype(np.uint8) * 255
-                    mask_r = cv2.bitwise_or(mask_r, mask_dom)
-                    kernel_r = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (3, 3))
-                    mask_r = cv2.morphologyEx(mask_r, cv2.MORPH_OPEN, kernel_r, iterations=1)
-                    mask_r = cv2.morphologyEx(mask_r, cv2.MORPH_CLOSE, kernel_r, iterations=1)
-                    bg_clean = roi_eff.copy()
-                    bg_clean[mask_r == 0] = 255
-                    if len(rois) < MAX_ROIS:
-                        rois.append(bg_clean)
-                    if aug_level >= 3:
-                        cnts_r = cv2.findContours(mask_r, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-                        cnts_r = cnts_r[0] if len(cnts_r) == 2 else cnts_r[1]
-                        if cnts_r:
-                            c_r = max(cnts_r, key=cv2.contourArea)
-                            rect = cv2.minAreaRect(c_r)
-                            ((cx_r, cy_r), (rw_r, rh_r), ang_r) = rect
-                            h2, w2 = roi_eff.shape[:2]
-                            ang_use = ang_r if rw_r >= rh_r else ang_r + 90.0
-                            M = cv2.getRotationMatrix2D((w2/2, h2/2), ang_use, 1.0)
-                            rot_aligned = cv2.warpAffine(bg_clean, M, (w2, h2), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT_101)
-                            if len(rois) < MAX_ROIS:
-                                rois.append(rot_aligned)
-            except Exception:
-                pass
-            try:
-                if aug_level >= 3:
-                    if len(rois) < MAX_ROIS:
-                        rois.append(cv2.flip(roi_eff, 1))
-            except Exception:
-                pass
-            try:
-                if aug_level >= 3:
-                    h, w = roi_eff.shape[:2]
-                    c = (w/2, h/2)
-                    for ang in (-7, 7):
-                        M = cv2.getRotationMatrix2D(c, ang, 1.0)
-                        rot = cv2.warpAffine(roi_eff, M, (w, h), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT_101)
+                        rois.append(roi_eff)
+                try:
+                    if aug_level >= 2:
+                        g_low = np.clip(((roi_eff.astype(np.float32)/255.0) ** 0.9) * 255.0, 0, 255).astype(np.uint8)
+                        g_high = np.clip(((roi_eff.astype(np.float32)/255.0) ** 1.1) * 255.0, 0, 255).astype(np.uint8)
                         if len(rois) < MAX_ROIS:
-                            rois.append(rot)
-            except Exception:
-                pass
+                            rois.append(g_low)
+                        if len(rois) < MAX_ROIS:
+                            rois.append(g_high)
+                except Exception:
+                    pass
+                try:
+                    if aug_level >= 2:
+                        hsv_r = cv2.cvtColor(roi_eff, cv2.COLOR_BGR2HSV)
+                        hch, sch, vch = cv2.split(hsv_r)
+                        hl = int(max(30, float(np.mean(hch)) - 25))
+                        hu = int(min(95, float(np.mean(hch)) + 25))
+                        sl = int(max(25, float(np.mean(sch)) - 20))
+                        vl = int(max(25, float(np.mean(vch)) - 30))
+                        lower_r = np.array([hl, sl, vl], dtype=np.uint8)
+                        upper_r = np.array([hu, 255, 255], dtype=np.uint8)
+                        mask_r = cv2.inRange(hsv_r, lower_r, upper_r)
+                        rgb_r = cv2.cvtColor(roi_eff, cv2.COLOR_BGR2RGB)
+                        g = rgb_r[:, :, 1].astype(np.int16)
+                        r = rgb_r[:, :, 0].astype(np.int16)
+                        b = rgb_r[:, :, 2].astype(np.int16)
+                        diff = ((g - r) + (g - b)) // 2
+                        mask_dom = (diff > 15).astype(np.uint8) * 255
+                        mask_r = cv2.bitwise_or(mask_r, mask_dom)
+                        kernel_r = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (3, 3))
+                        mask_r = cv2.morphologyEx(mask_r, cv2.MORPH_OPEN, kernel_r, iterations=1)
+                        mask_r = cv2.morphologyEx(mask_r, cv2.MORPH_CLOSE, kernel_r, iterations=1)
+                        bg_clean = roi_eff.copy()
+                        bg_clean[mask_r == 0] = 255
+                        if len(rois) < MAX_ROIS:
+                            rois.append(bg_clean)
+                        if aug_level >= 3:
+                            cnts_r = cv2.findContours(mask_r, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+                            cnts_r = cnts_r[0] if len(cnts_r) == 2 else cnts_r[1]
+                            if cnts_r:
+                                c_r = max(cnts_r, key=cv2.contourArea)
+                                rect = cv2.minAreaRect(c_r)
+                                ((cx_r, cy_r), (rw_r, rh_r), ang_r) = rect
+                                h2, w2 = roi_eff.shape[:2]
+                                ang_use = ang_r if rw_r >= rh_r else ang_r + 90.0
+                                M = cv2.getRotationMatrix2D((w2/2, h2/2), ang_use, 1.0)
+                                rot_aligned = cv2.warpAffine(bg_clean, M, (w2, h2), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT_101)
+                                if len(rois) < MAX_ROIS:
+                                    rois.append(rot_aligned)
+                except Exception:
+                    pass
+                try:
+                    if aug_level >= 3:
+                        if len(rois) < MAX_ROIS:
+                            rois.append(cv2.flip(roi_eff, 1))
+                except Exception:
+                    pass
+                try:
+                    if aug_level >= 3:
+                        h, w = roi_eff.shape[:2]
+                        c = (w/2, h/2)
+                        for ang in (-7, 7):
+                            M = cv2.getRotationMatrix2D(c, ang, 1.0)
+                            rot = cv2.warpAffine(roi_eff, M, (w, h), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT_101)
+                            if len(rois) < MAX_ROIS:
+                                rois.append(rot)
+                except Exception:
+                    pass
             f_list = []
             p_list = []
             for r in rois:
@@ -1480,6 +1884,30 @@ def predict():
                 return []
 
         time_ms = float((time.time() - t0) * 1000.0)
+        processed_choice = None
+        try:
+            cand = out_white_tight or out_white or out_white_full or out_leaf or out_outline or out_roi
+            if cand and isinstance(cand, str) and cand.strip():
+                processed_choice = os.path.basename(cand)
+        except Exception:
+            processed_choice = None
+        try:
+            arr = np.sort(final_proba)[::-1]
+            top_margin = float(arr[0] - arr[1]) if arr.shape[0] > 1 else 1.0
+        except Exception:
+            top_margin = 1.0
+        mq = morph.get("measurement_quality", {"status": "ok"})
+        mq_status = str(mq.get("status", "ok")).lower()
+        low_quality = mq_status in ("warn", "bad", "error")
+        cmin = max(0.30, float(OOS_CONF_MIN))
+        mmin = max(0.08, float(OOS_MARGIN_MIN))
+        base_oos = bool((conf < cmin) and (top_margin < mmin))
+        is_oos = bool(base_oos and low_quality)
+        oos_reasons = []
+        if is_oos:
+            oos_reasons.append("low_confidence_and_ambiguous")
+            if low_quality:
+                oos_reasons.append("low_quality_measurement")
         return jsonify({
             "success": True,
             "api_version": API_VERSION,
@@ -1502,6 +1930,17 @@ def predict():
             },
             "measurement_quality": morph.get("measurement_quality", {"status": "ok", "issues": []}),
             "variety_characteristics": characteristics,
+            "processed_filename": processed_choice,
+            "preprocessed_files": {
+                "roi": (os.path.basename(out_roi) if isinstance(out_roi, str) else None),
+                "png": (os.path.basename(out_leaf) if isinstance(out_leaf, str) else None),
+                "white": (os.path.basename(out_white) if isinstance(out_white, str) else None),
+                "white_tight": (os.path.basename(out_white_tight) if isinstance(out_white_tight, str) else None),
+                "white_full": (os.path.basename(out_white_full) if isinstance(out_white_full, str) else None),
+                "outline": (os.path.basename(out_outline) if isinstance(out_outline, str) else None)
+            },
+            "is_out_of_scope": is_oos,
+            "out_of_scope_reasons": oos_reasons,
             "diagnostics": {
                 "final_top3": topk(final_proba, 3),
                 "eff_top3": topk(eff_proba, 3) if eff_proba is not None else [],
